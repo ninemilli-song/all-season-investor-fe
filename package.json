@@ -1,0 +1,27 @@
+{
+  "name": "all-season-investor-fe",
+  "version": "1.0.0",
+  "description": "all-season-investor front-end project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ninemilli-song/all-season-investor-fe.git"
+  },
+  "keywords": [
+    "all-season-investor",
+    "front-end",
+    "next",
+    "react",
+    "mobx",
+    "antd"
+  ],
+  "author": "ninemill.song",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ninemilli-song/all-season-investor-fe/issues"
+  },
+  "homepage": "https://github.com/ninemilli-song/all-season-investor-fe#readme"
+}
