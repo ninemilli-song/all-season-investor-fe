@@ -1,6 +1,6 @@
 module.exports = {
-  webpack(config, options) {
-    return config
-  },
-  distDir: '../build'
-}
+    webpack(config) {
+        return config;
+    },
+    distDir: '../build'
+};
