@@ -96,6 +96,8 @@ app.prepare().then(() => {
         req.localeDataScript = getLocaleDataScript(locale);
         req.messages = getMessages(locale);
         req.antdLocale = getAntdLocaleData(locale);
+        // Ajax host address
+        req.requestHost = dev ? 'http://127.0.0.1/' : 'http://allseasoninventor/';
         handle(req, res, parsedUrl);
     }).listen(port, (err) => {
         if (err) throw err;

@@ -29,7 +29,7 @@ class Index extends React.Component {
                     {
                         this.userList.users.map((item) => {
                             return (
-                                <span>
+                                <span key={`${item.id}`}>
                                     { `${item.name} - ${item.amount}` }
                                 </span>
                             );

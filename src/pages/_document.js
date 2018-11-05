@@ -6,11 +6,12 @@ import Document, { Head, Main, NextScript } from 'next/document';
 export default class IntlDocument extends Document {
     static async getInitialProps(context) {
         const props = await super.getInitialProps(context);
-        const { req: { locale, localeDataScript } } = context;
+        const { req: { locale, localeDataScript, requestHost } } = context;
         return {
             ...props,
             locale,
-            localeDataScript
+            localeDataScript,
+            requestHost
         };
     }
 
@@ -27,6 +28,11 @@ export default class IntlDocument extends Document {
                     <script
                         dangerouslySetInnerHTML={{
                             __html: this.props.localeDataScript
+                        }}
+                    />
+                    <script 
+                        dangerouslySetInnerHTML={{
+                            __html: `__REQUEST_ADDRESS__ = "${this.props.requestHost}"`
                         }}
                     />
                     <NextScript />
