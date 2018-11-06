@@ -4,11 +4,17 @@ import { Provider } from 'mobx-react';
 import { getSnapshot } from 'mobx-state-tree';
 import pageWithIntl from '../components/PageWithIntl.js';
 import initUserListStore from '../stores/AssetStore.js';
+import Investors from '../containers/Investors';
+import axios from '../util/api';
 
 class Index extends React.Component {
     static async getInitialProps(req) {
         const isServer = !!req;
-        const initUserList = getSnapshot(initUserListStore(isServer));
+        
+        const response = await axios.get('userList');
+        const { data } = response;
+
+        const initUserList = getSnapshot(initUserListStore(isServer, { investors: data }));
 
         return {
             isServer,
@@ -24,18 +30,8 @@ class Index extends React.Component {
 
     render() {
         return (
-            <Provider userList={this.userList}>
-                <div>
-                    {
-                        this.userList.users.map((item) => {
-                            return (
-                                <span key={`${item.id}`}>
-                                    { `${item.name} - ${item.amount}` }
-                                </span>
-                            );
-                        })
-                    }
-                </div>
+            <Provider investors={this.userList.investors}>
+                <Investors />
             </Provider>
         );
     }

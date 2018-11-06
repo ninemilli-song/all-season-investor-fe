@@ -13,7 +13,7 @@ const User = types.model({
 });
 
 const UserListStore = types.model({
-    users: types.array(User)
+    investors: types.array(User)
 });
 
 let userListStore = null;
@@ -21,7 +21,7 @@ let userListStore = null;
 export default function initUserListStore(iserver, snapshot = null) {
     if (iserver) {
         userListStore = UserListStore.create({
-            users: [
+            investors: [
                 {
                     'id': 1,
                     'name': 'songxg',
@@ -35,7 +35,7 @@ export default function initUserListStore(iserver, snapshot = null) {
     }
     if (userListStore === null) {
         userListStore = UserListStore.create({
-            users: [
+            investors: [
                 {
                     'id': 1,
                     'name': 'songxg',
