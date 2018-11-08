@@ -1,7 +1,9 @@
 import axios from 'axios';
+import getConfig from 'next/config';
 
-export function setApiConfig(opts) {
-    axios.defaults.baseURL = opts.baseURL ? opts.baseURL : axios.defaults.baseURL;
-}
+const { publicRuntimeConfig } = getConfig();
+
+axios.defaults.baseURL = publicRuntimeConfig.apiHost
+    ? publicRuntimeConfig.apiHost : axios.defaults.baseURL;
 
 export default axios;

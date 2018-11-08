@@ -22,28 +22,12 @@ export default function initUserListStore(iserver, snapshot = null) {
     if (iserver) {
         userListStore = UserListStore.create({
             investors: [
-                {
-                    'id': 1,
-                    'name': 'songxg',
-                    'mobile': '13629851096',
-                    'email': 'ex@asi.com',
-                    'sex': '男',
-                    'amount': 499970.8
-                },
             ]
         });
     }
     if (userListStore === null) {
         userListStore = UserListStore.create({
             investors: [
-                {
-                    'id': 1,
-                    'name': 'songxg',
-                    'mobile': '13629851096',
-                    'email': 'ex@asi.com',
-                    'sex': '男',
-                    'amount': 499970.8
-                },
             ]
         });
     }
