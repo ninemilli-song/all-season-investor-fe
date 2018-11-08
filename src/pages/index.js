@@ -6,6 +6,7 @@ import pageWithIntl from '../components/PageWithIntl.js';
 import initUserListStore from '../stores/AssetStore.js';
 import Investors from '../containers/Investors';
 import axios from '../util/api';
+import Layout from '../components/Layout.js';
 
 class Index extends React.Component {
     static async getInitialProps(req) {
@@ -31,7 +32,9 @@ class Index extends React.Component {
     render() {
         return (
             <Provider investors={this.userList.investors}>
-                <Investors />
+                <Layout title="Ant Design">
+                    <Investors />
+                </Layout>
             </Provider>
         );
     }
