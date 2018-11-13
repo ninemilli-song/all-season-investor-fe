@@ -1,15 +1,17 @@
 import React from 'react';
 import { Table } from 'antd';
+import Link from 'next/link';
 
 class InvestorsModule extends React.Component {
     prefixCls = 'investors-module';
 
+    // 表列定义
     columnsDef = [
         {
             title: '姓名',
             dataInde: 'name',
             key: 'name',
-            render: data => <a>{ data.name }</a>,
+            render: data => <Link href="/clock"><a>{data.name}</a></Link>,
         },
         {
             title: '性别',

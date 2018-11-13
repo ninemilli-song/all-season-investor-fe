@@ -1,7 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import { LocaleProvider } from 'antd';
-import enUS from 'antd/lib/locale-provider/en_US';
 
 export default ({ title, children }) => (
     <div>
@@ -20,10 +18,8 @@ export default ({ title, children }) => (
                 }`
             }
         </style>
-        <LocaleProvider locale={enUS}>
-            <div>
-                { children }
-            </div>
-        </LocaleProvider>
+        <div>
+            { children }
+        </div>
     </div>
 );

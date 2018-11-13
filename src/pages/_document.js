@@ -7,6 +7,7 @@ export default class IntlDocument extends Document {
     static async getInitialProps(context) {
         const props = await super.getInitialProps(context);
         const { req: { locale, localeDataScript } } = context;
+        console.log('_document >>>>>>>>>> ', context);
 
         return {
             ...props,
@@ -17,6 +18,7 @@ export default class IntlDocument extends Document {
 
     render() {
     // Polyfill Intl API for older browsers
+        console.log('_document render >>>>>>>>>> ');
         const polyfill = `https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.${this.props.locale}`;
 
         return (

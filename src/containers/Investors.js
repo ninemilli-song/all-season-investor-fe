@@ -9,8 +9,15 @@ class InvestorsContainer extends React.Component {
     render() {
         const { investors } = this.props;
 
+        // 处理数据添加key
+        const datas = getSnapshot(investors).map((item) => {
+            return Object.assign({}, item, {
+                key: item.id
+            });
+        });
+
         return (
-            <Investors investors={getSnapshot(investors)} />
+            <Investors investors={datas} />
         );
     }
 }

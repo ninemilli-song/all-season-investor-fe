@@ -10,6 +10,7 @@ import Layout from '../components/Layout.js';
 
 class Index extends React.Component {
     static async getInitialProps(req) {
+        console.log('>>>>>>>>>> page getInitialProps >>>>>>>>>> ', req);
         const isServer = !!req;
         
         const response = await axios.get('userList');
@@ -18,7 +19,6 @@ class Index extends React.Component {
         const initUserList = getSnapshot(initUserListStore(isServer, { investors: data }));
 
         return {
-            isServer,
             initUserList
         };
     }
@@ -30,9 +30,11 @@ class Index extends React.Component {
     }
 
     render() {
+        console.log('>>>>>>>>>> page render >>>>>>>>>> ');
+
         return (
             <Provider investors={this.userList.investors}>
-                <Layout title="Ant Design">
+                <Layout title="All season investor">
                     <Investors />
                 </Layout>
             </Provider>
