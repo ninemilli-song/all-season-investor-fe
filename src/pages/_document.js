@@ -30,11 +30,6 @@ export default class IntlDocument extends Document {
                             __html: this.props.localeDataScript
                         }}
                     />
-                    <script 
-                        dangerouslySetInnerHTML={{
-                            __html: `__API_HOST__ = "${this.props.apiHost}"`
-                        }}
-                    />
                     <NextScript />
                 </body>
             </html>

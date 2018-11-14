@@ -13,9 +13,9 @@
 
 ```bash
 ├── src                     # the code for front end
-│   ├── components          # 纯静态组件 -- 公共组件
-│   ├── containers          # 页面组件 -- 注入状态的页面组件
-│   ├── module              # 页面组件 -- 无状态
+│   ├── components          # 公共组件 -- 纯静态组件 -- 业务无关
+│   ├── containers          # 状态业务组件 -- 注入状态的业务组件
+│   ├── module              # 静态业务组件 -- 无状态
 │   ├── pages               # nextjs页面
 │   │   ├── _document.js    # 自定义document
 │   │   ├── antd.js         # 蚂蚁金服组件测试页

@@ -11,7 +11,7 @@ class InvestorsModule extends React.Component {
             title: '姓名',
             dataInde: 'name',
             key: 'name',
-            render: data => <Link href="/clock"><a>{data.name}</a></Link>,
+            render: data => <Link href="/assetDetail"><a>{data.name}</a></Link>,
         },
         {
             title: '性别',
