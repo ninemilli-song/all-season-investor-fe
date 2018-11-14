@@ -1,5 +1,5 @@
 {
     "description": "一个将React Intl 与 Next.js 集成的例子",
     "greeting": "你好，世界！",
-    "assetDetailPage": "资产详情，你好!"
+    "pageTitle": "资产详情"
 }
