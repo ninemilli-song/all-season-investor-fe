@@ -30,8 +30,6 @@ class Index extends React.Component {
     }
 
     render() {
-        console.log('>>>>>>>>>> page render >>>>>>>>>> ');
-
         return (
             <Provider investors={this.userList.investors}>
                 <Layout title="All season investor">

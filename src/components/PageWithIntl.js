@@ -40,8 +40,6 @@ export default (Page) => {
                 locale, messages, antdLocale, now, ...props
             } = this.props;
 
-            console.log('>>>>>>>>>> pageWithIntl getInitialProps >>>>>>>>>> this.props >>>>>>>>> ', this.props);
-
             return (
                 <LocaleProvider locale={antdLocale}>
                     <IntlProvider locale={locale} messages={messages} initialNow={now}>

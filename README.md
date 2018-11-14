@@ -9,6 +9,24 @@
 * React Intl
 * Server Render
 
+## 目录结构
+
+```bash
+├── src                     # the code for front end
+│   ├── components          # 纯静态组件 -- 公共组件
+│   ├── containers          # 页面组件 -- 注入状态的页面组件
+│   ├── module              # 页面组件 -- 无状态
+│   ├── pages               # nextjs页面
+│   │   ├── _document.js    # 自定义document
+│   │   ├── antd.js         # 蚂蚁金服组件测试页
+│   │   ├── clock.js        # mobx-state-tree测试页
+│   │   ├── react-intl.js   # 资源国际化测试页
+│   │   ├── test.js         # 测试页面首页 - 测试目录页
+│   │   └── index.js        # 应用首页
+│   ├── util                # 工具代码
+│   └── stores              # 状态配置
+```
+
 ## 作者
 
 [ninemill.song](https://github.com/ninemilli-song)
