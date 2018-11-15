@@ -1,4 +1,6 @@
 import React from 'react';
+import { Provider } from 'mobx-react';
+// import { getSnapshot } from 'mobx-state-tree';
 import {
     FormattedMessage
 } from 'react-intl';
@@ -8,60 +10,68 @@ import AssetDetailAllocation from '../containers/AssetDetailAllocation';
 import AssetDetailCategoryRate from '../containers/AssetDetailCategoryRate';
 import AssetDetailSafeRate from '../containers/AssetDetailSafeRate';
 import AssetDetailAnalysis from '../containers/AssetDetailAnalysis';
+import initUserListStore from '../stores/AssetStore.js';
 
 class AssetDetail extends React.Component {
-    static async getInitialProps({ req }) {
+    static async getInitialProps({ req, query }) {
+        const isServer = !!req;
+
         return {
-            isServer: !!req
+            isServer,
+            investorId: query.id
         };
     }
 
     prefixCls = 'asset-detail'
 
+    constructor(props, context) {
+        super(props, context);
+
+        this.assetsStore = initUserListStore(props.isServer);
+    }
+
     render() {
+        const { investorId } = this.props;
         return (
-            <Layout title="Asset Analysis">
-                <div className={`${this.prefixCls}-header`}>
-                    <h2>
-                        <FormattedMessage id="pageTitle" defaultMessage="Asset Analysis" />
-                    </h2>
-                    <span>
-                        {'资产配置以及资产分析'}
-                    </span>
-                </div>
-                <div className={`${this.prefixCls}-allocation`}>
-                    <h3>
-                        {'资产配置'}
-                    </h3>
-                    <div>
+            <Provider assets={this.assetsStore} investorId={investorId}>
+                <Layout title="Asset Analysis">
+                    <div className={`${this.prefixCls}-header`}>
+                        <h2>
+                            <FormattedMessage id="pageTitle" defaultMessage="Asset Analysis" />
+                        </h2>
+                        <span>
+                            {'资产配置以及资产分析'}
+                        </span>
+                    </div>
+                    <div className={`${this.prefixCls}-allocation`}>
                         <AssetDetailAllocation />
                     </div>
-                </div>
-                <div className={`${this.prefixCls}-category-rate`}>
-                    <h3>
-                        {'资产类型比例'}
-                    </h3>
-                    <div>
-                        <AssetDetailCategoryRate />
+                    <div className={`${this.prefixCls}-category-rate`}>
+                        <h3>
+                            {'资产类型比例'}
+                        </h3>
+                        <div>
+                            <AssetDetailCategoryRate />
+                        </div>
                     </div>
-                </div>
-                <div className={`${this.prefixCls}-safe-rate`}>
-                    <h3>
-                        {'安全类别比例'}
-                    </h3>
-                    <div>
-                        <AssetDetailSafeRate />
+                    <div className={`${this.prefixCls}-safe-rate`}>
+                        <h3>
+                            {'安全类别比例'}
+                        </h3>
+                        <div>
+                            <AssetDetailSafeRate />
+                        </div>
                     </div>
-                </div>
-                <div className={`${this.prefixCls}-analysis`}>
-                    <h3>
-                        {'资产配置汇总分析'}
-                    </h3>
-                    <div>
-                        <AssetDetailAnalysis />
+                    <div className={`${this.prefixCls}-analysis`}>
+                        <h3>
+                            {'资产配置汇总分析'}
+                        </h3>
+                        <div>
+                            <AssetDetailAnalysis />
+                        </div>
                     </div>
-                </div>
-            </Layout>
+                </Layout>
+            </Provider>
         );
     }
 }

@@ -9,8 +9,7 @@ import axios from '../util/api';
 import Layout from '../components/Layout.js';
 
 class Index extends React.Component {
-    static async getInitialProps(req) {
-        console.log('>>>>>>>>>> page getInitialProps >>>>>>>>>> ', req);
+    static async getInitialProps({ req }) {
         const isServer = !!req;
         
         const response = await axios.get('userList');
