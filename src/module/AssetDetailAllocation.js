@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
+import { TableEditableFormRow, TableEditableCell } from '../components/TableEditableComponents';
 
 class AssetDetailAllocation extends React.Component {
     prefix = 'asset-detail-allocation'
@@ -35,7 +36,9 @@ class AssetDetailAllocation extends React.Component {
             title: '资产',
             dataIndex: 'amount',
             key: 'amount',
-            align: 'right'
+            align: 'right',
+            width: 200,
+            editable: true
         },
     ];
 
@@ -51,8 +54,35 @@ class AssetDetailAllocation extends React.Component {
         }, 0);
     }
 
+    handleSave = (row) => {
+        console.log('handleSave row -------> ', row);
+    }
+
     render() {
         const { data } = this.props;
+
+        const components = {
+            body: {
+                row: TableEditableFormRow,
+                cell: TableEditableCell
+            }
+        };
+
+        const columnsDef = this.columnsDef.map((col) => {
+            if (!col.editable) {
+                return col;
+            }
+            return {
+                ...col,
+                onCell: record => ({
+                    record,
+                    editable: col.editable,
+                    dataIndex: col.dataIndex,
+                    title: col.title,
+                    handleSave: this.handleSave
+                })
+            };
+        });
 
         return (
             <div className={`${this.prefix}`}>
@@ -64,13 +94,14 @@ class AssetDetailAllocation extends React.Component {
                 </span>
                 <div>
                     <Table 
+                        components={components}
                         dataSource={data} 
-                        columns={this.columnsDef}
+                        columns={columnsDef}
                         size="small"
                         bordered
                         pagination={{
                             pageSize: this.paginationSize,
-                            size: 'small'
+                            // size: 'small'
                         }}
                         onChange={(pagination) => {
                             const { current } = pagination;

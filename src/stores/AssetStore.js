@@ -1,7 +1,7 @@
 /**
  * User asset store
  */
-import { types, applySnapshot, process } from 'mobx-state-tree';
+import { types, applySnapshot, flow } from 'mobx-state-tree';
 import axios from '../util/api';
 
 /**
@@ -90,7 +90,7 @@ const AssetsStore = types
             });
         };
 
-        const fetchAssets = process(function* fetchAssets(id) {
+        const fetchAssets = flow(function* fetchAssets(id) {
             const res = yield axios.get(`userDetail/${id}/`);
             
             update(res.data);
