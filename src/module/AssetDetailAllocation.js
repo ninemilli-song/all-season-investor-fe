@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import { TableEditableFormRow, TableEditableCell } from '../components/TableEditableComponents';
+import './assetDetailAllocation.scss';
 
 class AssetDetailAllocation extends React.Component {
     prefix = 'asset-detail-allocation'
@@ -95,6 +96,7 @@ class AssetDetailAllocation extends React.Component {
                 <div>
                     <Table 
                         components={components}
+                        rowClassName={() => 'editable-row'}
                         dataSource={data} 
                         columns={columnsDef}
                         size="small"
