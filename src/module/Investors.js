@@ -12,7 +12,7 @@ class InvestorsModule extends React.Component {
             dataInde: 'name',
             key: 'name',
             render: data => (
-                <Link href={{ pathname: '/assetDetail', query: { id: data.id } }}>
+                <Link href={{ pathname: '/asset-detail', query: { id: data.id } }}>
                     <a>{data.name}</a>
                 </Link>
             ),

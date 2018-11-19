@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import './layout.scss';
 
 export default ({ title, children }) => (
     <div>
@@ -18,7 +19,7 @@ export default ({ title, children }) => (
                 }`
             }
         </style>
-        <div>
+        <div className="asi-body">
             { children }
         </div>
     </div>

@@ -11,6 +11,7 @@ import AssetDetailCategoryRate from '../containers/AssetDetailCategoryRate';
 import AssetDetailSafeRate from '../containers/AssetDetailSafeRate';
 import AssetDetailAnalysis from '../containers/AssetDetailAnalysis';
 import initUserListStore from '../stores/AssetStore.js';
+import './asset-detail.scss';
 
 class AssetDetail extends React.Component {
     static async getInitialProps({ req, query }) {

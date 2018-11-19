@@ -1,0 +1,6 @@
+@import '../static/styles/variable.scss';
+
+.asi-body {
+    width: #{$pageBodyWidth}px;
+    margin: 0 auto;
+}
