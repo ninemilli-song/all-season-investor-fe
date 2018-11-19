@@ -7,6 +7,7 @@ import initUserListStore from '../stores/AssetStore.js';
 import Investors from '../containers/Investors';
 import axios from '../util/api';
 import Layout from '../components/Layout.js';
+import './index.scss';
 
 class Index extends React.Component {
     static async getInitialProps({ req }) {
