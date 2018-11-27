@@ -84,7 +84,7 @@ const AssetsStore = types
         }
     }))
     .actions((self) => {
-        const update = (json) => {
+        const update = (json = []) => {
             json.forEach((assetJson) => {
                 self.assets.push(assetJson);
             });
@@ -97,7 +97,7 @@ const AssetsStore = types
                 }
             });
             
-            update(res.data);
+            update(res);
         });
 
         return {
