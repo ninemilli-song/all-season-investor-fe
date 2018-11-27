@@ -42,7 +42,8 @@
     "node-sass": "^4.10.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-intl": "^2.7.2"
+    "react-intl": "^2.7.2",
+    "prop-types": "^15.6.2"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.1.2",

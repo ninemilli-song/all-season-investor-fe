@@ -58,6 +58,7 @@ const User = types.model({
  * 资产详情列表
  */
 const AssetItem = types.model({
+    id: types.number,
     type: AssetType,
     owner: User,
     amount: types.number
@@ -75,9 +76,9 @@ const AssetsStore = types
     })
     .views(self => ({
         get assetsData() {
-            const data = self.assets.map((asset, index) => {
+            const data = self.assets.map((asset) => {
                 return Object.assign({}, asset, {
-                    key: index
+                    key: asset.id
                 });
             });
             return data;
@@ -90,6 +91,7 @@ const AssetsStore = types
             });
         };
 
+        // 获取投资者资产列表
         const fetchAssets = flow(function* fetchAssets(id) {
             const res = yield axios.get('assets/user', {
                 params: {
@@ -100,8 +102,24 @@ const AssetsStore = types
             update(res);
         });
 
+        // 更新投资者资产金额
+        const updateAsset = flow(function* updateAsset(id, amount) {
+            // 更新服务数据
+            yield axios.put(`assets/${id}/`, {
+                amount
+            });
+
+            // 更新客户端store
+            self.assets.forEach((item) => {
+                if (item.id === id) {
+                    item.amount = amount;
+                }
+            });
+        });
+
         return {
-            fetchAssets
+            fetchAssets,
+            updateAsset
         };
     });
 

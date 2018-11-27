@@ -19,7 +19,10 @@ class AssetDetailAllocationContainer extends React.Component {
         const { assets } = this.props;
         
         return (
-            <AssetDetailAllocation data={assets.assetsData} />
+            <AssetDetailAllocation 
+                data={assets.assetsData}
+                onAmountEdited={assets.updateAsset}
+            />
         );
     }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
+import PropTypes from 'prop-types';
 import { TableEditableFormRow, TableEditableCell } from '../components/TableEditableComponents';
 import './assetDetailAllocation.scss';
 
@@ -57,6 +58,10 @@ class AssetDetailAllocation extends React.Component {
 
     handleSave = (row) => {
         console.log('handleSave row -------> ', row);
+        const { onAmountEdited } = this.props;
+        const { id, amount } = row;
+
+        onAmountEdited(id, parseFloat(amount));
     }
 
     render() {
@@ -115,5 +120,10 @@ class AssetDetailAllocation extends React.Component {
         );
     }
 }
+
+AssetDetailAllocation.propTypes = {
+    data: PropTypes.arrayOf(Object).isRequired,
+    onAmountEdited: PropTypes.func.isRequired
+};
 
 export default AssetDetailAllocation;
