@@ -91,7 +91,11 @@ const AssetsStore = types
         };
 
         const fetchAssets = flow(function* fetchAssets(id) {
-            const res = yield axios.get(`userDetail/${id}/`);
+            const res = yield axios.get('assets/user', {
+                params: {
+                    id
+                }
+            });
             
             update(res.data);
         });

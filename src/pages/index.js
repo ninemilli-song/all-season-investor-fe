@@ -13,7 +13,7 @@ class Index extends React.Component {
     static async getInitialProps({ req }) {
         const isServer = !!req;
         
-        const response = await axios.get('userList');
+        const response = await axios.get('investors');
         const { data } = response;
 
         const initUserList = getSnapshot(initUserListStore(isServer, { investors: data }));
