@@ -5,7 +5,7 @@ import { types, applySnapshot, flow } from 'mobx-state-tree';
 import axios from '../util/api';
 
 /**
- * 投资都模型
+ * 投资者模型
  */
 const Investor = types.model({
     id: types.number,
