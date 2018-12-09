@@ -12,13 +12,16 @@ import './index.scss';
 class Index extends React.Component {
     static async getInitialProps({ req }) {
         const isServer = !!req;
+
+        console.log('🚥 ------> page getInitialProps');
         
-        const data = await axios.get('investors');
+        const data = await axios.get('investors').catch(error => console.log('catch errorrr ------> ', error));
         // const { data } = response;
 
         const initUserList = getSnapshot(initUserListStore(isServer, { investors: data }));
 
         return {
+            isServer,
             initUserList
         };
     }
