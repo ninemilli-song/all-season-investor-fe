@@ -6,7 +6,6 @@ import pageWithIntl from '../components/PageWithIntl.js';
 import initUserListStore from '../stores/AssetStore.js';
 import Investors from '../containers/Investors';
 import axios from '../util/api';
-import Layout from '../components/Layout.js';
 import './index.scss';
 
 class Index extends React.Component {
@@ -35,9 +34,7 @@ class Index extends React.Component {
     render() {
         return (
             <Provider investors={this.userList.investors}>
-                <Layout title="All season investor">
-                    <Investors />
-                </Layout>
+                <Investors />
             </Provider>
         );
     }

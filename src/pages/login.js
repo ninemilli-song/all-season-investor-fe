@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Form, FormItem, Button, Checkbox, Input
+    Form, Button, Checkbox, Input
 } from 'antd';
 import pageWithIntl from '../components/PageWithIntl';
 // import axios from '../util/api';
@@ -35,7 +35,7 @@ class Login extends React.Component {
                             style={{ textAlign: 'left' }}
                             onSubmit={this.handleSubmit}
                         >
-                            <FormItem>
+                            <Form.Item>
                                 {
                                     getFieldDecorator('username', {
                                         initialValue: username,
@@ -46,8 +46,8 @@ class Login extends React.Component {
                                         />
                                     )
                                 }
-                            </FormItem>
-                            <FormItem>
+                            </Form.Item>
+                            <Form.Item>
                                 {
                                     getFieldDecorator('password', {
                                         initialValue: password,
@@ -59,8 +59,8 @@ class Login extends React.Component {
                                         />
                                     )
                                 }
-                            </FormItem>
-                            <FormItem>
+                            </Form.Item>
+                            <Form.Item>
                                 {
                                     getFieldDecorator('remember', {
                                         valuePropName: 'checked',
@@ -84,7 +84,7 @@ class Login extends React.Component {
                                     }
                                     登录
                                 </Button>
-                            </FormItem>
+                            </Form.Item>
                         </Form>
                         <p>
                             您还未注册？请 

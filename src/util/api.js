@@ -40,6 +40,4 @@ instance.interceptors.response.use((response) => {
     return Promise.reject(new Error(error.response));
 });
 
-console.log('axios instance interceptors ------> ', instance.interceptors);
-
 export default instance;

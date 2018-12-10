@@ -1,6 +1,7 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 import axios from '../util/api';
+import Layout from '../components/Layout';
 
 export default class CustomApp extends App {
     static async getInitialProps({ Component, ctx }) {
@@ -14,15 +15,17 @@ export default class CustomApp extends App {
 
         console.log('customApp -----> getsInitialProps: ', userInfo);
 
-        return { pageProps };
+        return { pageProps, userInfo: userInfo || {} };
     }
 
     render() {
-        const { Component, pageProps } = this.props;
+        const { Component, pageProps, userInfo } = this.props;
 
         return (
             <Container>
-                <Component {...pageProps} />
+                <Layout title="React Intl">
+                    <Component {...pageProps} userInfo={userInfo} />
+                </Layout>
             </Container>
         );
     }
