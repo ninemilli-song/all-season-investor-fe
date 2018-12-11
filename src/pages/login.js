@@ -3,9 +3,10 @@ import {
     Form, Button, Checkbox, Input
 } from 'antd';
 import pageWithIntl from '../components/PageWithIntl';
+import AuthService from '../util/AuthService';
 import './css/login.scss';
-import axios from 'axios';
-// import axios from '../util/api';
+
+const auth = new AuthService();
 
 @Form.create()
 class Login extends React.Component {
@@ -17,34 +18,25 @@ class Login extends React.Component {
     //     const userInfo = axios.get('userInfo');
     // }
 
+    componentDidMount() {
+        const { url } = this.props;
+        if (auth.loggedIn()) {
+            url.replaceTo('/');
+        }
+    }
+
     handleSubmit = (e) => {
-        const { form } = this.props;
+        const { form, url } = this.props;
         e.preventDefault();
     
         form.validateFields(async (err, vals) => {
             if (!err) {
-                // await this.props.signin(vals.username, vals.password);
-
-                const res = await axios.post('auth/login/', {
-                    username: vals.username,
-                    password: vals.password
+                auth.login(vals.username, vals.password).then((res) => {
+                    console.log('🎸 Login in success ------> ', res);
+                    url.replaceTo('/');
+                }).catch((error) => {
+                    console.log('❗️ Login error------>', error);
                 });
-
-                console.log('🎸 Sigin in End ------> ', res);
-    
-                // if (this.props.error) {
-                //   message.error(this.props.error)
-                // } else {
-                //   message.success('登陆成功')
-                // }
-    
-                // if (vals.remember === true) {
-                //     storage.setStorage('MOBILE', vals.mobile);
-                //     storage.setStorage('PASSWORD', vals.password);
-                // } else {
-                //     storage.removeStorage('MOBILE');
-                //     storage.removeStorage('PASSWORD');
-                // }
             }
         });
     }

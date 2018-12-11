@@ -11,7 +11,9 @@ export default class CustomApp extends App {
             pageProps = await Component.getInitialProps(ctx);
         }
 
-        const userInfo = await axios.get('auth/userInfo');
+        const userInfo = await axios.get('auth/userInfo').catch((error) => {
+            console.log('auth/userInfo result -------> ', error);
+        });
 
         console.log('customApp -----> getsInitialProps: ', userInfo);
 

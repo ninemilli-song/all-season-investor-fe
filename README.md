@@ -35,3 +35,7 @@
 
 [nextjs-starter-kit](https://github.com/soulmachine/nextjs-starter-kit)
 
+[JSON Web Token Authentication in React and react-router](https://hptechblogs.com/using-json-web-token-react/)
+
+[Add login / authentication example](https://github.com/zeit/next.js/issues/153)
+
