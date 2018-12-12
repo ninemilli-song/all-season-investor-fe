@@ -60,7 +60,6 @@ class AssetDetailAllocation extends React.Component {
     }
 
     handleSave = (row) => {
-        console.log('handleSave row -------> ', row);
         const { onAmountEdited } = this.props;
         const { id, amount } = row;
 

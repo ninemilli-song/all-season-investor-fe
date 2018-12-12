@@ -1,5 +1,6 @@
 import axios from 'axios';
 import getConfig from 'next/config';
+import AuthService from './AuthService';
 
 const { publicRuntimeConfig } = getConfig();
 // jwt token localStorage中的key值
@@ -14,24 +15,12 @@ axios.defaults.baseURL = publicRuntimeConfig.apiHost
 axios.defaults.withCredentials = true;
 
 /**
- * 读取jwt_token
- */
-function getJwtToken() {
-    let token = '';
-    if (typeof localStorage !== 'undefined') {
-        token = localStorage.getItem(JWT_TOKEN_KEY);
-        console.log('localStorage.getItem ------> ', token);
-    }
-
-    return token;
-}
-
-/**
  * 创建 axios 实例，server render import此文件总是返回新实例
  * 避免每次import时都会向全局对象中添加重复拦截器
  * Q: 会生成内存泄漏么？
  */
 const instance = axios.create();
+const auth = new AuthService();
 
 /**
  * Add Request interceptor
@@ -43,9 +32,8 @@ instance.interceptors.request.use((config) => {
     
     // 如果jwt token存在则添加到请求头部
     // Authorization 如果设置为空 无论服务器校验设置是什么级别都会进行校验
-    const jwtToken = getJwtToken();
-    if (jwtToken) {
-        config.headers.Authorization = `Bearer ${getJwtToken()}`;
+    if (auth.loggedIn()) {
+        config.headers.Authorization = `Bearer ${auth.getToken()}`;
     }
 
     return config;
@@ -61,9 +49,9 @@ instance.interceptors.response.use((response) => {
     return response.data;
 }, (error) => {
     const response = error.response || {};
+    console.log('🧨 异常 -----> ', response);
     let msg = '未知错误';
     if (response.status === 401 || response.status === 403) {
-        console.log('🧨 异常 -----> ', response);
         msg = response.data.detail;
         return Promise.reject(new Error(msg));
     } 

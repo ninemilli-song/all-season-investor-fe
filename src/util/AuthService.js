@@ -63,7 +63,10 @@ export default class AuthService {
   
     getToken = () => {
         // Retrieves the user token from localStorage
-        return localStorage.getItem(JWT_TOKEN_KEY);
+        if (typeof localStorage !== 'undefined') {
+            return localStorage.getItem(JWT_TOKEN_KEY);
+        }
+        return '';
     }
   
     logout = () => {
