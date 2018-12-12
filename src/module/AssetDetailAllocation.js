@@ -2,7 +2,10 @@ import React from 'react';
 import { Table } from 'antd';
 import PropTypes from 'prop-types';
 import { TableEditableFormRow, TableEditableCell } from '../components/TableEditableComponents';
+import AuthService from '../util/AuthService';
 import './assetDetailAllocation.scss';
+
+const auth = new AuthService();
 
 class AssetDetailAllocation extends React.Component {
     prefix = 'asset-detail-allocation'
@@ -82,7 +85,7 @@ class AssetDetailAllocation extends React.Component {
                 ...col,
                 onCell: record => ({
                     record,
-                    editable: col.editable,
+                    editable: auth.loggedIn() ? col.editable : false,
                     dataIndex: col.dataIndex,
                     title: col.title,
                     handleSave: this.handleSave

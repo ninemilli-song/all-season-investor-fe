@@ -46,8 +46,8 @@ class Login extends React.Component {
     }
 
     render() {
-        const { form, userInfo } = this.props;
-        const { username, password } = userInfo;
+        const { form } = this.props;
+        // const { username, password } = userInfo;
         const { getFieldDecorator } = form;
 
         return (
@@ -68,7 +68,7 @@ class Login extends React.Component {
                             <Form.Item>
                                 {
                                     getFieldDecorator('username', {
-                                        initialValue: username,
+                                        // initialValue: username,
                                         rules: [{ required: true, message: '亲，请输入您的用户名!' }]
                                     })(
                                         <Input
@@ -80,7 +80,7 @@ class Login extends React.Component {
                             <Form.Item>
                                 {
                                     getFieldDecorator('password', {
-                                        initialValue: password,
+                                        // initialValue: password,
                                         rules: [{ required: true, message: '请输入密码!' }]
                                     })(
                                         <Input
