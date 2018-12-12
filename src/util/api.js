@@ -70,7 +70,7 @@ instance.interceptors.response.use((response) => {
     
     // server render 的情况下Promise.reject，如果没有进行catch处理会导致服务端运行中断
     // 未捕获异常会导致程序退出 详见 nodejs unhandledRejection事件
-    return Promise.reject(new Error(error.response));
+    return Promise.reject(error.response);
 });
 
 export default instance;

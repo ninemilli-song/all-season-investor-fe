@@ -2,6 +2,7 @@ import React from 'react';
 import {
     Form, Button, Checkbox, Input
 } from 'antd';
+import Router from 'next/router';
 import pageWithIntl from '../components/PageWithIntl';
 import AuthService from '../util/AuthService';
 import './css/login.scss';
@@ -19,26 +20,29 @@ class Login extends React.Component {
     // }
 
     componentDidMount() {
-        const { url } = this.props;
         if (auth.loggedIn()) {
-            url.replaceTo('/');
+            this.gotoHomePage();
         }
     }
 
     handleSubmit = (e) => {
-        const { form, url } = this.props;
+        const { form } = this.props;
         e.preventDefault();
     
         form.validateFields(async (err, vals) => {
             if (!err) {
                 auth.login(vals.username, vals.password).then((res) => {
                     console.log('🎸 Login in success ------> ', res);
-                    url.replaceTo('/');
+                    this.gotoHomePage();
                 }).catch((error) => {
                     console.log('❗️ Login error------>', error);
                 });
             }
         });
+    }
+
+    gotoHomePage = () => {
+        Router.push('/');
     }
 
     render() {

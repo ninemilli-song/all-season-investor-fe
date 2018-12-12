@@ -10,7 +10,7 @@ export default class AuthService {
     // }
   
     login = async (username, password) => {
-        const res = await axios.get('auth/login/', {
+        const res = await axios.post('auth/login/', {
             username,
             password
         });
@@ -22,6 +22,8 @@ export default class AuthService {
         
         // Set profile
         this.setProfile(user);
+
+        return res;
     }
   
     loggedIn = () => {

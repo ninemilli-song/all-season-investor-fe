@@ -2,6 +2,7 @@
  * A HOC for protected pages
  */
 import React from 'react';
+import Router from 'next/router';
 import AuthService from './AuthService';
 
 export default function withAuth(AuthComponent) {
@@ -16,13 +17,16 @@ export default function withAuth(AuthComponent) {
         }
 
         componentDidMount() {
-            const { url } = this.props;
             if (!Auth.loggedIn()) {
-                url.replaceTo('/');
+                this.gotoLogin();
             }
             this.setState({
                 isLoading: false
             });
+        }
+
+        gotoLogin = () => {
+            Router.push('/login');
         }
 
         render() {
