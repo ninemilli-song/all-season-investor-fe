@@ -38,9 +38,15 @@ const instance = axios.create();
  */
 instance.interceptors.request.use((config) => {
     // Add jwt token
-    config.headers.Accept = 'application/json';
+    config.headers.Accept = 'application/json, text/plain, */*';
     config.headers['Content-Type'] = 'application/json';
-    config.headers.Authorization = `Bearer ${getJwtToken()}`;
+    
+    // 如果jwt token存在则添加到请求头部
+    // Authorization 如果设置为空 无论服务器校验设置是什么级别都会进行校验
+    const jwtToken = getJwtToken();
+    if (jwtToken) {
+        config.headers.Authorization = `Bearer ${getJwtToken()}`;
+    }
 
     return config;
 }, (error) => {
@@ -57,9 +63,9 @@ instance.interceptors.response.use((response) => {
     const response = error.response || {};
     let msg = '未知错误';
     if (response.status === 401 || response.status === 403) {
+        console.log('🧨 异常 -----> ', response);
         msg = response.data.detail;
-        console.log('🧨 异常 -----> ', msg);
-        return null;
+        return Promise.reject(new Error(msg));
     } 
     
     // server render 的情况下Promise.reject，如果没有进行catch处理会导致服务端运行中断

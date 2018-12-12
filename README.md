@@ -22,6 +22,8 @@
 │   │   ├── clock.js        # mobx-state-tree测试页
 │   │   ├── react-intl.js   # 资源国际化测试页
 │   │   ├── test.js         # 测试页面首页 - 测试目录页
+│   │   ├── login.js        # 登陆页面
+│   │   ├── asset-detail.js # 资产详情页面
 │   │   └── index.js        # 应用首页
 │   ├── util                # 工具代码
 │   └── stores              # 状态配置
