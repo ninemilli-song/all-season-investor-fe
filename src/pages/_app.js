@@ -1,7 +1,7 @@
 import React from 'react';
 import App, { Container } from 'next/app';
-import axios from '../util/api';
 import Layout from '../components/Layout';
+import { loggedIn, getProfile } from '../util/AuthService';
 
 export default class CustomApp extends App {
     static async getInitialProps({ Component, ctx }) {
@@ -11,13 +11,12 @@ export default class CustomApp extends App {
             pageProps = await Component.getInitialProps(ctx);
         }
 
-        const userInfo = await axios.get('auth/userInfo').catch((error) => {
-            console.log('auth/userInfo result -------> ', error);
-        });
+        let userInfo = {};
+        if (loggedIn()) {
+            userInfo = getProfile();
+        }
 
-        console.log('customApp -----> getsInitialProps: ', userInfo);
-
-        return { pageProps, userInfo: userInfo || {} };
+        return { pageProps, userInfo };
     }
 
     render() {

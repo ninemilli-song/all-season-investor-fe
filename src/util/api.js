@@ -1,6 +1,6 @@
 import axios from 'axios';
 import getConfig from 'next/config';
-import AuthService from './AuthService';
+import { loggedIn, getToken } from './AuthService';
 
 const { publicRuntimeConfig } = getConfig();
 // jwt token localStorage中的key值
@@ -20,7 +20,6 @@ axios.defaults.withCredentials = true;
  * Q: 会生成内存泄漏么？
  */
 const instance = axios.create();
-const auth = new AuthService();
 
 /**
  * Add Request interceptor
@@ -32,12 +31,14 @@ instance.interceptors.request.use((config) => {
     
     // 如果jwt token存在则添加到请求头部
     // Authorization 如果设置为空 无论服务器校验设置是什么级别都会进行校验
-    if (auth.loggedIn()) {
-        config.headers.Authorization = `Bearer ${auth.getToken()}`;
+    // console.log('🧨 Error Request -----> ', auth.loggedIn());
+    if (loggedIn()) {
+        config.headers.Authorization = `Bearer ${getToken()}`;
     }
 
     return config;
 }, (error) => {
+    console.log('🧨 Error Request -----> ', error);
     // Do something with request error
     return Promise.reject(error);
 });
@@ -49,7 +50,7 @@ instance.interceptors.response.use((response) => {
     return response.data;
 }, (error) => {
     const response = error.response || {};
-    console.log('🧨 异常 -----> ', response);
+    console.log('🧨 Error Response -----> ', response);
     let msg = '未知错误';
     if (response.status === 401 || response.status === 403) {
         msg = response.data.detail;

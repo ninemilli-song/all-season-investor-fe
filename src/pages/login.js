@@ -4,10 +4,8 @@ import {
 } from 'antd';
 import Router from 'next/router';
 import pageWithIntl from '../components/PageWithIntl';
-import AuthService from '../util/AuthService';
+import { loggedIn, login } from '../util/AuthService';
 import './css/login.scss';
-
-const auth = new AuthService();
 
 @Form.create()
 class Login extends React.Component {
@@ -20,7 +18,7 @@ class Login extends React.Component {
     // }
 
     componentDidMount() {
-        if (auth.loggedIn()) {
+        if (loggedIn()) {
             this.gotoHomePage();
         }
     }
@@ -31,7 +29,7 @@ class Login extends React.Component {
     
         form.validateFields(async (err, vals) => {
             if (!err) {
-                auth.login(vals.username, vals.password).then((res) => {
+                login(vals.username, vals.password).then((res) => {
                     console.log('🎸 Login in success ------> ', res);
                     this.gotoHomePage();
                 }).catch((error) => {
