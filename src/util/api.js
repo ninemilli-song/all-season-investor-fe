@@ -1,10 +1,9 @@
 import axios from 'axios';
 import getConfig from 'next/config';
 import { loggedIn, getToken } from './AuthService';
+// import { testMethod, testAxios } from './common';
 
 const { publicRuntimeConfig } = getConfig();
-// jwt token localStorage中的key值
-export const JWT_TOKEN_KEY = 'asi_jwt_token';
 
 axios.defaults.baseURL = publicRuntimeConfig.apiHost
     ? publicRuntimeConfig.apiHost : axios.defaults.baseURL;
@@ -20,6 +19,10 @@ axios.defaults.withCredentials = true;
  * Q: 会生成内存泄漏么？
  */
 const instance = axios.create();
+
+// testMethod();
+
+// testAxios();
 
 /**
  * Add Request interceptor
