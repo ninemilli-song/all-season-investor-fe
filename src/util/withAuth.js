@@ -3,11 +3,9 @@
  */
 import React from 'react';
 import Router from 'next/router';
-import AuthService from './AuthService';
+import { loggedIn } from './AuthService';
 
 export default function withAuth(AuthComponent) {
-    const Auth = new AuthService();
-
     return class Authenticated extends React.Component {
         constructor(props) {
             super(props);
@@ -17,7 +15,7 @@ export default function withAuth(AuthComponent) {
         }
 
         componentDidMount() {
-            if (!Auth.loggedIn()) {
+            if (!loggedIn()) {
                 this.gotoLogin();
             }
             this.setState({
@@ -38,7 +36,7 @@ export default function withAuth(AuthComponent) {
                         isLoading ? (
                             <div>LOADING......</div>
                         ) : (
-                            <AuthComponent {...this.props} auth={Auth} />
+                            <AuthComponent {...this.props} />
                         )
                     }
                 </div>

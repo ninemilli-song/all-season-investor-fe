@@ -1,8 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
+import Header from './Header';
 import './layout.scss';
 
-export default ({ title, children }) => (
+export default ({ title, children, userStore }) => (
     <div>
         <Head>
             <title>
@@ -20,6 +21,7 @@ export default ({ title, children }) => (
             }
         </style>
         <div className="asi-body">
+            <Header userStore={userStore} />
             { children }
         </div>
     </div>

@@ -6,6 +6,7 @@ import pageWithIntl from '../components/PageWithIntl.js';
 import initUserListStore from '../stores/AssetStore.js';
 import Investors from '../containers/Investors';
 import axios from '../util/api';
+// import withAuth from '../util/withAuth';
 import './index.scss';
 
 class Index extends React.Component {
@@ -13,6 +14,7 @@ class Index extends React.Component {
         const isServer = !!req;
 
         console.log('🚥 ------> page getInitialProps');
+        console.log('Index AssetDetail is server render ? ', isServer);
         
         const data = await axios.get('investors').catch(error => console.log('catch errorrr ------> ', error));
         // const { data } = response;
@@ -20,6 +22,7 @@ class Index extends React.Component {
         const initUserList = getSnapshot(initUserListStore(isServer, { investors: data || [] }));
 
         return {
+            title: 'Home Page',
             isServer,
             initUserList
         };

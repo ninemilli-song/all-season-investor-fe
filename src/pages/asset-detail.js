@@ -16,7 +16,10 @@ class AssetDetail extends React.Component {
     static async getInitialProps({ req, query }) {
         const isServer = !!req;
 
+        console.log('Page AssetDetail is server render ? ', isServer);
+
         return {
+            title: 'User Asset Detail',
             isServer,
             investorId: query.id
         };
