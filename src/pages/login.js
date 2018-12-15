@@ -24,13 +24,14 @@ class Login extends React.Component {
     }
 
     handleSubmit = (e) => {
-        const { form } = this.props;
+        const { form, userStore } = this.props;
         e.preventDefault();
     
         form.validateFields(async (err, vals) => {
             if (!err) {
                 login(vals.username, vals.password).then((res) => {
                     console.log('🎸 Login in success ------> ', res);
+                    userStore.update(res.user);
                     this.gotoHomePage();
                 }).catch((error) => {
                     console.log('❗️ Login error------>', error);

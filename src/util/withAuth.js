@@ -1,5 +1,6 @@
 /**
  * A HOC for protected pages
+ * 1. create userstore and pass userstore to the
  */
 import React from 'react';
 import Router from 'next/router';
@@ -7,6 +8,16 @@ import { loggedIn } from './AuthService';
 
 export default function withAuth(AuthComponent) {
     return class Authenticated extends React.Component {
+        static async getInitialProps(ctx) {
+            let pageProps = {};
+    
+            if (AuthComponent.getInitialProps) {
+                pageProps = await AuthComponent.getInitialProps(ctx);
+            }
+    
+            return { ...pageProps };
+        }
+
         constructor(props) {
             super(props);
             this.state = {

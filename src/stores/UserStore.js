@@ -47,7 +47,8 @@ const UserStore = types
 
         return {
             fetchUserInfo,
-            doLogout
+            doLogout,
+            update
         };
     });
 

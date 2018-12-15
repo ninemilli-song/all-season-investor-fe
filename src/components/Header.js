@@ -1,24 +1,13 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import Link from 'next/link';
-import { loggedIn } from '../util/AuthService';
 
 @observer
 class Header extends React.Component {
     prefixCls = 'asi-header'
 
-    state = {
-        logged: false
-    }
-
-    defaultProps = {
+    static defaultProps = {
         userStore: {}
-    }
-
-    componentDidMount() {
-        this.setState({
-            logged: loggedIn()
-        });
     }
 
     logout = () => {
@@ -29,7 +18,7 @@ class Header extends React.Component {
 
     render() {
         const { userStore } = this.props;
-        const { logged } = this.state;
+        console.log('Header render------> ', userStore);
 
         return (
             <div className={this.prefixCls}>
@@ -41,10 +30,10 @@ class Header extends React.Component {
                 </div>
                 <div className={`${this.prefixCls}-user`}>
                     {
-                        userStore.id && logged ? (
+                        userStore.id ? (
                             <span>
                                 Hi!, 
-                                {userStore.username}
+                                {userStore.name}
                                 <a role="presentation" onClick={this.logout}>logout</a>
                             </span>
                         ) : (

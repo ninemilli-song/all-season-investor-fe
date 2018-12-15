@@ -13,11 +13,7 @@ export default class CustomApp extends App {
             pageProps = await Component.getInitialProps(ctx);
         }
 
-        let userProfile = null;
-        console.log('is loggedin ------> ', loggedIn());
-        if (loggedIn()) {
-            userProfile = getProfile();
-        }
+        const userProfile = null;
 
         const isServer = !!ctx.req;
         const userInfo = getSnapshot(initUserListStore(isServer, userProfile));
@@ -28,11 +24,22 @@ export default class CustomApp extends App {
     constructor(props, context) {
         super(props, context);
 
-        this.userInfo = initUserListStore(props.isServer, props.userInfo);
+        this.userStore = initUserListStore(props.isServer, props.userInfo);
     }
 
     componentDidMount() {
+        const { isServer } = this.props;
+        console.log('_app said: where am i invoke?', isServer);
+        let userProfile = null;
         
+        if (loggedIn()) {
+            userProfile = getProfile();
+        }
+
+        // this.userStore = initUserListStore(isServer, userProfile);
+        this.userStore.update(userProfile);
+        // this.userStore.username = userProfile.username;
+        // this.userStore.id = userProfile.id;
     }
 
     render() {
@@ -40,8 +47,8 @@ export default class CustomApp extends App {
 
         return (
             <Container>
-                <Layout title={pageProps.title} userStore={this.userInfo}>
-                    <Component {...pageProps} userInfo={this.userInfo} />
+                <Layout title={pageProps.title} userStore={this.userStore}>
+                    <Component {...pageProps} userStore={this.userStore} />
                 </Layout>
             </Container>
         );
