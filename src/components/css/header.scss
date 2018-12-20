@@ -1,0 +1,35 @@
+@import '../../static/styles/variable.scss';
+
+.asi-header {
+    overflow: hidden;   // BFC
+    height: 30px;
+    line-height: 30px;
+    background-color: $color1;
+    
+    &-nav {
+        float: left;
+
+        ul {
+            li {
+                display: inline-block;
+                padding: 0 #{$block-space-mini}px;
+            }
+        }
+    }
+
+    &-user {
+        float: right;
+
+        &-info, &-action {
+            margin: 0 #{$block-space-mini}px; 
+        }
+    }
+
+    a {
+        color: $color13;
+
+        &:hover {
+            color: $color13hover;
+        }
+    }
+}

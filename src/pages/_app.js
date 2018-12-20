@@ -4,6 +4,8 @@ import { getSnapshot } from 'mobx-state-tree';
 import Layout from '../components/Layout';
 import { loggedIn, getProfile } from '../util/AuthService';
 import initUserListStore from '../stores/UserStore';
+import 'normalize.css';
+import '../static/styles/global.scss';
 
 export default class CustomApp extends App {
     static async getInitialProps({ Component, ctx }) {
