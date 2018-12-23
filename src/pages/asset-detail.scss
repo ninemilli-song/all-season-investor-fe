@@ -1,7 +1,0 @@
-@import '../static/styles/variable.scss';
-
-.asset-detail{
-    &-allocation, &-category-rate, &-safe-rate, &-analysis {
-        margin-top: #{$space}px;
-    }
-}
