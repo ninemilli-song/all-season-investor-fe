@@ -24,10 +24,14 @@ import { observer } from 'mobx-react';
 
 @observer
 class AssetDetailCategoryRate extends React.Component {
+    // componentDidMount() {
+        
+    // }
+
     render() {
         return (
             <div>
-                AssetDetailCategoryRate
+                AssetDetailCategoryRate loading…… 
             </div>
         );
     }

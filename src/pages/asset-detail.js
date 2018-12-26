@@ -6,8 +6,8 @@ import {
 } from 'react-intl';
 import pageWithIntl from '../components/PageWithIntl.js';
 import AssetDetailAllocation from '../containers/AssetDetailAllocation';
-import AssetDetailCategoryRate from '../containers/AssetDetailCategoryRate';
-import AssetDetailSafeRate from '../containers/AssetDetailSafeRate';
+// import AssetDetailCategoryRate from '../containers/AssetDetailCategoryRate';
+// import AssetDetailSafeRate from '../containers/AssetDetailSafeRate';
 import AssetDetailAnalysis from '../containers/AssetDetailAnalysis';
 import initUserListStore from '../stores/AssetStore.js';
 import './css/asset-detail.scss';
@@ -50,28 +50,7 @@ class AssetDetail extends React.Component {
                         <AssetDetailAllocation />
                     </div>
                     <div className={`${this.prefixCls}-category-rate`}>
-                        <h3>
-                            {'资产类型比例'}
-                        </h3>
-                        <div>
-                            <AssetDetailCategoryRate />
-                        </div>
-                    </div>
-                    <div className={`${this.prefixCls}-safe-rate`}>
-                        <h3>
-                            {'安全类别比例'}
-                        </h3>
-                        <div>
-                            <AssetDetailSafeRate />
-                        </div>
-                    </div>
-                    <div className={`${this.prefixCls}-analysis`}>
-                        <h3>
-                            {'资产配置汇总分析'}
-                        </h3>
-                        <div>
-                            <AssetDetailAnalysis />
-                        </div>
+                        <AssetDetailAnalysis />
                     </div>
                 </div>
             </Provider>
