@@ -250,8 +250,6 @@ const AssetsStore = types
                 }
             });
 
-            console.log('fetchAssetAnalyses -------> get data: ', data);
-
             self.assetAnalyses = data;
         });
 
