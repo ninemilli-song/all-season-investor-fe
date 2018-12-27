@@ -105,6 +105,7 @@ class AssetDetailAllocation extends React.Component {
                         dataSource={data} 
                         columns={columnsDef}
                         size="small"
+                        // scroll={{ x: 500, y: 500 }}
                         bordered
                         pagination={{
                             pageSize: this.paginationSize,

@@ -1,17 +1,22 @@
+@import '../../static/styles/variable.scss';
+
 .asset-detail-analysis-des-item {
+    margin: 10px;
     padding: 10px;
+    background-color: $color10;
 
     &-title {
 
     }
 
     &-msg {
-
+        
     }
 
     &-data {
         .rate, .amount {
             display: flex;
+
 
             .current, .suggest {
                 flex: 1;

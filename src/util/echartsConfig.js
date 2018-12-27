@@ -55,7 +55,7 @@ const anylysisOption = {
     tooltip: {
         trigger: 'axis',
         axisPointer: {
-            type: 'shadow'
+            type: 'none'
         }
     },
     legend: {

@@ -9,7 +9,7 @@ import Spin from 'antd/lib/spin';
 import Icon from 'antd/lib/icon';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/legend';
-import 'echarts/lib/component/tooltip';
+// import 'echarts/lib/component/tooltip';
 import echartsConfig from '../util/echartsConfig';
 import AssetDetailAnalysisDescription from '../components/AssetDetailAnalysisDescription';
 import './css/assetDetailAnalysis.scss';
