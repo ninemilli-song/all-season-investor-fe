@@ -1,0 +1,21 @@
+.asset-detail-analysis-des-item {
+    padding: 10px;
+
+    &-title {
+
+    }
+
+    &-msg {
+
+    }
+
+    &-data {
+        .rate, .amount {
+            display: flex;
+
+            .current, .suggest {
+                flex: 1;
+            }
+        }
+    }
+}

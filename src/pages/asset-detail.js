@@ -42,9 +42,6 @@ class AssetDetail extends React.Component {
                         <h2>
                             <FormattedMessage id="pageTitle" defaultMessage="Asset Analysis" />
                         </h2>
-                        <span>
-                            {'资产配置以及资产分析'}
-                        </span>
                     </div>
                     <div className={`${this.prefixCls}-allocation`}>
                         <AssetDetailAllocation />

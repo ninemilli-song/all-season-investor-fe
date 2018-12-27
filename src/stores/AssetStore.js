@@ -74,7 +74,7 @@ const AssetAnalysis = types.model({
     rate: types.number, // 当前配置比例
     suggestRate: types.number, // 建议配置比例
     title: types.string, // 配置项标题
-    anaylisis: types.string, // 当前配置分析
+    analysis: types.string, // 当前配置分析
     assets: types.array(AssetItem) // 当前配置中包含的种类资产
 });
 
@@ -102,9 +102,10 @@ const AssetsStore = types
     }))
     .actions((self) => {
         const update = (json = []) => {
-            json.forEach((assetJson) => {
-                self.assets.push(assetJson);
-            });
+            // json.forEach((assetJson) => {
+            //     self.assets.push(assetJson);
+            // });
+            self.assets = json;
         };
 
         // 获取投资者资产列表
@@ -147,7 +148,7 @@ const AssetsStore = types
                     rate: 0.5,
                     suggestRate: 0.2,
                     title: '有正负波动收益的钱',
-                    anaylisis: '配置过高，风险较大',
+                    analysis: '配置过高，风险较大',
                     assets: [
                         {
                             'id': 1,
@@ -210,7 +211,7 @@ const AssetsStore = types
                     rate: 0.5,
                     suggestRate: 0.8,
                     title: '安全/安心资产',
-                    anaylisis: '配置过低，不足以对冲高风险收入',
+                    analysis: '配置过低，不足以对冲高风险收入',
                     assets: [
                         {
                             'id': 12,
