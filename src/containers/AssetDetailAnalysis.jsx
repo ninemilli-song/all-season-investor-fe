@@ -6,12 +6,12 @@ import { inject, observer } from 'mobx-react';
 import ReactEchartsCore from 'echarts-for-react/lib/core';
 import echarts from 'echarts/lib/echarts';
 import Spin from 'antd/lib/spin';
-import Icon from 'antd/lib/icon';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/legend';
 // import 'echarts/lib/component/tooltip';
 import echartsConfig from '../util/echartsConfig';
 import AssetDetailAnalysisDescription from '../components/AssetDetailAnalysisDescription';
+import LoadingIcon from '../components/LoadingIcon';
 import './css/assetDetailAnalysis.scss';
 
 @inject('assets')
@@ -69,7 +69,7 @@ class AssetDetailAnalysis extends React.Component {
     render() {
         const { assets } = this.props;
 
-        const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+        // const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
         return (
             <div className={this.prefixCls}>
@@ -96,7 +96,7 @@ class AssetDetailAnalysis extends React.Component {
                         </div>
                     ) : (
                         <div className={`${this.prefixCls}-loading`}>
-                            <Spin indicator={antIcon} />
+                            <Spin indicator={LoadingIcon()} />
                         </div>
                     )
                 }

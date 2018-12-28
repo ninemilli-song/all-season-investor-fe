@@ -3,6 +3,7 @@ import { Table } from 'antd';
 import PropTypes from 'prop-types';
 import { TableEditableFormRow, TableEditableCell } from '../components/TableEditableComponents';
 import { loggedIn } from '../util/AuthService';
+import LoadingIcon from '../components/LoadingIcon';
 import './assetDetailAllocation.scss';
 
 class AssetDetailAllocation extends React.Component {
@@ -90,6 +91,8 @@ class AssetDetailAllocation extends React.Component {
             };
         });
 
+        const loading = !(data.length > 0);
+
         return (
             <div className={`${this.prefix}`}>
                 <h3>
@@ -107,6 +110,7 @@ class AssetDetailAllocation extends React.Component {
                         size="small"
                         // scroll={{ x: 500, y: 500 }}
                         bordered
+                        loading={loading ? { indicator: LoadingIcon() } : false}
                         pagination={{
                             pageSize: this.paginationSize,
                             // size: 'small'
