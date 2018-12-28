@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Header from './Header';
+import Footer from './Footer';
 import './layout.scss';
 
 export default ({ title, children, userStore }) => (
@@ -20,9 +21,12 @@ export default ({ title, children, userStore }) => (
                 }`
             }
         </style>
-        <div className="asi-body">
+        <div className="asi-app">
             <Header userStore={userStore} />
-            { children }
+            <div className="asi-body">
+                { children }
+            </div>
+            <Footer />
         </div>
     </div>
 );
