@@ -135,119 +135,126 @@ const AssetsStore = types
         });
 
         // 获取资产分析数据
-        const fetchAssetAnalyses = flow(function* fetchAssetAnalyses() {
-            const mockData = [
-                {
-                    bucket: {
-                        'id': 2,
-                        'name': '风险/成长',
-                        'code': '000002'
-                    },
-                    amount: 200,
-                    suggestAmount: 80,
-                    rate: 0.5,
-                    suggestRate: 0.2,
-                    title: '有正负波动收益的钱',
-                    analysis: '配置过高，风险较大',
-                    assets: [
-                        {
-                            'id': 1,
-                            'type': {
-                                'name': '易方达上证50指数A',
-                                'code': '110003',
-                                'type': {
-                                    'name': '股票',
-                                    'code': '000001',
-                                    'bucket': {
-                                        'id': 2,
-                                        'name': '风险/成长',
-                                        'code': '000002'
-                                    }
-                                }
-                            },
-                            'owner': {
-                                'id': 1,
-                                'sex': '男',
-                                'name': 'ninemilli',
-                                'email': '111111@asi.com',
-                                'mobile': '13711112222'
-                            },
-                            'amount': 16249.55
-                        },
-                        {
-                            'id': 2,
-                            'type': {
-                                'name': '富国中证500指数增强(LOF)',
-                                'code': '161017',
-                                'type': {
-                                    'name': '股票',
-                                    'code': '000001',
-                                    'bucket': {
-                                        'id': 2,
-                                        'name': '风险/成长',
-                                        'code': '000002'
-                                    }
-                                }
-                            },
-                            'owner': {
-                                'id': 1,
-                                'sex': '男',
-                                'name': 'ninemilli',
-                                'email': '111111@asi.com',
-                                'mobile': '13711112222'
-                            },
-                            'amount': 21199.52
-                        }
-                    ]
-                },
-                {
-                    bucket: {
-                        'id': 1,
-                        'name': '安全/安心',
-                        'code': '000001'
-                    },
-                    amount: 200,
-                    suggestAmount: 320,
-                    rate: 0.5,
-                    suggestRate: 0.8,
-                    title: '安全/安心资产',
-                    analysis: '配置过低，不足以对冲高风险收入',
-                    assets: [
-                        {
-                            'id': 12,
-                            'type': {
-                                'name': '招商产业C',
-                                'code': '001868',
-                                'type': {
-                                    'name': '债券',
-                                    'code': '000002',
-                                    'bucket': {
-                                        'id': 1,
-                                        'name': '安全/安心',
-                                        'code': '000001'
-                                    }
-                                }
-                            },
-                            'owner': {
-                                'id': 1,
-                                'sex': '男',
-                                'name': 'ninemilli',
-                                'email': '111111@asi.com',
-                                'mobile': '13711112222'
-                            },
-                            'amount': 14559.19
-                        }
-                    ]
-                }
-            ];
+        const fetchAssetAnalyses = flow(function* fetchAssetAnalyses(id) {
+            // const mockData = [
+            //     {
+            //         bucket: {
+            //             'id': 2,
+            //             'name': '风险/成长',
+            //             'code': '000002'
+            //         },
+            //         amount: 200,
+            //         suggestAmount: 80,
+            //         rate: 0.5,
+            //         suggestRate: 0.2,
+            //         title: '有正负波动收益的钱',
+            //         analysis: '配置过高，风险较大',
+            //         assets: [
+            //             {
+            //                 'id': 1,
+            //                 'type': {
+            //                     'name': '易方达上证50指数A',
+            //                     'code': '110003',
+            //                     'type': {
+            //                         'name': '股票',
+            //                         'code': '000001',
+            //                         'bucket': {
+            //                             'id': 2,
+            //                             'name': '风险/成长',
+            //                             'code': '000002'
+            //                         }
+            //                     }
+            //                 },
+            //                 'owner': {
+            //                     'id': 1,
+            //                     'sex': '男',
+            //                     'name': 'ninemilli',
+            //                     'email': '111111@asi.com',
+            //                     'mobile': '13711112222'
+            //                 },
+            //                 'amount': 16249.55
+            //             },
+            //             {
+            //                 'id': 2,
+            //                 'type': {
+            //                     'name': '富国中证500指数增强(LOF)',
+            //                     'code': '161017',
+            //                     'type': {
+            //                         'name': '股票',
+            //                         'code': '000001',
+            //                         'bucket': {
+            //                             'id': 2,
+            //                             'name': '风险/成长',
+            //                             'code': '000002'
+            //                         }
+            //                     }
+            //                 },
+            //                 'owner': {
+            //                     'id': 1,
+            //                     'sex': '男',
+            //                     'name': 'ninemilli',
+            //                     'email': '111111@asi.com',
+            //                     'mobile': '13711112222'
+            //                 },
+            //                 'amount': 21199.52
+            //             }
+            //         ]
+            //     },
+            //     {
+            //         bucket: {
+            //             'id': 1,
+            //             'name': '安全/安心',
+            //             'code': '000001'
+            //         },
+            //         amount: 200,
+            //         suggestAmount: 320,
+            //         rate: 0.5,
+            //         suggestRate: 0.8,
+            //         title: '安全/安心资产',
+            //         analysis: '配置过低，不足以对冲高风险收入',
+            //         assets: [
+            //             {
+            //                 'id': 12,
+            //                 'type': {
+            //                     'name': '招商产业C',
+            //                     'code': '001868',
+            //                     'type': {
+            //                         'name': '债券',
+            //                         'code': '000002',
+            //                         'bucket': {
+            //                             'id': 1,
+            //                             'name': '安全/安心',
+            //                             'code': '000001'
+            //                         }
+            //                     }
+            //                 },
+            //                 'owner': {
+            //                     'id': 1,
+            //                     'sex': '男',
+            //                     'name': 'ninemilli',
+            //                     'email': '111111@asi.com',
+            //                     'mobile': '13711112222'
+            //                 },
+            //                 'amount': 14559.19
+            //             }
+            //         ]
+            //     }
+            // ];
 
-            const data = yield new Promise((resolve, reject) => {
-                try {
-                    setTimeout(() => {
-                        resolve(mockData);
-                    }, 1000);
-                } catch (e) {
-                    reject(e);
+            // const data = yield new Promise((resolve, reject) => {
+            //     try {
+            //         setTimeout(() => {
+            //             resolve(mockData);
+            //         }, 1000);
+            //     } catch (e) {
+            //         reject(e);
+            //     }
+            // });
+
+            // 获取投资者资产列表
+            const data = yield axios.get('assets/analysis', {
+                params: {
+                    id
                 }
             });
 

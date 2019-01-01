@@ -14,15 +14,15 @@ import AssetDetailAnalysisDescription from '../components/AssetDetailAnalysisDes
 import LoadingIcon from '../components/LoadingIcon';
 import './css/assetDetailAnalysis.scss';
 
-@inject('assets')
+@inject('assets', 'investorId')
 @observer
 class AssetDetailAnalysis extends React.Component {
     prefixCls = 'asset-detail-analysis'
 
     componentDidMount() {
-        const { assets } = this.props;
+        const { assets, investorId } = this.props;
 
-        assets.fetchAssetAnalyses();
+        assets.fetchAssetAnalyses(investorId);
     }
 
     /**
