@@ -9,14 +9,14 @@ import Spin from 'antd/lib/spin';
 import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/legend';
 // import 'echarts/lib/component/tooltip';
-import echartsConfig from '../util/echartsConfig';
-import AssetDetailAnalysisDescription from '../components/AssetDetailAnalysisDescription';
-import LoadingIcon from '../components/LoadingIcon';
-import './css/assetDetailAnalysis.scss';
+import echartsConfig from '../../util/echartsConfig';
+import AssetDetailAnalysisDescription from '../../components/AssetDetailAnalysisDescription';
+import LoadingIcon from '../../components/LoadingIcon';
+import './style.scss';
 
 @inject('assets', 'investorId')
 @observer
-class AssetDetailAnalysis extends React.Component {
+class AssetAnalysis extends React.Component {
     prefixCls = 'asset-detail-analysis'
 
     componentDidMount() {
@@ -105,4 +105,4 @@ class AssetDetailAnalysis extends React.Component {
     }
 }
 
-export default AssetDetailAnalysis;
+export default AssetAnalysis;

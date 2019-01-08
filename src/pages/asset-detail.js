@@ -5,10 +5,8 @@ import {
     FormattedMessage
 } from 'react-intl';
 import pageWithIntl from '../components/PageWithIntl.js';
-import AssetDetailAllocation from '../containers/AssetDetailAllocation';
-// import AssetDetailCategoryRate from '../containers/AssetDetailCategoryRate';
-// import AssetDetailSafeRate from '../containers/AssetDetailSafeRate';
-import AssetDetailAnalysis from '../containers/AssetDetailAnalysis';
+import AssetDetailAllocation from '../containers/asset-details';
+import AssetDetailAnalysis from '../containers/asset-analysis';
 import initUserListStore from '../stores/AssetStore.js';
 import './css/asset-detail.scss';
 

@@ -1,12 +1,17 @@
+/**
+ * 资产配置组件
+ */
 import React from 'react';
+import { observer, inject } from 'mobx-react';
 import { Table } from 'antd';
-import PropTypes from 'prop-types';
-import { TableEditableFormRow, TableEditableCell } from '../components/TableEditableComponents';
-import { loggedIn } from '../util/AuthService';
-import LoadingIcon from '../components/LoadingIcon';
-import './assetDetailAllocation.scss';
+import { loggedIn } from '../../util/AuthService';
+import LoadingIcon from '../../components/LoadingIcon';
+import { TableEditableFormRow, TableEditableCell } from '../../components/TableEditableComponents';
+import './style.scss';
 
-class AssetDetailAllocation extends React.Component {
+@inject('assets', 'investorId')
+@observer
+class AssetDetails extends React.Component {
     prefix = 'asset-detail-allocation'
 
     // 表列定义
@@ -50,23 +55,32 @@ class AssetDetailAllocation extends React.Component {
 
     currentPage = 1;
 
-    get totalAmount() {
-        const { data } = this.props;
+    componentDidMount() {
+        const { assets, investorId } = this.props;
 
-        return data.reduce((accumultor, currentValue) => {
+        // load data
+        assets.fetchAssets(investorId);
+    }
+
+    get totalAmount() {
+        const { assets } = this.props;
+
+        return assets.assetsData.reduce((accumultor, currentValue) => {
             return accumultor + currentValue.amount;
         }, 0);
     }
 
     handleSave = (row) => {
-        const { onAmountEdited } = this.props;
+        const { assets } = this.props;
         const { id, amount } = row;
 
-        onAmountEdited(id, parseFloat(amount));
+        assets.updateAsset(id, parseFloat(amount));
     }
 
     render() {
-        const { data } = this.props;
+        const { assets } = this.props;
+
+        const { assetsData } = assets;
 
         const components = {
             body: {
@@ -91,7 +105,7 @@ class AssetDetailAllocation extends React.Component {
             };
         });
 
-        const loading = !(data.length > 0);
+        const loading = !(assetsData.length > 0);
 
         return (
             <div className={`${this.prefix}`}>
@@ -105,7 +119,7 @@ class AssetDetailAllocation extends React.Component {
                     <Table 
                         components={components}
                         rowClassName={() => 'editable-row'}
-                        dataSource={data} 
+                        dataSource={assetsData} 
                         columns={columnsDef}
                         size="small"
                         // scroll={{ x: 500, y: 500 }}
@@ -126,9 +140,4 @@ class AssetDetailAllocation extends React.Component {
     }
 }
 
-AssetDetailAllocation.propTypes = {
-    data: PropTypes.arrayOf(Object).isRequired,
-    onAmountEdited: PropTypes.func.isRequired
-};
-
-export default AssetDetailAllocation;
+export default AssetDetails;
