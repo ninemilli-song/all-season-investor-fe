@@ -98,7 +98,7 @@ class AssetDetailAllocation extends React.Component {
                 <h3>
                     {'资产配置'}
                 </h3>
-                <span>
+                <span className={`${this.prefix}-totalAmount`}>
                     {`总资产 -- ${this.totalAmount}`}
                 </span>
                 <div>

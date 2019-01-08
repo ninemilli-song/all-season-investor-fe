@@ -1,5 +1,6 @@
 import React from 'react';
 import App, { Container } from 'next/app';
+import Router from 'next/router';
 import { getSnapshot } from 'mobx-state-tree';
 import Layout from '../components/Layout';
 import { loggedIn, getProfile } from '../util/AuthService';
@@ -56,3 +57,16 @@ export default class CustomApp extends App {
         );
     }
 }
+
+/**
+ * 解决Router跳转页面后client render加载的css无效果的问题
+ * on every page reloads css after router change
+ * https://github.com/zeit/next-plugins/issues/282
+ */
+Router.events.on('routeChangeComplete', () => {
+    if (process.env.NODE_ENV !== 'production') {
+        const els = document.querySelectorAll('link[href*="/_next/static/css/styles.chunk.css"]');
+        const timestamp = new Date().valueOf();
+        els[0].href = `/_next/static/css/styles.chunk.css?v=${timestamp}`;
+    }
+});

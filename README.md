@@ -1,5 +1,7 @@
 # All season investor FE Project
 
+复利小管家的前端工程，基于NextJs、React构建的前端工程。
+
 ## 技术栈
 
 * React
@@ -41,3 +43,10 @@
 
 [Add login / authentication example](https://github.com/zeit/next.js/issues/153)
 
+### 许可（License）
+
+Copyright (c) [ninemilli.song](https://github.com/ninemilli-song)
+
+[MIT License][MIT]
+
+[MIT]: ./LICENSE "Mit License"
