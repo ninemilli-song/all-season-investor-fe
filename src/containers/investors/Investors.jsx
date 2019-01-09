@@ -1,9 +1,13 @@
 import React from 'react';
-import { Table } from 'antd';
+import { inject, observer } from 'mobx-react';
+import { getSnapshot } from 'mobx-state-tree';
 import Link from 'next/link';
+import { Table } from 'antd';
 
-class InvestorsModule extends React.Component {
-    prefixCls = 'investors-module';
+@inject('investors')
+@observer
+class InvestorsContainer extends React.Component {
+    prefixCls = 'investors';
 
     // 表列定义
     columnsDef = [
@@ -46,19 +50,25 @@ class InvestorsModule extends React.Component {
     render() {
         const { investors } = this.props;
 
+        // 处理数据添加key
+        const datas = getSnapshot(investors).map((item) => {
+            return Object.assign({}, item, {
+                key: item.id
+            });
+        });
+
         return (
-            <div>
+            <div className={`${this.prefixCls}`}>
                 <Table 
-                    dataSource={investors} 
+                    dataSource={datas} 
                     columns={this.columnsDef}
                     bordered
                     title={() => ''}
                     footer={() => ''}
                 />
             </div>
-            
         );
     }
 }
 
-export default InvestorsModule;
+export default InvestorsContainer;

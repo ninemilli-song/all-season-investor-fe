@@ -4,7 +4,7 @@ import { Provider } from 'mobx-react';
 import { getSnapshot } from 'mobx-state-tree';
 import pageWithIntl from '../components/PageWithIntl.js';
 import initUserListStore from '../stores/AssetStore.js';
-import Investors from '../containers/Investors';
+import Investors from '../containers/investors';
 import axios from '../util/api';
 // import withAuth from '../util/withAuth';
 import './index.scss';
