@@ -9,6 +9,7 @@ import AssetDetailAllocation from '../containers/asset-details';
 import AssetDetailAnalysis from '../containers/asset-analysis';
 import initUserListStore from '../stores/AssetStore.js';
 import './css/asset-detail.scss';
+import withAuth from '../util/withAuth';
 
 class AssetDetail extends React.Component {
     static async getInitialProps({ req, query }) {
@@ -53,4 +54,4 @@ class AssetDetail extends React.Component {
     }
 }
 
-export default pageWithIntl(AssetDetail);
+export default withAuth(pageWithIntl(AssetDetail));

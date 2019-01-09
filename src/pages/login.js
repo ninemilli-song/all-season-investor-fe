@@ -32,7 +32,7 @@ class Login extends React.Component {
                 login(vals.username, vals.password).then((res) => {
                     console.log('🎸 Login in success ------> ', res);
                     userStore.update(res.user);
-                    this.gotoHomePage();
+                    this.goBack();
                 }).catch((error) => {
                     console.log('❗️ Login error------>', error);
                 });
@@ -40,8 +40,18 @@ class Login extends React.Component {
         });
     }
 
+    /**
+     * 跳转首页
+     */
     gotoHomePage = () => {
         Router.push('/');
+    }
+
+    /**
+     * 回退到跳转前页面
+     */
+    goBack = () => {
+        Router.back();
     }
 
     render() {

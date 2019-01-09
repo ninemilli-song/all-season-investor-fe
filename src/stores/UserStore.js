@@ -1,4 +1,5 @@
 import { types, applySnapshot, flow } from 'mobx-state-tree';
+import Router from 'next/router';
 import { logout } from '../util/AuthService';
 import axios from '../util/api';
 
@@ -43,6 +44,10 @@ const UserStore = types
                 email: '',
                 mobile: ''
             });
+
+            // 刷新当前页面，触发重新渲染
+            const currentPath = Router.route;
+            Router.replace(currentPath);
         };
 
         return {

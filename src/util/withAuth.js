@@ -26,16 +26,28 @@ export default function withAuth(AuthComponent) {
         }
 
         componentDidMount() {
+            this.loggedInChangeState();
+        }
+
+        componentWillReceiveProps() {
+            this.loggedInChangeState();
+        }
+
+        gotoLogin = () => {
+            Router.push('/login');
+        }
+
+        /**
+         * 如果用户已登陆则改变loading状态
+         * 否则跳转login页面
+         */
+        loggedInChangeState = () => {
             if (!loggedIn()) {
                 this.gotoLogin();
             }
             this.setState({
                 isLoading: false
             });
-        }
-
-        gotoLogin = () => {
-            Router.push('/login');
         }
 
         render() {
