@@ -3,7 +3,9 @@
  */
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import { Table } from 'antd';
+import {
+    Table, Divider, Icon, Popconfirm, Button 
+} from 'antd';
 import { loggedIn } from '../../util/AuthService';
 import LoadingIcon from '../../components/LoadingIcon';
 import { TableEditableFormRow, TableEditableCell } from '../../components/TableEditableComponents';
@@ -49,6 +51,28 @@ class AssetDetails extends React.Component {
             width: 200,
             editable: true
         },
+        {
+            title: '操作',
+            align: 'center',
+            render: data => (
+                <div>
+                    <a data-data={data.id} onClick={this.onEdit} role="presentation">
+                        <Icon type="edit" />
+                    </a>
+                    <Divider type="vertical" />
+                    <a>
+                        <Popconfirm 
+                            title="亲！确定删除此资产么？" 
+                            icon={<Icon type="question-circle-o" style={{ color: 'red' }} />}
+                            data-data={data.id}
+                            onConfirm={() => { this.onDelete(data.id); }}
+                        >
+                            <Icon type="delete" />
+                        </Popconfirm>
+                    </a>
+                </div>
+            )
+        }
     ];
 
     paginationSize = 5;
@@ -75,6 +99,21 @@ class AssetDetails extends React.Component {
         const { id, amount } = row;
 
         assets.updateAsset(id, parseFloat(amount));
+    }
+
+    /**
+     * 编辑资产
+     */
+    onEdit = (e) => {
+        const data = e.currentTarget.dataset;
+        console.log('onedit dataset: ', data);
+    }
+
+    /**
+     * 删除资产
+     */
+    onDelete = (id) => {
+        console.log('onDelete id: ', id);
     }
 
     render() {
@@ -112,9 +151,14 @@ class AssetDetails extends React.Component {
                 <h3>
                     {'资产配置'}
                 </h3>
-                <span className={`${this.prefix}-totalAmount`}>
-                    {`总资产 -- ${this.totalAmount}`}
-                </span>
+                <div className={`${this.prefix}-header clearfix`}>
+                    <span className={`${this.prefix}-totalAmount`}>
+                        {`总资产 -- ${this.totalAmount}`}
+                    </span>
+                    <div className={`${this.prefix}-operator floatRight`}>
+                        <Button type="primary" icon="plus">添加新资产</Button>
+                    </div>
+                </div>
                 <div>
                     <Table 
                         components={components}

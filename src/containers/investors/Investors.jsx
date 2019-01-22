@@ -13,38 +13,38 @@ class InvestorsContainer extends React.Component {
     columnsDef = [
         {
             title: '姓名',
-            dataInde: 'name',
+            dataIndex: 'name',
             key: 'name',
-            render: data => (
-                <Link href={{ pathname: '/asset-detail', query: { id: data.id } }}>
-                    <a>{data.name}</a>
+            render: (text, record) => (
+                <Link href={{ pathname: '/asset-detail', query: { id: record.id } }}>
+                    <a>{text}</a>
                 </Link>
             ),
         },
         {
             title: '性别',
-            dataInde: 'sex',
+            dataIndex: 'sex',
             key: 'sex',
-            render: data => <span>{ data.sex }</span>,
+            render: data => <span>{ data }</span>,
         },
         {
             title: '手机',
-            dataInde: 'mobile',
+            dataIndex: 'mobile',
             key: 'mobile',
-            render: data => <span>{ data.mobile }</span>,
+            render: data => <span>{ data }</span>,
         },
         {
             title: '电子邮箱',
-            dataInde: 'email',
+            dataIndex: 'email',
             key: 'email',
-            render: data => <span>{ data.email }</span>,
+            render: data => <span>{ data }</span>,
         },
         {
             title: '资产',
-            dataInde: 'amount',
+            dataIndex: 'amount',
             key: 'amount',
-            render: data => <span>{ data.amount }</span>,
-        },
+            render: data => <span>{ data }</span>,
+        }
     ];
 
     render() {
