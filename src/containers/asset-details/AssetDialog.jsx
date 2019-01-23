@@ -7,7 +7,7 @@ import { Modal } from 'antd';
 import PropTypes from 'prop-types';
 import AssetForm from './AssetForm';
 
-const AssetDialogAction = {
+export const AssetDialogAction = {
     NEW: 'new',
     EDIT: 'edit'
 };
@@ -17,33 +17,25 @@ class AssetDialog extends React.Component {
 
     static defaultProps = {
         action: AssetDialogAction.NEW,
-        onCommit: () => {},
         data: {},
         loading: false,
         visible: false
     }
 
-    onCommit = () => {
-        const { onCommit } = this.props;
-
-        onCommit();
-    }
-
     render() {
         const { 
-            action, 
-            data, 
-            loading, 
-            visible 
+            action,
+            data,
+            loading,
+            ...otherProps
         } = this.props;
 
         return (
             <div className={`${this.prefixCls}`}>
                 <Modal
                     title={action === AssetDialogAction.NEW ? '新增资产' : '编辑资产'}
-                    onOk={this.onCommit}
-                    visible={visible}
                     confirmLoading={loading}
+                    {...otherProps}
                 >
                     <AssetForm
                         data={data}
@@ -56,7 +48,6 @@ class AssetDialog extends React.Component {
 
 AssetDialog.propTypes = {
     action: PropTypes.string, // 'new'|'edit' 
-    onCommit: PropTypes.func,
     data: PropTypes.object,
     loading: PropTypes.bool,
     visible: PropTypes.bool

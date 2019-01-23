@@ -17,18 +17,40 @@ class AssetForm extends React.Component {
     render() {
         const { form, data } = this.props;
         const { getFieldDecorator } = form;
+        const formItemLayout = {
+            labelCol: { span: 6 },
+            wrapperCol: { span: 14 },
+        };
 
         return (
             <div className={`${this.prefixCls}`}>
                 <Form>
-                    <Form.Item>
+                    <Form.Item
+                        {...formItemLayout}
+                        label="资产名"
+                    >
                         {
                             getFieldDecorator('name', {
-                                rules: [{ required: true, message: '亲，请输入您的用户名!' }]
+                                rules: [{ required: true, message: '亲，请输入资产名!' }],
+                                initialValue: data.name
                             })(
                                 <Input
-                                    placeholder="用户名"
-                                    defaultValue={data.name}
+                                    placeholder="资产名"
+                                />
+                            )
+                        }
+                    </Form.Item>
+                    <Form.Item
+                        {...formItemLayout}
+                        label="资产等级"
+                    >
+                        {
+                            getFieldDecorator('category', {
+                                rules: [{ required: true, message: '亲，请输入资产等级!' }],
+                                initialValue: data.name
+                            })(
+                                <Input
+                                    placeholder="资产等级"
                                 />
                             )
                         }

@@ -10,6 +10,7 @@ import { loggedIn } from '../../util/AuthService';
 import LoadingIcon from '../../components/LoadingIcon';
 import { TableEditableFormRow, TableEditableCell } from '../../components/TableEditableComponents';
 import './style.scss';
+import AssetDialog, { AssetDialogAction } from './AssetDialog';
 
 @inject('assets', 'investorId')
 @observer
@@ -56,7 +57,7 @@ class AssetDetails extends React.Component {
             align: 'center',
             render: data => (
                 <div>
-                    <a data-data={data.id} onClick={this.onEdit} role="presentation">
+                    <a data-id={data.id} onClick={this.onEdit} role="presentation">
                         <Icon type="edit" />
                     </a>
                     <Divider type="vertical" />
@@ -78,6 +79,18 @@ class AssetDetails extends React.Component {
     paginationSize = 5;
 
     currentPage = 1;
+
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+            assetDialogOpts: {
+                visible: false,
+                action: AssetDialogAction.NEW,
+                data: {}
+            }
+        };
+    }
 
     componentDidMount() {
         const { assets, investorId } = this.props;
@@ -102,11 +115,55 @@ class AssetDetails extends React.Component {
     }
 
     /**
+     * 新增资产
+     */
+    onAdd = () => {
+        this.setState({
+            assetDialogOpts: {
+                visible: true,
+                action: AssetDialogAction.NEW,
+                data: {}
+            }
+        });
+    }
+
+    /**
      * 编辑资产
      */
     onEdit = (e) => {
-        const data = e.currentTarget.dataset;
-        console.log('onedit dataset: ', data);
+        const { assets } = this.props;
+        const { assetsData } = assets;
+        const { id } = e.currentTarget.dataset;
+        
+        const data = assetsData.find(item => item.id === Number(id));
+
+        this.setState({
+            assetDialogOpts: {
+                visible: true,
+                action: AssetDialogAction.EDIT,
+                data
+            }
+        });
+    }
+
+    onCloseDialog = () => {
+        this.setState({
+            assetDialogOpts: {
+                visible: false,
+                action: AssetDialogAction.NEW,
+                data: {}
+            }
+        });
+    }
+
+    onDialogSubmit = () => {
+        this.setState({
+            assetDialogOpts: {
+                visible: false,
+                action: AssetDialogAction.NEW,
+                data: {}
+            }
+        });
     }
 
     /**
@@ -118,6 +175,7 @@ class AssetDetails extends React.Component {
 
     render() {
         const { assets } = this.props;
+        const { assetDialogOpts } = this.state;
 
         const { assetsData } = assets;
 
@@ -156,7 +214,7 @@ class AssetDetails extends React.Component {
                         {`总资产 -- ${this.totalAmount}`}
                     </span>
                     <div className={`${this.prefix}-operator floatRight`}>
-                        <Button type="primary" icon="plus">添加新资产</Button>
+                        <Button type="primary" icon="plus" onClick={this.onAdd}>添加新资产</Button>
                     </div>
                 </div>
                 <div>
@@ -179,6 +237,11 @@ class AssetDetails extends React.Component {
                         }}
                     />
                 </div>
+                <AssetDialog
+                    {...assetDialogOpts}
+                    onCancel={this.onCloseDialog}
+                    onOk={this.onDialogSubmit}
+                />
             </div>
         );
     }
