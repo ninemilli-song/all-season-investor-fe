@@ -26,21 +26,21 @@ const SafeLevel = types.model({
 });
 
 /**
- * 资产分类
+ * 资产类目
  */
 const AssetCategory = types.model({
     name: types.string,
     code: types.string,
-    bucket: SafeLevel
+    level: SafeLevel
 });
 
 /**
- * 资产类型
+ * 资产品种
  */
 const AssetType = types.model({
     name: types.string,
     code: types.string,
-    type: AssetCategory
+    category: AssetCategory
 });
 
 /**

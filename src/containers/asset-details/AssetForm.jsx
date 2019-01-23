@@ -11,7 +11,7 @@ class AssetForm extends React.Component {
     prefixCls = 'asi-asset-from';
 
     static defaultProps = {
-        data: {},
+        data: null,
     }
 
     render() {
@@ -27,30 +27,60 @@ class AssetForm extends React.Component {
                 <Form>
                     <Form.Item
                         {...formItemLayout}
-                        label="资产名"
+                        label="资产品种名称"
                     >
                         {
                             getFieldDecorator('name', {
-                                rules: [{ required: true, message: '亲，请输入资产名!' }],
-                                initialValue: data.name
+                                rules: [{ required: true, message: '亲，请输入资产品种名称!' }],
+                                initialValue: data ? data.type.name : ''
                             })(
                                 <Input
-                                    placeholder="资产名"
+                                    placeholder="资产品种名称"
                                 />
                             )
                         }
                     </Form.Item>
                     <Form.Item
                         {...formItemLayout}
-                        label="资产等级"
+                        label="资产品种代码"
+                    >
+                        {
+                            getFieldDecorator('code', {
+                                rules: [{ required: true, message: '亲，请输入资产品种代码!' }],
+                                initialValue: data ? data.type.code : ''
+                            })(
+                                <Input
+                                    placeholder="资产品种代码"
+                                />
+                            )
+                        }
+                    </Form.Item>
+                    <Form.Item
+                        {...formItemLayout}
+                        label="资产类型"
                     >
                         {
                             getFieldDecorator('category', {
-                                rules: [{ required: true, message: '亲，请输入资产等级!' }],
-                                initialValue: data.name
+                                rules: [{ required: true, message: '亲，请选择对应的资产类型!' }],
+                                initialValue: data ? data.type.type.name : ''
                             })(
                                 <Input
-                                    placeholder="资产等级"
+                                    placeholder="资产类型"
+                                />
+                            )
+                        }
+                    </Form.Item>
+                    <Form.Item
+                        {...formItemLayout}
+                        label="当前金额"
+                    >
+                        {
+                            getFieldDecorator('amount', {
+                                rules: [{ required: true, message: '亲，请该资产当前金额!' }],
+                                initialValue: data ? data.amount : ''
+                            })(
+                                <Input
+                                    placeholder="资产类型"
                                 />
                             )
                         }
