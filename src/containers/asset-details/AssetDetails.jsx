@@ -87,7 +87,7 @@ class AssetDetails extends React.Component {
             assetDialogOpts: {
                 visible: false,
                 action: AssetDialogAction.NEW,
-                data: {}
+                data: null
             }
         };
     }
@@ -122,7 +122,7 @@ class AssetDetails extends React.Component {
             assetDialogOpts: {
                 visible: true,
                 action: AssetDialogAction.NEW,
-                data: {}
+                data: null
             }
         });
     }
@@ -147,24 +147,25 @@ class AssetDetails extends React.Component {
     }
 
     onCloseDialog = () => {
-        this.setState({
-            assetDialogOpts: {
-                visible: false,
-                action: AssetDialogAction.NEW,
-                data: {}
-            }
-        });
+        this.closeDialog();
     }
 
     onDialogSubmit = () => {
-        this.setState({
-            assetDialogOpts: {
-                visible: false,
-                action: AssetDialogAction.NEW,
-                data: {}
-            }
-        });
+        this.closeDialog();
     }
+
+  /**
+   * 关闭对话框
+   */
+  closeDialog = () => {
+      this.setState({
+          assetDialogOpts: {
+              visible: false,
+              action: AssetDialogAction.NEW,
+              data: null
+          }
+      });
+  };
 
     /**
      * 删除资产

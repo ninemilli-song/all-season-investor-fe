@@ -32,7 +32,7 @@ class AssetForm extends React.Component {
                         {
                             getFieldDecorator('name', {
                                 rules: [{ required: true, message: '亲，请输入资产品种名称!' }],
-                                initialValue: data ? data.type.name : ''
+                                initialValue: (data && data.type) ? data.type.name : ''
                             })(
                                 <Input
                                     placeholder="资产品种名称"
@@ -47,7 +47,7 @@ class AssetForm extends React.Component {
                         {
                             getFieldDecorator('code', {
                                 rules: [{ required: true, message: '亲，请输入资产品种代码!' }],
-                                initialValue: data ? data.type.code : ''
+                                initialValue: (data && data.type) ? data.type.code : ''
                             })(
                                 <Input
                                     placeholder="资产品种代码"
@@ -62,7 +62,7 @@ class AssetForm extends React.Component {
                         {
                             getFieldDecorator('category', {
                                 rules: [{ required: true, message: '亲，请选择对应的资产类型!' }],
-                                initialValue: data ? data.type.type.name : ''
+                                initialValue: (data && data.type) ? data.type.category.name : ''
                             })(
                                 <Input
                                     placeholder="资产类型"
