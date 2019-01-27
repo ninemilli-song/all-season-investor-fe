@@ -6,9 +6,8 @@ import { observer, inject } from 'mobx-react';
 import {
   Table, Divider, Icon, Popconfirm, Button 
 } from 'antd';
-import { loggedIn } from '../../util/AuthService';
+// import { loggedIn } from '../../util/AuthService';
 import LoadingIcon from '../../components/LoadingIcon';
-import { TableEditableFormRow, TableEditableCell } from '../../components/TableEditableComponents';
 import './style.scss';
 import AssetDialog, { AssetDialogAction } from './AssetDialog';
 
@@ -23,6 +22,7 @@ class AssetDetails extends React.Component {
       title: '序号',
       dataIndex: 'id',
       key: 'type.code',
+      width: 80,
       render: (text, row, index) => (
         <span>
           { (this.currentPage - 1) * this.paginationSize + index + 1 }
@@ -33,16 +33,19 @@ class AssetDetails extends React.Component {
       title: '名称',
       dataIndex: 'type.name',
       key: 'type.name',
+      width: 200,
     },
     {
       title: '类型',
-      dataIndex: 'type.type.name',
-      key: 'type.type.name',
+      dataIndex: 'type.category.name',
+      key: 'type.category.name',
+      width: 200,
     },
     {
       title: '安全类别',
-      dataIndex: 'type.type.bucket.name',
-      key: 'type.type.bucket.name',
+      dataIndex: 'type.category.level.name',
+      key: 'type.category.level.name',
+      width: 200,
     },
     {
       title: '资产',
@@ -55,6 +58,8 @@ class AssetDetails extends React.Component {
     {
       title: '操作',
       align: 'center',
+      width: 80,
+      fixed: 'right',
       render: data => (
         <div>
           <a data-id={data.id} onClick={this.onEdit} role="presentation">
@@ -115,7 +120,7 @@ class AssetDetails extends React.Component {
     const { id, amount } = row;
 
     assets.updateAsset(id, parseFloat(amount));
-  }
+  };
 
   /**
    * 新增资产
@@ -128,7 +133,7 @@ class AssetDetails extends React.Component {
         data: null
       }
     });
-  }
+  };
 
   /**
    * 编辑资产
@@ -178,12 +183,12 @@ class AssetDetails extends React.Component {
     });
   };
 
-    /**
-     * 删除资产
-     */
-    onDelete = (id) => {
-      console.log('onDelete id: ', id);
-    };
+  /**
+   * 删除资产
+   */
+  onDelete = (id) => {
+    console.log('onDelete id: ', id);
+  };
 
   /**
    * 获取Form对象引用
@@ -198,12 +203,12 @@ class AssetDetails extends React.Component {
 
     const { assetsData } = assets;
 
-    const components = {
-      body: {
-        row: TableEditableFormRow,
-        cell: TableEditableCell
-      }
-    };
+    // const components = {
+    //   body: {
+    //     row: TableEditableFormRow,
+    //     cell: TableEditableCell
+    //   }
+    // };
 
     const columnsDef = this.columnsDef.map((col) => {
       if (!col.editable) {
@@ -213,7 +218,7 @@ class AssetDetails extends React.Component {
         ...col,
         onCell: record => ({
           record,
-          editable: loggedIn() ? col.editable : false,
+          // editable: loggedIn() ? col.editable : false,
           dataIndex: col.dataIndex,
           title: col.title,
           handleSave: this.handleSave
@@ -237,8 +242,8 @@ class AssetDetails extends React.Component {
           </div>
         </div>
         <div>
-          <Table 
-            components={components}
+          <Table
+            // components={components}
             rowClassName={() => 'editable-row'}
             dataSource={assetsData} 
             columns={columnsDef}
