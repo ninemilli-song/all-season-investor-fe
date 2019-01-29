@@ -19,7 +19,10 @@ class Index extends React.Component {
         const data = await axios.get('investors').catch(error => console.log('catch errorrr ------> ', error));
         // const { data } = response;
 
-        const initUserList = getSnapshot(initUserListStore(isServer, { investors: data || [] }));
+        const initUserList = getSnapshot(initUserListStore(isServer, {
+            investors: data || [],
+            loading: false
+        }));
 
         return {
             title: 'Home Page',

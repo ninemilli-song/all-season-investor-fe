@@ -160,8 +160,10 @@ class AssetDetails extends React.Component {
 
     onDialogSubmit = (data) => {
         const { assets } = this.props;
-        console.log('dialog submit data: ', data);
+        // console.log('dialog submit data: ', data);
         assets.updateAsset(data.id, data.amount);
+
+        this.closeDialog();
     };
 
     /**
@@ -197,29 +199,6 @@ class AssetDetails extends React.Component {
 
         const { assetsData } = assets;
 
-        // const components = {
-        //   body: {
-        //     row: TableEditableFormRow,
-        //     cell: TableEditableCell
-        //   }
-        // };
-
-        const columnsDef = this.columnsDef.map((col) => {
-            if (!col.editable) {
-                return col;
-            }
-            return {
-                ...col,
-                onCell: record => ({
-                    record,
-                    // editable: loggedIn() ? col.editable : false,
-                    dataIndex: col.dataIndex,
-                    title: col.title,
-                    handleSave: this.handleSave
-                })
-            };
-        });
-
         const loading = !(assetsData.length > 0);
 
         return (
@@ -237,17 +216,14 @@ class AssetDetails extends React.Component {
                 </div>
                 <div>
                     <Table
-                        // components={components}
                         rowClassName={() => 'editable-row'}
                         dataSource={assetsData}
-                        columns={columnsDef}
+                        columns={this.columnsDef}
                         size="small"
-                        // scroll={{ x: 500, y: 500 }}
                         bordered
                         loading={loading ? { indicator: LoadingIcon() } : false}
                         pagination={{
                             pageSize: this.paginationSize,
-                            // size: 'small'
                         }}
                         onChange={(pagination) => {
                             const { current } = pagination;

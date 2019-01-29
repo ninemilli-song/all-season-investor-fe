@@ -1,8 +1,11 @@
 /**
  * User asset store
  */
-import { types, applySnapshot, flow } from 'mobx-state-tree';
+import {
+    types, applySnapshot, flow, addMiddleware 
+} from 'mobx-state-tree';
 import axios from '../util/api';
+import { promiseMiddleware } from '../util/middleware';
 
 /**
  * 投资者模型
@@ -88,7 +91,9 @@ const AssetsStore = types
         // 资产详情列表
         assets: types.array(AssetItem),
         // 资产分析数据
-        assetAnalyses: types.array(AssetAnalysis)
+        assetAnalyses: types.array(AssetAnalysis),
+        // 异步状态
+        loading: types.boolean
     })
     .views(self => ({
         get assetsData() {
@@ -118,6 +123,8 @@ const AssetsStore = types
 
         // 更新投资者资产信息
         const updateAsset = flow(function* updateAsset(id, amount) {
+            self.loading = true;
+
             // 更新服务数据
             yield axios.put(`assets/${id}/`, {
                 amount
@@ -129,6 +136,10 @@ const AssetsStore = types
                     item.amount = amount;
                 }
             });
+
+            self.loading = false;
+
+            return true;
         });
 
         // 获取资产分析数据
@@ -265,15 +276,21 @@ export default function initUserListStore(iserver, snapshot = null) {
         assetsStore = AssetsStore.create({
             investors: [],
             assets: [],
-            assetAnalyses: []
+            assetAnalyses: [],
+            loading: false
         });
+
+        addMiddleware(assetsStore, promiseMiddleware(assetsStore));
     }
     if (assetsStore === null) {
         assetsStore = AssetsStore.create({
             investors: [],
             assets: [],
-            assetAnalyses: []
+            assetAnalyses: [],
+            loading: false
         });
+
+        addMiddleware(assetsStore, promiseMiddleware(assetsStore));
     }
     if (snapshot) {
         applySnapshot(assetsStore, snapshot);
