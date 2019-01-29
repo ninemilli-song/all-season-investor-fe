@@ -7,6 +7,7 @@
 * React
 * NextJs
 * Mobx
+* mobx-state-tree
 * Ant Design
 * React Intl
 * Server Render
@@ -28,7 +29,7 @@
 │   │   ├── asset-detail.js # 资产详情页面
 │   │   └── index.js        # 应用首页
 │   ├── util                # 工具代码
-│   └── stores              # 状态配置
+│   └── stores              # 状态配置 MST
 ```
 
 ## 作者

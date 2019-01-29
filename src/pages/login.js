@@ -9,7 +9,7 @@ import './css/login.scss';
 
 @Form.create()
 class Login extends React.Component {
-    prefixCls = 'asi-login'
+    prefixCls = 'asi-login';
 
     // static async getInitialProps({ req }) {
     //     const isServer = !!req;
@@ -38,21 +38,21 @@ class Login extends React.Component {
                 });
             }
         });
-    }
+    };
 
     /**
      * 跳转首页
      */
     gotoHomePage = () => {
         Router.push('/');
-    }
+    };
 
     /**
      * 回退到跳转前页面
      */
     goBack = () => {
         Router.back();
-    }
+    };
 
     render() {
         const { form } = this.props;
