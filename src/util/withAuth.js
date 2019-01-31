@@ -20,6 +20,7 @@ export default function withAuth(AuthComponent) {
 
         constructor(props) {
             super(props);
+
             this.state = {
                 isLoading: true
             };
@@ -35,7 +36,7 @@ export default function withAuth(AuthComponent) {
 
         gotoLogin = () => {
             Router.push('/login');
-        }
+        };
 
         /**
          * 如果用户已登陆则改变loading状态
@@ -44,11 +45,12 @@ export default function withAuth(AuthComponent) {
         loggedInChangeState = () => {
             if (!loggedIn()) {
                 this.gotoLogin();
+            } else {
+                this.setState({
+                    isLoading: false
+                });
             }
-            this.setState({
-                isLoading: false
-            });
-        }
+        };
 
         render() {
             const { isLoading } = this.state;

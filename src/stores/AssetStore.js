@@ -280,7 +280,7 @@ export default function initUserListStore(iserver, snapshot = null) {
             loading: false
         });
 
-        addMiddleware(assetsStore, promiseMiddleware(assetsStore));
+        // addMiddleware(assetsStore, promiseMiddleware(assetsStore));
     }
     if (assetsStore === null) {
         assetsStore = AssetsStore.create({
@@ -290,7 +290,7 @@ export default function initUserListStore(iserver, snapshot = null) {
             loading: false
         });
 
-        addMiddleware(assetsStore, promiseMiddleware(assetsStore));
+        // addMiddleware(assetsStore, promiseMiddleware(assetsStore));
     }
     if (snapshot) {
         applySnapshot(assetsStore, snapshot);

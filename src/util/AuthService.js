@@ -29,7 +29,6 @@ function setToken(idToken) {
     }
 
     JWT_TOKEN = idToken;
-    console.log('set token ------> ', idToken);
 }
 
 function getToken() {
@@ -75,7 +74,7 @@ function isTokenExpired(token) {
 function loggedIn() {
     // Checks if there is a saved token and it's still valid
     const token = getToken();
-    console.log('get token ------> \n', token);
+
     return !!token && !isTokenExpired(token); // handwaiving here
 }
 
