@@ -20,10 +20,6 @@ axios.defaults.withCredentials = true;
  */
 const instance = axios.create();
 
-// testMethod();
-
-// testAxios();
-
 /**
  * Add Request interceptor
  */

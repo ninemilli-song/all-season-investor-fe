@@ -46,7 +46,7 @@ const UserStore = types
             });
 
             // 刷新当前页面，触发重新渲染
-            const currentPath = Router.route;
+            const currentPath = Router.asPath;
             Router.replace(currentPath);
         };
 
