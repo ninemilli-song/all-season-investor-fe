@@ -10,6 +10,7 @@ import {
 import LoadingIcon from '../../components/LoadingIcon';
 import './style.scss';
 import AssetDialog, { AssetDialogAction } from './AssetDialog';
+import { formatCurrency } from '../../util/common';
 
 @inject('assets', 'investorId')
 @observer
@@ -53,7 +54,12 @@ class AssetDetails extends React.Component {
             key: 'amount',
             align: 'right',
             width: 200,
-            editable: true
+            editable: true,
+            render: value => (
+                <span>
+                    { formatCurrency(value) }
+                </span>
+            )
         },
         {
             title: '操作',
@@ -208,7 +214,7 @@ class AssetDetails extends React.Component {
                 </h3>
                 <div className={`${this.prefix}-header clearfix`}>
                     <span className={`${this.prefix}-totalAmount`}>
-                        {`总资产 -- ${this.totalAmount}`}
+                        {`总资产 -- ${formatCurrency(this.totalAmount)}`}
                     </span>
                     <div className={`${this.prefix}-operator floatRight`}>
                         <Button type="primary" icon="plus" onClick={this.onAdd}>添加新资产</Button>

@@ -3,10 +3,11 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { formatCurrency } from '../util/common';
 import './css/assetDetailAnalysisDescriptionItem.scss';
 
 class AssetDetailAnalysisDescriptionItem extends React.Component {
-    prefixCls = 'asset-detail-analysis-des-item'
+    prefixCls = 'asset-detail-analysis-des-item';
 
     render() {
         const { data } = this.props;
@@ -42,13 +43,13 @@ class AssetDetailAnalysisDescriptionItem extends React.Component {
                         <div className="current">
                             当前金额：
                             <span>
-                                { data ? data.amount : '--' }
+                                { data ? formatCurrency(data.amount) : '--' }
                             </span>
                         </div>
                         <div className="suggest">
                             建议金额：
                             <span>
-                                { data ? data.suggestAmount : '--' }
+                                { data ? formatCurrency(data.suggestAmount) : '--' }
                             </span>
                         </div>
                     </div>
