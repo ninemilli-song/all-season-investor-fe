@@ -2,10 +2,13 @@
  * User asset store
  */
 import {
-    types, applySnapshot, flow, addMiddleware 
+    types,
+    applySnapshot,
+    flow,
+    // addMiddleware
 } from 'mobx-state-tree';
 import axios from '../util/api';
-import { promiseMiddleware } from '../util/middleware';
+// import { promiseMiddleware } from '../util/middleware';
 
 /**
  * 投资者模型
@@ -15,7 +18,7 @@ const Investor = types.model({
     name: types.string,
     mobile: types.string,
     email: types.string,
-    sex: types.string,
+    sex: types.maybeNull(types.string),
     amount: types.number
 });
 

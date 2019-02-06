@@ -16,8 +16,7 @@ class Index extends React.Component {
         console.log('🚥 ------> page getInitialProps');
         console.log('Index AssetDetail is server render ? ', isServer);
         
-        const data = await axios.get('investors').catch(error => console.log('catch errorrr ------> ', error));
-        // const { data } = response;
+        const data = await axios.get('profile').catch(() => {});
 
         const initUserList = getSnapshot(initUserListStore(isServer, {
             investors: data || [],
