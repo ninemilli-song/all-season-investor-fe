@@ -12,14 +12,10 @@ import './index.scss';
 class Index extends React.Component {
     static async getInitialProps({ req }) {
         const isServer = !!req;
-
-        console.log('🚥 ------> page getInitialProps');
         console.log('Index AssetDetail is server render ? ', isServer);
-        
-        const data = await axios.get('profile').catch(() => {});
 
         const initUserList = getSnapshot(initUserListStore(isServer, {
-            investors: data || [],
+            investors: [],
             loading: false
         }));
 
@@ -33,12 +29,33 @@ class Index extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-        this.userList = initUserListStore(props.isServer, props.initUserList);
+        const userList = initUserListStore(props.isServer, props.initUserList);
+        this.state = {
+            userList
+        };
+    }
+
+    async componentDidMount() {
+        const { isServer } = this.props;
+        // 在componentDidMount中获取异步数据
+        // 解决服务器渲染时发送请求无法携带浏览器中token的问题
+        const data = await axios.get('profile').catch(() => {});
+
+        const initUserList = initUserListStore(isServer, {
+            investors: data || [],
+            loading: false
+        });
+
+        this.setState({
+            userList: initUserList
+        });
     }
 
     render() {
+        const { userList } = this.state;
+
         return (
-            <Provider investors={this.userList.investors}>
+            <Provider investors={userList.investors}>
                 <Investors />
             </Provider>
         );
