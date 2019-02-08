@@ -1,5 +1,6 @@
 import axios from 'axios';
 import getConfig from 'next/config';
+import { message } from 'antd';
 import { loggedIn, getToken } from './AuthService';
 // import { testMethod, testAxios } from './common';
 
@@ -50,15 +51,21 @@ instance.interceptors.response.use((response) => {
 }, (error) => {
     const response = error.response || {};
     console.log('🧨 Error Response -----> ', response);
-    let msg = '未知错误';
+    let msg = error.message;
     if (response.status === 401 || response.status === 403) {
+        // 用户权限提示信息
         msg = response.data.detail;
-        return Promise.reject(new Error(msg));
-    } 
-    
+        // message.error(msg);
+        // return Promise.reject(new Error(msg));
+    } else if (response.statusText) {
+        // 服务器状态文本
+        msg = `Server Error ${response.status}: ${response.statusText}`;
+    }
+
+    message.error(msg);
     // server render 的情况下Promise.reject，如果没有进行catch处理会导致服务端运行中断
     // 未捕获异常会导致程序退出 详见 nodejs unhandledRejection事件
-    return Promise.reject(error.response);
+    // return Promise.reject(error.response);
 });
 
 export default instance;

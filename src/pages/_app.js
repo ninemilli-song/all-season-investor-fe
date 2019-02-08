@@ -41,8 +41,6 @@ export default class CustomApp extends App {
 
         // this.userStore = initUserListStore(isServer, userProfile);
         this.userStore.update(userProfile);
-        // this.userStore.username = userProfile.username;
-        // this.userStore.id = userProfile.id;
     }
 
     render() {

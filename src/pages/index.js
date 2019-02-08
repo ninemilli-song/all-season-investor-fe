@@ -39,7 +39,7 @@ class Index extends React.Component {
         const { isServer } = this.props;
         // 在componentDidMount中获取异步数据
         // 解决服务器渲染时发送请求无法携带浏览器中token的问题
-        const data = await axios.get('profile').catch(() => {});
+        const data = await axios.get('profile');
 
         const initUserList = initUserListStore(isServer, {
             investors: data || [],
