@@ -40,6 +40,17 @@ class Login extends React.Component {
         });
     };
 
+    handleConfirmPassword = (rule, value, callback) => {
+        const { form } = this.props;
+        const { getFieldValue } = form;
+        if (value && value !== getFieldValue('password1')) {
+            callback('两次密码输入不一致！');
+        }
+
+        // Note: 必须总是返回一个 callback，否则 validateFieldsAndScroll 无法响应
+        callback();
+    };
+
     /**
      * 跳转首页
      */
@@ -105,7 +116,12 @@ class Login extends React.Component {
                             <Form.Item>
                                 {
                                     getFieldDecorator('password2', {
-                                        rules: [{ required: true, message: '亲，请再次确认您的密码!' }]
+                                        rules: [
+                                            { required: true, message: '亲，请再次确认您的密码!' },
+                                            {
+                                                validator: this.handleConfirmPassword
+                                            }
+                                        ]
                                     })(
                                         <Input
                                             type="password"
