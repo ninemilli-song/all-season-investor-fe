@@ -8,6 +8,10 @@ let JWT_TOKEN = '';
 let USER_PROFILE = '';
 
 function setProfile(profile) {
+    if (!profile) {
+        return;
+    }
+
     // Saves profile data to localStorage
     if (typeof localStorage !== 'undefined') {
         localStorage.setItem('profile', JSON.stringify(profile));
@@ -19,10 +23,21 @@ function setProfile(profile) {
 function getProfile() {
     // Retrieves the profile data from localStorage
     const profile = typeof localStorage !== 'undefined' ? localStorage.getItem('profile') : USER_PROFILE;
-    return profile ? JSON.parse(localStorage.profile) : {};
+
+    let json;
+    try {
+        json = JSON.parse(profile);
+    } catch (e) {
+        json = {};
+    }
+    return json;
 }
 
 function setToken(idToken) {
+    if (!idToken) {
+        return;
+    }
+
     // Saves user token to localStorage
     if (typeof localStorage !== 'undefined') {
         localStorage.setItem(JWT_TOKEN_KEY, idToken);
@@ -59,6 +74,25 @@ async function login(username, password) {
     return res;
 }
 
+/**
+ * 用户注册
+ * @param params
+ * @returns {Promise<any>}
+ */
+async function signup(params) {
+    const res = await axios.post('auth/signup/', params);
+
+    const { token, user } = res;
+
+    // Set token
+    setToken(token);
+
+    // Set profile
+    setProfile(user);
+
+    return res;
+}
+
 function isTokenExpired(token) {
     try {
         const decoded = decode(token);
@@ -67,7 +101,7 @@ function isTokenExpired(token) {
         }
         return false;
     } catch (err) {
-        return false;
+        return true;
     }
 }
 
@@ -91,6 +125,7 @@ export {
     setToken,
     getToken,
     login,
+    signup,
     isTokenExpired,
     loggedIn,
     logout

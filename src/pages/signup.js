@@ -4,7 +4,7 @@ import {
 } from 'antd';
 import Router from 'next/router';
 import pageWithIntl from '../components/PageWithIntl';
-import { loggedIn, login } from '../util/AuthService';
+import { loggedIn, signup } from '../util/AuthService';
 import './css/login.scss';
 
 @Form.create()
@@ -26,15 +26,15 @@ class Login extends React.Component {
     handleSubmit = (e) => {
         const { form, userStore } = this.props;
         e.preventDefault();
-    
+
         form.validateFields(async (err, vals) => {
             if (!err) {
-                login(vals.username, vals.password).then((res) => {
-                    console.log('🎸 Login in success ------> ', res);
+                signup(vals).then((res) => {
+                    console.log('Signup success ------> ', res);
                     userStore.update(res.user);
-                    this.goBack();
+                    this.gotoHomePage();
                 }).catch((error) => {
-                    console.log('❗️ Login error------>', error);
+                    console.log('Signup error------>', error);
                 });
             }
         });
@@ -44,14 +44,7 @@ class Login extends React.Component {
      * 跳转首页
      */
     gotoHomePage = () => {
-        Router.push('/');
-    };
-
-    /**
-     * 回退到跳转前页面
-     */
-    goBack = () => {
-        Router.back();
+        Router.replace('/');
     };
 
     render() {
@@ -69,7 +62,7 @@ class Login extends React.Component {
                                 { WEBSITE_NAME }
                             </h2>
                         </div> */}
-                        <p>亲，请使用您的账号、密码登录系统</p>
+                        <p>亲，请填写信息，进行注册</p>
                         <Form
                             style={{ textAlign: 'left' }}
                             onSubmit={this.handleSubmit}
@@ -81,20 +74,42 @@ class Login extends React.Component {
                                         rules: [{ required: true, message: '亲，请输入您的用户名!' }]
                                     })(
                                         <Input
-                                            placeholder="用户名"
+                                            placeholder="呢称"
                                         />
                                     )
                                 }
                             </Form.Item>
                             <Form.Item>
                                 {
-                                    getFieldDecorator('password', {
-                                        // initialValue: password,
-                                        rules: [{ required: true, message: '请输入密码!' }]
+                                    getFieldDecorator('mobile', {
+                                        rules: [{ required: true, message: '亲，请输入有效的手机号码进行注册!' }]
+                                    })(
+                                        <Input
+                                            placeholder="手机号码"
+                                        />
+                                    )
+                                }
+                            </Form.Item>
+                            <Form.Item>
+                                {
+                                    getFieldDecorator('password1', {
+                                        rules: [{ required: true, message: '亲，请设置您的密码!' }]
                                     })(
                                         <Input
                                             type="password"
                                             placeholder="密码"
+                                        />
+                                    )
+                                }
+                            </Form.Item>
+                            <Form.Item>
+                                {
+                                    getFieldDecorator('password2', {
+                                        rules: [{ required: true, message: '亲，请再次确认您的密码!' }]
+                                    })(
+                                        <Input
+                                            type="password"
+                                            placeholder="确认密码"
                                         />
                                     )
                                 }
@@ -110,19 +125,10 @@ class Login extends React.Component {
                                         //     <Spin />
                                         // ) : ''
                                     }
-                                    登录
+                                    注册
                                 </Button>
                             </Form.Item>
                         </Form>
-                        <p className="clearfix">
-                            <span className="floatLeft">
-                                亲，如果您还未注册？请
-                                <a href="/signup">注册</a>
-                            </span>
-                            <a className="login-form-forgot">
-                                忘记密码？
-                            </a>
-                        </p>
                     </div>
                 </div>
             </div>

@@ -57,6 +57,8 @@ instance.interceptors.response.use((response) => {
         msg = response.data.detail;
         // message.error(msg);
         // return Promise.reject(new Error(msg));
+    } else if (response.data && response.data.message) {
+        msg = JSON.stringify(response.data.message);
     } else if (response.statusText) {
         // 服务器状态文本
         msg = `Server Error ${response.status}: ${response.statusText}`;
