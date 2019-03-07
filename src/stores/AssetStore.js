@@ -126,7 +126,7 @@ const AssetsStore = types
 
         // 更新投资者资产信息
         const updateAsset = flow(function* updateAsset(id, amount) {
-            self.loading = true;
+            // self.loading = true;
 
             // 更新服务数据
             yield axios.put(`assets/${id}/`, {
@@ -140,7 +140,7 @@ const AssetsStore = types
                 }
             });
 
-            self.loading = false;
+            // self.loading = false;
 
             return true;
         });

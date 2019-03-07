@@ -1,9 +1,9 @@
 import React from 'react';
 import { Provider } from 'mobx-react';
 // import { getSnapshot } from 'mobx-state-tree';
-import {
-    Icon, Spin
-} from 'antd';
+// import {
+//     Icon, Spin
+// } from 'antd';
 import {
     FormattedMessage
 } from 'react-intl';
@@ -39,25 +39,25 @@ class AssetDetail extends React.Component {
 
     render() {
         const { investorId } = this.props;
-        const spinIcon = (<Icon type="loading" style={{ fontSize: 24 }} spin />);
+        // const spinIcon = (<Icon type="loading" style={{ fontSize: 24 }} spin />);
 
         return (
             <Provider assets={this.assetsStore} investorId={investorId}>
-                <Spin indicator={spinIcon} spinning={this.assetsStore.loading}>
-                    <div className={`${this.prefixCls}`}>
-                        <div className={`${this.prefixCls}-header`}>
-                            <h2>
-                                <FormattedMessage id="pageTitle" defaultMessage="Asset Analysis" />
-                            </h2>
-                        </div>
-                        <div className={`${this.prefixCls}-allocation`}>
-                            <AssetDetailAllocation />
-                        </div>
-                        <div className={`${this.prefixCls}-category-rate`}>
-                            <AssetDetailAnalysis />
-                        </div>
+                {/* <Spin indicator={spinIcon} spinning={this.assetsStore.loading}> */}
+                <div className={`${this.prefixCls}`}>
+                    <div className={`${this.prefixCls}-header`}>
+                        <h2>
+                            <FormattedMessage id="pageTitle" defaultMessage="Asset Analysis" />
+                        </h2>
                     </div>
-                </Spin>
+                    <div className={`${this.prefixCls}-allocation`}>
+                        <AssetDetailAllocation />
+                    </div>
+                    <div className={`${this.prefixCls}-category-rate`}>
+                        <AssetDetailAnalysis />
+                    </div>
+                </div>
+                {/* </Spin> */}
             </Provider>
         );
     }

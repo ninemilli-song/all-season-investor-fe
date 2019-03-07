@@ -1,5 +1,5 @@
 {
+  "pageTitle": "Asset Analysis",
   "description": "An example app integrating React Intl with Next.js",
-  "greeting": "Hello, World!",
-  "pageTitle": "Asset Analysis"
+  "greeting": "Hello, World!"
 }
