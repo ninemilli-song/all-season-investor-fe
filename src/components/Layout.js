@@ -1,10 +1,15 @@
 import React from 'react';
 import Head from 'next/head';
+import { inject } from 'mobx-react';
 import Header from './Header';
 import Footer from './Footer';
 import './layout.scss';
 
-export default ({ title, children, userStore }) => (
+export default inject('store')(({ 
+    title, 
+    children, 
+    store 
+}) => (
     <div>
         <Head>
             <title>
@@ -22,11 +27,11 @@ export default ({ title, children, userStore }) => (
             }
         </style>
         <div className="asi-app">
-            <Header userStore={userStore} />
+            <Header userStore={store.user} />
             <div className="asi-body">
                 { children }
             </div>
             <Footer />
         </div>
     </div>
-);
+));

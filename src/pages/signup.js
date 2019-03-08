@@ -2,11 +2,15 @@ import React from 'react';
 import {
     Form, Button, Input
 } from 'antd';
+import { inject } from 'mobx-react';
 import Router from 'next/router';
 import pageWithIntl from '../components/PageWithIntl';
 import { loggedIn, signup } from '../util/AuthService';
 import './css/login.scss';
 
+@inject(stores => ({
+    userStore: stores.store.user
+}))
 @Form.create()
 class Login extends React.Component {
     prefixCls = 'asi-login';

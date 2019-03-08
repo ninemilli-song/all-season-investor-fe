@@ -4,7 +4,9 @@ import { getSnapshot } from 'mobx-state-tree';
 import Link from 'next/link';
 import { Table } from 'antd';
 
-@inject('investors')
+@inject(stores => ({
+    asset: stores.store.asset
+}))
 @observer
 class InvestorsContainer extends React.Component {
     prefixCls = 'investors';
@@ -47,8 +49,17 @@ class InvestorsContainer extends React.Component {
         }
     ];
 
+    async componentDidMount() {
+        // 在componentDidMount中获取异步数据
+        // 解决服务器渲染时发送请求无法携带浏览器中token的问题
+        const { asset } = this.props;
+
+        asset.fetchInvestors();
+    }
+
     render() {
-        const { investors } = this.props;
+        const { asset } = this.props;
+        const { investors } = asset;
 
         // 处理数据添加key
         const datas = getSnapshot(investors).map((item) => {

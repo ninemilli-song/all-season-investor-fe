@@ -1,10 +1,11 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 import Router from 'next/router';
+import { Provider } from 'mobx-react';
 import { getSnapshot } from 'mobx-state-tree';
 import Layout from '../components/Layout';
 import { loggedIn, getProfile } from '../util/AuthService';
-import initUserListStore from '../stores/UserStore';
+import initAppStore from '../stores/AppStore';
 import 'normalize.css';
 import '../static/styles/global.scss';
 
@@ -16,18 +17,18 @@ export default class CustomApp extends App {
             pageProps = await Component.getInitialProps(ctx);
         }
 
-        const userProfile = null;
+        // const userProfile = null;
 
         const isServer = !!ctx.req;
-        const userInfo = getSnapshot(initUserListStore(isServer, userProfile));
+        const appInfo = getSnapshot(initAppStore(isServer));
 
-        return { pageProps, userInfo, isServer };
+        return { pageProps, appInfo, isServer };
     }
 
     constructor(props, context) {
         super(props, context);
 
-        this.userStore = initUserListStore(props.isServer, props.userInfo);
+        this.appStore = initAppStore(props.isServer, props.appInfo);
     }
 
     componentDidMount() {
@@ -39,8 +40,7 @@ export default class CustomApp extends App {
             userProfile = getProfile();
         }
 
-        // this.userStore = initUserListStore(isServer, userProfile);
-        this.userStore.update(userProfile);
+        this.appStore.user.update(userProfile);
     }
 
     render() {
@@ -48,9 +48,11 @@ export default class CustomApp extends App {
 
         return (
             <Container>
-                <Layout title={pageProps.title} userStore={this.userStore}>
-                    <Component {...pageProps} userStore={this.userStore} />
-                </Layout>
+                <Provider store={this.appStore}>
+                    <Layout title={pageProps.title}>
+                        <Component {...pageProps} />
+                    </Layout>
+                </Provider>
             </Container>
         );
     }

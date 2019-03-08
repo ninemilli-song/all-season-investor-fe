@@ -12,7 +12,10 @@ import './style.scss';
 import AssetDialog, { AssetDialogAction } from './AssetDialog';
 import { formatCurrency } from '../../util/common';
 
-@inject('assets', 'investorId')
+@inject(stores => ({
+    assets: stores.store.asset,
+    investorId: stores.investorId
+}))
 @observer
 class AssetDetails extends React.Component {
     prefix = 'asset-detail-allocation';

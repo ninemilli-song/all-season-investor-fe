@@ -2,14 +2,7 @@ import { types, applySnapshot, flow } from 'mobx-state-tree';
 import Router from 'next/router';
 import { logout } from '../util/AuthService';
 import axios from '../util/api';
-
-// const User = types.model({
-//     id: types.number,
-//     sex: types.string,
-//     name: types.string,
-//     email: types.string,
-//     mobile: types.string
-// });
+import { AssetsStore } from './AssetStore';
 
 const UserStore = types
     .model({
@@ -57,30 +50,51 @@ const UserStore = types
         };
     });
 
+const AppModel = types.model({
+    user: UserStore,
+    asset: AssetsStore
+});
 
-let userStore = null;
 
-export default function initUserListStore(iserver, snapshot = null) {
+let appStore = null;
+
+export default function initAppStore(iserver, snapshot = null) {
     if (iserver) {
-        userStore = UserStore.create({
-            id: 0,
-            sex: '',
-            name: '',
-            email: '',
-            mobile: ''
+        appStore = AppModel.create({
+            user: {
+                id: 0,
+                sex: '',
+                name: '',
+                email: '',
+                mobile: ''
+            },
+            asset: {
+                investors: [],
+                assets: [],
+                assetAnalyses: [],
+                loading: false
+            }
         });
     }
-    if (userStore === null) {
-        userStore = UserStore.create({
-            id: 0,
-            sex: '',
-            name: '',
-            email: '',
-            mobile: ''
+    if (appStore === null) {
+        appStore = AppModel.create({
+            user: {
+                id: 0,
+                sex: '',
+                name: '',
+                email: '',
+                mobile: ''
+            },
+            asset: {
+                investors: [],
+                assets: [],
+                assetAnalyses: [],
+                loading: false
+            }
         });
     }
     if (snapshot) {
-        applySnapshot(userStore, snapshot);
+        applySnapshot(appStore, snapshot);
     }
-    return userStore;
+    return appStore;
 }

@@ -14,7 +14,10 @@ import AssetDetailAnalysisDescription from '../../components/AssetDetailAnalysis
 import LoadingIcon from '../../components/LoadingIcon';
 import './style.scss';
 
-@inject('assets', 'investorId')
+@inject(stores => ({
+    assets: stores.store.asset,
+    investorId: stores.investorId
+}))
 @observer
 class AssetAnalysis extends React.Component {
     prefixCls = 'asset-detail-analysis'

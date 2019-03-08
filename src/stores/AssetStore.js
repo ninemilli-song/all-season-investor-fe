@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /**
  * User asset store
  */
@@ -87,7 +88,7 @@ const AssetAnalysis = types.model({
 /**
  * 资产数据模型
  */
-const AssetsStore = types
+export const AssetsStore = types
     .model({
     // 投资者列表
         investors: types.array(Investor),
@@ -143,6 +144,12 @@ const AssetsStore = types
             // self.loading = false;
 
             return true;
+        });
+
+        const fetchInvestors = flow(function* () {
+            const data = yield axios.get('profile');
+
+            self.investors = data;
         });
 
         // 获取资产分析数据
@@ -265,7 +272,8 @@ const AssetsStore = types
         return {
             fetchAssets,
             updateAsset,
-            fetchAssetAnalyses
+            fetchAssetAnalyses,
+            fetchInvestors
         };
     });
 

@@ -11,7 +11,6 @@ import { observer } from 'mobx-react/index';
 import pageWithIntl from '../components/PageWithIntl.js';
 import AssetDetailAllocation from '../containers/asset-details';
 import AssetDetailAnalysis from '../containers/asset-analysis';
-import initStore from '../stores/AssetStore.js';
 import './css/asset-detail.scss';
 import withAuth from '../util/withAuth';
 
@@ -19,8 +18,6 @@ import withAuth from '../util/withAuth';
 class AssetDetail extends React.Component {
     static async getInitialProps({ req, query }) {
         const isServer = !!req;
-
-        console.log('Page AssetDetail is server render ? ', isServer);
 
         return {
             title: 'User Asset Detail',
@@ -31,18 +28,12 @@ class AssetDetail extends React.Component {
 
     prefixCls = 'asset-detail';
 
-    constructor(props, context) {
-        super(props, context);
-
-        this.assetsStore = initStore(props.isServer);
-    }
-
     render() {
         const { investorId } = this.props;
         // const spinIcon = (<Icon type="loading" style={{ fontSize: 24 }} spin />);
 
         return (
-            <Provider assets={this.assetsStore} investorId={investorId}>
+            <Provider investorId={investorId}>
                 {/* <Spin indicator={spinIcon} spinning={this.assetsStore.loading}> */}
                 <div className={`${this.prefixCls}`}>
                     <div className={`${this.prefixCls}-header`}>
