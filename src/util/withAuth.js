@@ -59,7 +59,7 @@ export default function withAuth(AuthComponent) {
                 <div>
                     {
                         isLoading ? (
-                            <div>LOADING......</div>
+                            <div>未登录......</div>
                         ) : (
                             <AuthComponent {...this.props} />
                         )

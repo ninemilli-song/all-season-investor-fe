@@ -12,6 +12,22 @@
 * React Intl
 * Server Render
 
+## Run Project
+
+开发环境
+
+```
+npm run dev
+```
+
+生产环境
+
+```
+npm run start
+```
+
+
+
 ## 目录结构
 
 ```bash

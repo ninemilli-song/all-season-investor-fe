@@ -97,7 +97,8 @@ $ZIndexTips: 6100;                          // tips
 $ZIndexMenu: 8000;
 
 /* 页面体宽度 */
-$pageBodyWidth: 1040;
+$pageBodyWidth: 1040;                       // 页面宽度
+$pageMinHeight: 500;                        // 页面最小高度
 
 /* 字体大小 */
 $font-xs: 12;

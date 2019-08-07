@@ -42,12 +42,12 @@
     "mobx": "^5.5.2",
     "mobx-react": "^5.3.6",
     "mobx-state-tree": "^3.7.1",
-    "next": "^7.0.2",
+    "next": "^7.0.3",
     "node-sass": "^4.10.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.6.2",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-intl": "^2.7.2"
   },
   "devDependencies": {

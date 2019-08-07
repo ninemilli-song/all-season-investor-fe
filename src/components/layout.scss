@@ -2,5 +2,6 @@
 
 .asi-body {
     width: #{$pageBodyWidth}px;
+    min-height: #{$pageMinHeight}px;
     margin: 0 auto;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import Link from 'next/link';
+import { loggedIn } from '../util/AuthService';
 import './css/header.scss';
 
 @observer
@@ -31,6 +32,15 @@ class Header extends React.Component {
                             </Link>
                         </li>
                         <li>AssetDetial</li>
+                        {
+                            loggedIn() ? (
+                                <li>
+                                    <Link href="/period-edit">
+                                        <a>录入期初数据</a>
+                                    </Link>
+                                </li>
+                            ) : null
+                        }
                     </ul>
                 </div>
                 <div className={`${this.prefixCls}-user`}>

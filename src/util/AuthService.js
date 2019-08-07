@@ -105,8 +105,10 @@ function isTokenExpired(token) {
     }
 }
 
+/**
+ * Checks if there is a saved token and it's still valid
+ */
 function loggedIn() {
-    // Checks if there is a saved token and it's still valid
     const token = getToken();
 
     return !!token && !isTokenExpired(token); // handwaiving here
