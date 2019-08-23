@@ -1,13 +1,18 @@
-import React from 'react';
-import Link from 'next/link';
+import React, { useState } from 'react';
 
-export default () => (
-    <div> 
-        <p>Welcome to next.js!</p>
-        <Link href="/antd"><a>Ant Design</a></Link>
-        <br />
-        <Link href="/clock"><a>Clock</a></Link>
-        <br />
-        <Link href="/react-intl"><a>React Intl</a></Link>
-    </div>
-);
+const Example = () => {
+    const [count, setCount] = useState(0);
+    return (
+        <div>
+            <p>
+                You clicked
+                {' '}
+                {count}
+                {' '}
+                times
+            </p>
+            <button type="button" onClick={() => setCount(count + 1)}>Click me</button>
+        </div>
+    );
+};
+export default Example;

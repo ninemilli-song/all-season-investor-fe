@@ -1,0 +1,17 @@
+@import '../../static/styles/variable.scss';
+
+.period-detail{
+    &-header, &-allocation, &-category-rate, &-safe-rate, &-analysis {
+        margin-top: #{$space}px;
+    }
+    &-list {
+        &-row {
+
+        }
+        &-cell {
+            display: inline-block;
+            width: 100px;
+            padding: #{$inner-block-padding-sm}px #{$inner-block-padding-md}px
+        }
+    }
+}

@@ -10,18 +10,24 @@ import {
     message
 } from 'antd';
 import axios from '../util/api';
+import useBeginningData from '../effects/beginning-edit.js';
+import { formatCurrency, formatDatetime } from '../util/common';
+import './css/period-detail.scss';
 
 const FormItem = Form.Item;
 
+/**
+ * 期初编辑页面
+ */
 function BeginningEdit() {
     return (
-        <div>
+        <div className="period-detail">
             <Row>
                 <Col span={12}>
                     <BeginningFormWrapped />
                 </Col>
                 <Col span={12}>
-                    <div>found list</div>
+                    <BeginningList />
                 </Col>
             </Row>
         </div>
@@ -149,6 +155,37 @@ function BeginningForm(props) {
         </div>
     );
 }
+
+const BeginningList = () => {
+    // 期初数据
+    const beginningData = useBeginningData();
+
+    return (
+        <ul className="period-detail-list">
+            <li className="period-detail-list-row, period-detail-list-title">
+                <span className="period-detail-list-cell">投资标的</span>
+                <span className="period-detail-list-cell">投资起始时间</span>
+                <span className="period-detail-list-cell">投资起始金额</span>
+            </li>
+            {
+                beginningData.map((item) => {
+                    const {
+                        id, fund, start_time, start_amount
+                    } = item;
+
+                    return (
+                        <li className="period-detail-list-row" key={id}>
+                            <span className="period-detail-list-cell ellipsis">{ `${fund.name}(${fund.code})` }</span>
+                            <span className="period-detail-list-cell">{ formatDatetime(parseFloat(start_time) * 1000, 'YYYY/MM/DD') }</span>
+                            <span className="period-detail-list-cell">{ `￥${formatCurrency(parseFloat(start_amount))}` }</span>
+                        </li>
+                    );
+                })
+
+            }
+        </ul>
+    );
+};
 
 const BeginningFormWrapped = Form.create({
     name: 'beginning'
