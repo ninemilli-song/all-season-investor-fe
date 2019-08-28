@@ -6,12 +6,24 @@
     }
     &-list {
         &-row {
+            display: flex;
 
+            .subject {
+                flex: 2;
+            }
+
+            .amount {
+                text-align: right;
+            }
         }
         &-cell {
             display: inline-block;
-            width: 100px;
+            flex: 1;
             padding: #{$inner-block-padding-sm}px #{$inner-block-padding-md}px
         }
+    }
+
+    &-form {
+        padding-right: 80px;
     }
 }

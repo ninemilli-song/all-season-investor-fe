@@ -7,14 +7,18 @@ import {
     Input,
     Row,
     Col,
-    message
+    message,
+    Select,
+    Spin
 } from 'antd';
 import axios from '../util/api';
 import useBeginningData from '../effects/beginning-edit.js';
+import useReferFund from '../effects/refer-fund';
 import { formatCurrency, formatDatetime } from '../util/common';
 import './css/period-detail.scss';
 
 const FormItem = Form.Item;
+const { Option } = Select;
 
 /**
  * 期初编辑页面
@@ -41,21 +45,23 @@ function BeginningEdit() {
 function BeginningForm(props) {
     const { form } = props;
     const { getFieldDecorator, validateFields } = form;
+    const [fetching, fundList, selectedFund, onFundChanged] = useReferFund();
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
         validateFields(async (error, values) => {
             if (!error) {
                 console.log('submit value is: ', values);
-                const { startDate, ...others } = values;
+                const { startTime, fund, ...others } = values;
 
-                const timeStamp = startDate.toDate().getTime();
+                const timeStamp = startTime.toDate().getTime();
 
                 const params = Object.assign({}, others, {
-                    startDate: timeStamp
+                    'fund': Number(fund.key),
+                    'start_time': timeStamp
                 });
 
-                await axios.post('beginning', params);
+                await axios.post('initial/', params);
 
                 message.success('期初数据添加成功！');
             }
@@ -63,45 +69,40 @@ function BeginningForm(props) {
     };
 
     return (
-        <div>
+        <div className="period-detail-form">
             <Form 
                 layout="horizontal"
                 onSubmit={onSubmitHandler}
             >
                 <FormItem
-                    label="基金代码"
+                    label="基金"
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 16 }}
                 >
                     {
-                        getFieldDecorator('code', {
+                        getFieldDecorator('fund', {
                             rules: [
                                 {
                                     required: true,
-                                    message: '请输入基金代码！'
+                                    message: '请选择一个基金！'
                                 }
                             ]
                         })(
-                            <Input 
-                                style={{ width: 200 }}
-                                placeholde="请输入基金w代码"
-                                name="code" 
-                            />
-                        )
-                    }
-                </FormItem>
-                <FormItem
-                    label="基金名称"
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
-                >
-                    {
-                        getFieldDecorator('name')(
-                            <Input 
-                                style={{ width: 200 }}
-                                placeholde="请输入基金名称"
-                                name="name" 
-                            />
+                            <Select
+                                showSearch
+                                labelInValue
+                                placeholder="请选择一个基金"
+                                notFoundContent={fetching ? <Spin size="small" /> : null}
+                                filterOption={false}
+                                onChange={onFundChanged}
+                                style={{ width: '100%' }}
+                            >
+                                {
+                                    fundList.map(d => (
+                                        <Option key={d.id}>{`${d.name}(${d.code})`}</Option>
+                                    ))
+                                }
+                            </Select>
                         )
                     }
                 </FormItem>
@@ -111,7 +112,7 @@ function BeginningForm(props) {
                     wrapperCol={{ span: 16 }}
                 >
                     {
-                        getFieldDecorator('startDate', {
+                        getFieldDecorator('startTime', {
                             rules: [
                                 {
                                     required: true,
@@ -120,8 +121,9 @@ function BeginningForm(props) {
                             ]
                         })(
                             <DatePicker 
-                                style={{ width: 200 }}
-                                name="startDate" 
+                                style={{ width: '100%' }}
+                                name="start_time" 
+                                placeholder="请输入起始时间"
                             />
                         )
                     }
@@ -132,13 +134,21 @@ function BeginningForm(props) {
                     wrapperCol={{ span: 16 }}
                 >
                     {
-                        getFieldDecorator('startAmount')(
+                        getFieldDecorator('start_amount', {
+                            rules: [
+                                {
+                                    required: true,
+                                    message: '请指定金额！'
+                                }
+                            ]
+                        })(
                             <InputNumber 
-                                style={{ width: 200 }} 
+                                style={{ width: '100%' }} 
+                                defaultValue={0}
                                 formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                 precision={2}
                                 step={0.01}
-                                name="startAmount" 
+                                name="start-amount" 
                             />
                         )
                     }
@@ -162,10 +172,10 @@ const BeginningList = () => {
 
     return (
         <ul className="period-detail-list">
-            <li className="period-detail-list-row, period-detail-list-title">
-                <span className="period-detail-list-cell">投资标的</span>
-                <span className="period-detail-list-cell">投资起始时间</span>
-                <span className="period-detail-list-cell">投资起始金额</span>
+            <li className="period-detail-list-row period-detail-list-title">
+                <span className="period-detail-list-cell subject">投资标的</span>
+                <span className="period-detail-list-cell textRight">投资起始时间</span>
+                <span className="period-detail-list-cell amount">投资起始金额</span>
             </li>
             {
                 beginningData.map((item) => {
@@ -173,11 +183,13 @@ const BeginningList = () => {
                         id, fund, start_time, start_amount
                     } = item;
 
+                    const subjectName = `${fund.name}(${fund.code})`;
+
                     return (
                         <li className="period-detail-list-row" key={id}>
-                            <span className="period-detail-list-cell ellipsis">{ `${fund.name}(${fund.code})` }</span>
-                            <span className="period-detail-list-cell">{ formatDatetime(parseFloat(start_time) * 1000, 'YYYY/MM/DD') }</span>
-                            <span className="period-detail-list-cell">{ `￥${formatCurrency(parseFloat(start_amount))}` }</span>
+                            <span className="period-detail-list-cell ellipsis subject" title={subjectName}>{ subjectName }</span>
+                            <span className="period-detail-list-cell textRight">{ formatDatetime(parseFloat(start_time) * 1000, 'YYYY/MM/DD') }</span>
+                            <span className="period-detail-list-cell amount">{ `￥${formatCurrency(parseFloat(start_amount))}` }</span>
                         </li>
                     );
                 })

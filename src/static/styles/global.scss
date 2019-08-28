@@ -81,6 +81,14 @@
   .floatRight{
     float: right;
   }
+
+  .textLeft {
+    text-align: left;
+  }
+
+  .textRight {
+    text-align: right;
+  }
   
   // 清除浮动
   .clearfix:after{
