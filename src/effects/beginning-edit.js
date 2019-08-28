@@ -7,18 +7,18 @@ import axios from '../util/api';
 
 function useBeginningData() {
     const [beginningData, setBeginningData] = useState([]);
+
+    async function fetchData() {
+        const data = await axios.get('initial');
+
+        setBeginningData(data);
+    }
     
     useEffect(() => {
-        async function fetchData() {
-            const data = await axios.get('initial');
-
-            setBeginningData(data);
-        }
-        
         fetchData();
     }, []);
 
-    return beginningData;
+    return [beginningData, fetchData];
 }
 
 export default useBeginningData;

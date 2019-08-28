@@ -4,7 +4,6 @@ import {
     InputNumber, 
     DatePicker, 
     Button, 
-    Input,
     Row,
     Col,
     message,
@@ -24,14 +23,23 @@ const { Option } = Select;
  * 期初编辑页面
  */
 function BeginningEdit() {
+    // 期初数据
+    const [beginningData, fetchBeginningData] = useBeginningData();
+
     return (
         <div className="period-detail">
             <Row>
                 <Col span={12}>
-                    <BeginningFormWrapped />
+                    <BeginningFormWrapped
+                        onSubmited={() => {
+                            fetchBeginningData();
+                        }}
+                    />
                 </Col>
                 <Col span={12}>
-                    <BeginningList />
+                    <BeginningList
+                        data={beginningData}
+                    />
                 </Col>
             </Row>
         </div>
@@ -43,7 +51,7 @@ function BeginningEdit() {
  * @param {*} props 
  */
 function BeginningForm(props) {
-    const { form } = props;
+    const { form, onSubmited } = props;
     const { getFieldDecorator, validateFields } = form;
     const [fetching, fundList, selectedFund, onFundChanged] = useReferFund();
 
@@ -64,6 +72,8 @@ function BeginningForm(props) {
                 await axios.post('initial/', params);
 
                 message.success('期初数据添加成功！');
+
+                onSubmited && onSubmited();
             }
         });
     };
@@ -81,6 +91,7 @@ function BeginningForm(props) {
                 >
                     {
                         getFieldDecorator('fund', {
+                            initialValue: [],
                             rules: [
                                 {
                                     required: true,
@@ -113,6 +124,7 @@ function BeginningForm(props) {
                 >
                     {
                         getFieldDecorator('startTime', {
+                            initialValue: null,
                             rules: [
                                 {
                                     required: true,
@@ -135,6 +147,7 @@ function BeginningForm(props) {
                 >
                     {
                         getFieldDecorator('start_amount', {
+                            initialValue: 0,
                             rules: [
                                 {
                                     required: true,
@@ -143,8 +156,7 @@ function BeginningForm(props) {
                             ]
                         })(
                             <InputNumber 
-                                style={{ width: '100%' }} 
-                                defaultValue={0}
+                                style={{ width: '100%' }}
                                 formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                 precision={2}
                                 step={0.01}
@@ -166,9 +178,11 @@ function BeginningForm(props) {
     );
 }
 
-const BeginningList = () => {
-    // 期初数据
-    const beginningData = useBeginningData();
+/**
+ * 期初数据列表
+ */
+const BeginningList = (props) => {
+    const { data } = props;
 
     return (
         <ul className="period-detail-list">
@@ -178,7 +192,7 @@ const BeginningList = () => {
                 <span className="period-detail-list-cell amount">投资起始金额</span>
             </li>
             {
-                beginningData.map((item) => {
+                data.map((item) => {
                     const {
                         id, fund, start_time, start_amount
                     } = item;
