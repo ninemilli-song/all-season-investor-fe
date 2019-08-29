@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Form, 
     InputNumber, 
@@ -55,6 +55,23 @@ function BeginningForm(props) {
     const { getFieldDecorator, validateFields } = form;
     const [fetching, fundList, selectedFund, onFundChanged] = useReferFund();
 
+    // Refresh
+    const [refresh, setRefresh] = useState(false);
+
+    // Reset form value
+    useEffect(() => {
+        if (refresh) {
+            setRefresh(false);
+
+            form.setFieldsValue({
+                'fund': [],
+                'startTime': null,
+                'start_amount': 0
+            });
+        }
+    }, [form, refresh]);
+
+    // Submit form data
     const onSubmitHandler = (e) => {
         e.preventDefault();
         validateFields(async (error, values) => {
@@ -72,6 +89,9 @@ function BeginningForm(props) {
                 await axios.post('initial/', params);
 
                 message.success('期初数据添加成功！');
+
+                // 刷新表单为初始状态
+                setRefresh(true);
 
                 onSubmited && onSubmited();
             }
