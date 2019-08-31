@@ -53,8 +53,8 @@ class AssetDetails extends React.Component {
         },
         {
             title: '资产',
-            dataIndex: 'amount',
-            key: 'amount',
+            dataIndex: 'pv',
+            key: 'pv',
             align: 'right',
             width: 200,
             editable: true,
@@ -120,7 +120,7 @@ class AssetDetails extends React.Component {
         const { assets } = this.props;
 
         return assets.assetsData.reduce((accumultor, currentValue) => {
-            return accumultor + currentValue.amount;
+            return accumultor + currentValue.pv;
         }, 0);
     }
 

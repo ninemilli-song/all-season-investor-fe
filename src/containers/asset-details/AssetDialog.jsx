@@ -36,7 +36,7 @@ class AssetDialog extends React.Component {
                 return;
             }
 
-            data.amount = parseFloat(values.amount) || data.amount;
+            data.pv = parseFloat(values.pv) || data.pv;
 
             // submit
             if (onSubmit) {
@@ -119,9 +119,9 @@ class AssetDialog extends React.Component {
                             label="当前金额"
                         >
                             {
-                                getFieldDecorator('amount', {
+                                getFieldDecorator('pv', {
                                     rules: [{ required: true, message: '亲，请该资产当前金额!' }],
-                                    initialValue: data ? data.amount : ''
+                                    initialValue: data ? data.pv : ''
                                 })(
                                     <Input
                                         placeholder="资产类型"

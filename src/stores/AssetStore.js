@@ -68,7 +68,7 @@ const AssetItem = types.model({
     id: types.number,
     type: AssetType,
     owner: User,
-    amount: types.number
+    pv: types.number // 资产现值
 });
 
 /**
