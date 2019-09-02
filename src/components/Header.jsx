@@ -36,7 +36,16 @@ class Header extends React.Component {
                             loggedIn() ? (
                                 <li>
                                     <Link href="/period-edit">
-                                        <a>录入期初数据</a>
+                                        <a>定投期初</a>
+                                    </Link>
+                                </li>
+                            ) : null
+                        }
+                        {
+                            loggedIn() ? (
+                                <li>
+                                    <Link href="/timing-investment">
+                                        <a>定投</a>
                                     </Link>
                                 </li>
                             ) : null
