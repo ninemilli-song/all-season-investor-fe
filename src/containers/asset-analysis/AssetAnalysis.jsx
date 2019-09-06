@@ -15,17 +15,16 @@ import LoadingIcon from '../../components/LoadingIcon';
 import './style.scss';
 
 @inject(stores => ({
-    assets: stores.store.asset,
-    investorId: stores.investorId
+    assets: stores.store.asset
 }))
 @observer
 class AssetAnalysis extends React.Component {
     prefixCls = 'asset-detail-analysis'
 
     componentDidMount() {
-        const { assets, investorId } = this.props;
+        const { assets } = this.props;
 
-        assets.fetchAssetAnalyses(investorId);
+        assets.fetchAssetAnalyses();
     }
 
     /**

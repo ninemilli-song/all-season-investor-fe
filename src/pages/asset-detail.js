@@ -22,18 +22,18 @@ class AssetDetail extends React.Component {
         return {
             title: 'User Asset Detail',
             isServer,
-            investorId: query.id
+            // investorId: query.id
         };
     }
 
     prefixCls = 'asset-detail';
 
     render() {
-        const { investorId } = this.props;
+        // const { investorId } = this.props;
         // const spinIcon = (<Icon type="loading" style={{ fontSize: 24 }} spin />);
 
         return (
-            <Provider investorId={investorId}>
+            <Provider>
                 {/* <Spin indicator={spinIcon} spinning={this.assetsStore.loading}> */}
                 <div className={`${this.prefixCls}`}>
                     <div className={`${this.prefixCls}-header`}>

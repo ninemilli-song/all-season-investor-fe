@@ -28,10 +28,18 @@ class Header extends React.Component {
                     <ul>
                         <li>
                             <Link href="/">
-                                <a>Home</a>
+                                <a>首页</a>
                             </Link>
                         </li>
-                        <li>AssetDetial</li>
+                        {
+                            loggedIn() ? (
+                                <li>
+                                    <Link href="/asset-detail">
+                                        <a>我的</a>
+                                    </Link>
+                                </li>
+                            ) : null
+                        }
                         {
                             loggedIn() ? (
                                 <li>

@@ -13,8 +13,7 @@ import AssetDialog, { AssetDialogAction } from './AssetDialog';
 import { formatCurrency } from '../../util/common';
 
 @inject(stores => ({
-    assets: stores.store.asset,
-    investorId: stores.investorId
+    assets: stores.store.asset
 }))
 @observer
 class AssetDetails extends React.Component {
@@ -110,10 +109,10 @@ class AssetDetails extends React.Component {
     }
 
     componentDidMount() {
-        const { assets, investorId } = this.props;
+        const { assets } = this.props;
 
         // load data
-        assets.fetchAssets(investorId);
+        assets.fetchAssets();
     }
 
     get totalAmount() {

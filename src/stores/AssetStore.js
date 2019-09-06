@@ -115,12 +115,8 @@ export const AssetsStore = types
         };
 
         // 获取投资者资产列表
-        const fetchAssets = flow(function* fetchAssets(id) {
-            const res = yield axios.get('assets/user', {
-                params: {
-                    id
-                }
-            });
+        const fetchAssets = flow(function* fetchAssets() {
+            const res = yield axios.get('assets/user');
 
             updateAssets(res);
         });
@@ -153,13 +149,9 @@ export const AssetsStore = types
         });
 
         // 获取资产分析数据
-        const fetchAssetAnalyses = flow(function* fetchAssetAnalyses(id) {
+        const fetchAssetAnalyses = flow(function* fetchAssetAnalyses() {
             // 获取投资者资产列表
-            const data = yield axios.get('assets/analysis', {
-                params: {
-                    id
-                }
-            });
+            const data = yield axios.get('assets/analysis');
 
             self.assetAnalyses = data;
         });
