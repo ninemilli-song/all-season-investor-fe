@@ -14,27 +14,27 @@ import { Table } from 'antd';
 import Link from 'next/link';
 
 function TimingInvestmentList(props) {
-    // const { data } = props;
-    const data = [
-        {
-            fund: {
-                id: 7,
-                name: '中欧创新成长灵活配置混合A',
-                code: '005275',
-            },
-            principal: 100,
-            pv: 200,
-            profit: 100,
-            profitRate: 1,
-            profitRateAnnual: 1
-        }
-    ];
+    const { data } = props;
+    // const data = [
+    //     {
+    //         fund: {
+    //             id: 7,
+    //             name: '中欧创新成长灵活配置混合A',
+    //             code: '005275',
+    //         },
+    //         principal: 100,
+    //         pv: 200,
+    //         profit: 100,
+    //         profitRate: 1,
+    //         profitRateAnnual: 1
+    //     }
+    // ];
 
     // 表列定义
     const columnsDef = [
         {
             title: '基金',
-            dataIndex: 'fund.name',
+            dataIndex: 'fund.type.name',
             // key: 'name',
             render: (text, record) => (
                 <Link href={{ pathname: '/asset-detail', query: { id: record.id } }}>

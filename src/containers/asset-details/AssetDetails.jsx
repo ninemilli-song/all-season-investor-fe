@@ -170,7 +170,7 @@ class AssetDetails extends React.Component {
     onDialogSubmit = (data) => {
         const { assets } = this.props;
         // console.log('dialog submit data: ', data);
-        assets.updateAsset(data.id, data.amount);
+        assets.updateAsset(data.id, data.pv);
 
         this.closeDialog();
     };

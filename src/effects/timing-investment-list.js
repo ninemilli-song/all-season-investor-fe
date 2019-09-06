@@ -8,7 +8,7 @@ function useTimingInvestmentList() {
     const [data, setData] = useState([]);
 
     async function fetchData() {
-        const res = await axios.get('initial');
+        const res = await axios.get('fund-list/');
 
         setData(res);
     }

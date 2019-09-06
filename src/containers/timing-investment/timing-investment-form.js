@@ -40,7 +40,8 @@ function TimingInvestmentForm(props) {
             form.setFieldsValue({
                 'fund': [],
                 'dateTime': null,
-                'amount': 0
+                'amount': 0,
+                'pv': 0
             });
         }
     }, [form, refresh]);
@@ -62,7 +63,7 @@ function TimingInvestmentForm(props) {
 
                 await axios.post('invest-record/', params);
 
-                message.success('期初数据添加成功！');
+                message.success('添加成功！');
 
                 // 刷新表单为初始状态
                 setRefresh(true);
@@ -135,7 +136,7 @@ function TimingInvestmentForm(props) {
                     }
                 </FormItem>
                 <FormItem
-                    label="起始金额"
+                    label="本次定投金额"
                     labelCol={{ span: 4 }}
                     wrapperCol={{ span: 20 }}
                 >
@@ -146,6 +147,31 @@ function TimingInvestmentForm(props) {
                                 {
                                     required: true,
                                     message: '请指定金额！'
+                                }
+                            ]
+                        })(
+                            <InputNumber 
+                                style={{ width: '100%' }}
+                                formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                precision={2}
+                                step={0.01}
+                                name="start-amount" 
+                            />
+                        )
+                    }
+                </FormItem>
+                <FormItem
+                    label="当前市值"
+                    labelCol={{ span: 4 }}
+                    wrapperCol={{ span: 20 }}
+                >
+                    {
+                        getFieldDecorator('pv', {
+                            initialValue: 0,
+                            rules: [
+                                {
+                                    required: true,
+                                    message: '请输入市值！'
                                 }
                             ]
                         })(
