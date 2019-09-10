@@ -46,31 +46,31 @@ function TimingInvestmentList(props) {
             title: '本金',
             dataIndex: 'principal',
             // key: 'sex',
-            render: value => <span>{ value }</span>,
+            render: value => <span>{ `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }</span>,
         },
         {
             title: '市值',
             dataIndex: 'pv',
             // key: 'mobile',
-            render: value => <span>{ value }</span>,
+            render: value => <span>{ `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }</span>,
         },
         {
             title: '收益',
             dataIndex: 'profit',
             // key: 'email',
-            render: value => <span>{ value }</span>,
+            render: value => <span>{ `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }</span>,
         },
         {
             title: '收益率',
             dataIndex: 'profitRate',
             // key: 'amount',
-            render: value => <span>{ `${value * 100}%` }</span>,
+            render: value => <span>{ `${(value * 100).toFixed(2)}%` }</span>,
         },
         {
             title: '年化收益率',
             dataIndex: 'profitRateAnnual',
             // key: 'amount',
-            render: value => <span>{ `${value * 100}%` }</span>,
+            render: value => <span>{ `${(value * 100).toFixed(2)}%` }</span>,
         }
     ];
 
