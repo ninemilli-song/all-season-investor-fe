@@ -34,7 +34,7 @@ function TimingInvestmentList(props) {
     const columnsDef = [
         {
             title: '基金',
-            dataIndex: 'fund.type.name',
+            dataIndex: 'assetType.name',
             // key: 'name',
             render: (text, record) => (
                 <Link href={{ pathname: '/asset-detail', query: { id: record.id } }}>
@@ -64,13 +64,13 @@ function TimingInvestmentList(props) {
             title: '收益率',
             dataIndex: 'profitRate',
             // key: 'amount',
-            render: value => <span>{ value }</span>,
+            render: value => <span>{ `${value * 100}%` }</span>,
         },
         {
             title: '年化收益率',
             dataIndex: 'profitRateAnnual',
             // key: 'amount',
-            render: value => <span>{ value }</span>,
+            render: value => <span>{ `${value * 100}%` }</span>,
         }
     ];
 

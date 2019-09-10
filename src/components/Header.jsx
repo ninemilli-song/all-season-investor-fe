@@ -35,7 +35,7 @@ class Header extends React.Component {
                             loggedIn() ? (
                                 <li>
                                     <Link href="/asset-detail">
-                                        <a>我的</a>
+                                        <a>我的资产</a>
                                     </Link>
                                 </li>
                             ) : null
