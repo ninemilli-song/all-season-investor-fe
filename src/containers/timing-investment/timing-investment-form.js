@@ -13,7 +13,9 @@ import {
     Button, 
     message,
     Select,
-    Spin
+    Spin,
+    Col,
+    Row
 } from 'antd';
 import useReferFund from '../../effects/refer-fund';
 import axios from '../../util/api';
@@ -79,120 +81,142 @@ function TimingInvestmentForm(props) {
                 layout="horizontal"
                 onSubmit={onSubmitHandler}
             >
-                <FormItem
-                    label="基金"
-                    labelCol={{ span: 4 }}
-                    wrapperCol={{ span: 20 }}
-                >
-                    {
-                        getFieldDecorator('fund', {
-                            initialValue: [],
-                            rules: [
-                                {
-                                    required: true,
-                                    message: '请选择一个基金！'
-                                }
-                            ]
-                        })(
-                            <Select
-                                showSearch
-                                labelInValue
-                                placeholder="请选择一个基金"
-                                notFoundContent={fetching ? <Spin size="small" /> : null}
-                                filterOption={false}
-                                onChange={onFundChanged}
-                                style={{ width: '100%' }}
+                <Row>
+                    <Col span={4}>
+                        <span>
+                            定投数据录入
+                        </span>
+                    </Col>
+                    <Col span={20}>
+                        <FormItem
+                            wrapperCol={{ span: 4, offset: 20 }}
+                        >
+                            <Button 
+                                type="primary" 
+                                htmlType="submit"
+                                style={{ float: 'right' }}
                             >
-                                {
-                                    fundList.map(d => (
-                                        <Option key={d.id}>{`${d.name}(${d.code})`}</Option>
-                                    ))
-                                }
-                            </Select>
-                        )
-                    }
-                </FormItem>
-                <FormItem
-                    label="定投时间"
-                    labelCol={{ span: 4 }}
-                    wrapperCol={{ span: 20 }}
-                >
-                    {
-                        getFieldDecorator('dateTime', {
-                            initialValue: null,
-                            rules: [
-                                {
-                                    required: true,
-                                    message: '请输入定投时间！'
-                                }
-                            ]
-                        })(
-                            <DatePicker 
-                                style={{ width: '100%' }}
-                                name="start_time" 
-                                placeholder="请输入定投时间"
-                            />
-                        )
-                    }
-                </FormItem>
-                <FormItem
-                    label="本次定投金额"
-                    labelCol={{ span: 4 }}
-                    wrapperCol={{ span: 20 }}
-                >
-                    {
-                        getFieldDecorator('amount', {
-                            initialValue: 0,
-                            rules: [
-                                {
-                                    required: true,
-                                    message: '请指定金额！'
-                                }
-                            ]
-                        })(
-                            <InputNumber 
-                                style={{ width: '100%' }}
-                                formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                                precision={2}
-                                step={0.01}
-                                name="start-amount" 
-                            />
-                        )
-                    }
-                </FormItem>
-                <FormItem
-                    label="当前市值"
-                    labelCol={{ span: 4 }}
-                    wrapperCol={{ span: 20 }}
-                >
-                    {
-                        getFieldDecorator('pv', {
-                            initialValue: 0,
-                            rules: [
-                                {
-                                    required: true,
-                                    message: '请输入市值！'
-                                }
-                            ]
-                        })(
-                            <InputNumber 
-                                style={{ width: '100%' }}
-                                formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                                precision={2}
-                                step={0.01}
-                                name="start-amount" 
-                            />
-                        )
-                    }
-                </FormItem>
-                <FormItem
-                    style={{ marginTop: 30 }}
-                    wrapperCol={{ span: 4, offset: 4 }}
-                >
-                    <Button type="primary" htmlType="submit">
-                        提交
-                    </Button>
-                </FormItem>
+                                提交定投记录
+                            </Button>
+                        </FormItem>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={6}>
+                        <FormItem
+                            label="基金"
+                            labelCol={{ span: 8 }}
+                            wrapperCol={{ span: 16 }}
+                        >
+                            {
+                                getFieldDecorator('fund', {
+                                    initialValue: [],
+                                    rules: [
+                                        {
+                                            required: true,
+                                            message: '请选择一个基金！'
+                                        }
+                                    ]
+                                })(
+                                    <Select
+                                        showSearch
+                                        labelInValue
+                                        placeholder="请选择一个基金"
+                                        notFoundContent={fetching ? <Spin size="small" /> : null}
+                                        filterOption={false}
+                                        onChange={onFundChanged}
+                                        style={{ width: '100%' }}
+                                    >
+                                        {
+                                            fundList.map(d => (
+                                                <Option key={d.id}>{`${d.name}(${d.code})`}</Option>
+                                            ))
+                                        }
+                                    </Select>
+                                )
+                            }
+                        </FormItem>
+                    </Col>
+                    <Col span={6}>
+                        <FormItem
+                            label="定投时间"
+                            labelCol={{ span: 8 }}
+                            wrapperCol={{ span: 16 }}
+                        >
+                            {
+                                getFieldDecorator('dateTime', {
+                                    initialValue: null,
+                                    rules: [
+                                        {
+                                            required: true,
+                                            message: '请输入定投时间！'
+                                        }
+                                    ]
+                                })(
+                                    <DatePicker 
+                                        style={{ width: '100%' }}
+                                        name="start_time" 
+                                        placeholder="请输入定投时间"
+                                    />
+                                )
+                            }
+                        </FormItem>
+                    </Col>
+                    <Col span={6}>
+                        <FormItem
+                            label="定投金额"
+                            labelCol={{ span: 8 }}
+                            wrapperCol={{ span: 16 }}
+                        >
+                            {
+                                getFieldDecorator('amount', {
+                                    initialValue: 0,
+                                    rules: [
+                                        {
+                                            required: true,
+                                            message: '请指定金额！'
+                                        }
+                                    ]
+                                })(
+                                    <InputNumber 
+                                        style={{ width: '100%' }}
+                                        formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        precision={2}
+                                        step={0.01}
+                                        name="start-amount" 
+                                    />
+                                )
+                            }
+                        </FormItem>
+                    </Col>
+                    <Col span={6}>
+                        <FormItem
+                            label="当前市值"
+                            labelCol={{ span: 8 }}
+                            wrapperCol={{ span: 16 }}
+                        >
+                            {
+                                getFieldDecorator('pv', {
+                                    initialValue: 0,
+                                    rules: [
+                                        {
+                                            required: true,
+                                            message: '请输入市值！'
+                                        }
+                                    ]
+                                })(
+                                    <InputNumber 
+                                        style={{ width: '100%' }}
+                                        formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        precision={2}
+                                        step={0.01}
+                                        name="start-amount" 
+                                    />
+                                )
+                            }
+                        </FormItem>
+                    </Col>
+                </Row>
             </Form>
         </div>
     );

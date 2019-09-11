@@ -37,7 +37,7 @@ function TimingInvestmentList(props) {
             dataIndex: 'assetType.name',
             // key: 'name',
             render: (text, record) => (
-                <Link href={{ pathname: '/asset-detail', query: { id: record.id } }}>
+                <Link href={{ pathname: '/timing-investment-detail', query: { id: record.assetType.id } }}>
                     <a>{text}</a>
                 </Link>
             ),
@@ -49,7 +49,7 @@ function TimingInvestmentList(props) {
             render: value => <span>{ `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }</span>,
         },
         {
-            title: '市值',
+            title: '最新市值',
             dataIndex: 'pv',
             // key: 'mobile',
             render: value => <span>{ `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }</span>,
