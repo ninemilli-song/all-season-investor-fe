@@ -5,6 +5,7 @@ import React from 'react';
 // import { useRouter } from 'next/router';
 import { Table } from 'antd';
 import axios from '../../../util/api';
+import { formatDatetime } from '../../../util/common';
 
 function TimingInvestmentDetail(props) {
     const { records } = props;
@@ -20,7 +21,7 @@ function TimingInvestmentDetail(props) {
             title: '定投时间',
             dataIndex: 'date_time',
             // key: 'sex',
-            render: value => <span>{ `${value}` }</span>,
+            render: value => <span>{ `${formatDatetime(parseFloat(value) * 1000, 'YYYY/MM/DD')}` }</span>,
         },
         {
             title: '定投金额',
@@ -36,13 +37,13 @@ function TimingInvestmentDetail(props) {
         },
         {
             title: '收益率',
-            dataIndex: 'profitRate',
+            dataIndex: 'cur_profit_rate',
             // key: 'amount',
             render: value => <span>{ `${(value * 100).toFixed(2)}%` }</span>,
         },
         {
             title: '年化收益率',
-            dataIndex: 'profitRateAnnual',
+            dataIndex: 'profit_rate_annual',
             // key: 'amount',
             render: value => <span>{ `${(value * 100).toFixed(2)}%` }</span>,
         }

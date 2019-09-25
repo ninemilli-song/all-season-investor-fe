@@ -1,5 +1,5 @@
-import axios from './api';
 import * as moment from 'moment';
+import axios from './api';
 
 export function testMethod() {
     console.log('commonjs -> testMethod invoke');
@@ -41,5 +41,5 @@ export function formatCurrency(value, decimal = 2) {
  * @param {*} template 模板 ex: YYYY/MM/DD hh:ss:mm
  */
 export function formatDatetime(timeStamps, template = 'YYYY/MM/DD hh:ss:mm a') {
-    return moment(timeStamps).format(template)
+    return moment(timeStamps).format(template);
 }
