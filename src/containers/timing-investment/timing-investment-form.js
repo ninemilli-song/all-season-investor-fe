@@ -17,6 +17,7 @@ import {
     Col,
     Row
 } from 'antd';
+import Link from 'next/link';
 import useReferFund from '../../effects/refer-fund';
 import axios from '../../util/api';
 
@@ -81,32 +82,57 @@ function TimingInvestmentForm(props) {
                 layout="horizontal"
                 onSubmit={onSubmitHandler}
             >
-                <Row>
-                    <Col span={4}>
+                <Row
+                    type="flex"
+                    align="top"
+                    style={{ height: '40px' }}
+                >
+                    <Col span={12}>
                         <span>
                             定投数据录入
                         </span>
                     </Col>
-                    <Col span={20}>
-                        <FormItem
-                            wrapperCol={{ span: 4, offset: 20 }}
+                    <Col span={6} offset={6}>
+                        <Row
+                            type="flex"
+                            align="top"
+                            gutter={16}
+                            style={{ height: '40px' }}
                         >
-                            <Button 
-                                type="primary" 
-                                htmlType="submit"
-                                style={{ float: 'right' }}
-                            >
-                                提交定投记录
-                            </Button>
-                        </FormItem>
+                            <Col span={14}>
+                                <Button 
+                                    // type="primary"
+                                    icon="plus-circle"
+                                    size="small"
+                                    style={{ float: 'right' }}
+                                >
+                                    添加定投期初
+                                </Button>
+                            </Col>
+                            <Col span={10}>
+                                <Button 
+                                    type="dashed"
+                                    size="small"
+                                    style={{ float: 'right' }}
+                                >
+                                    <Link 
+                                        href="/period-edit"
+                                    >
+                                        <a>
+                                            查看定投期初
+                                        </a>
+                                    </Link>
+                                </Button>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
                 <Row>
-                    <Col span={6}>
+                    <Col span={5}>
                         <FormItem
                             label="基金"
-                            labelCol={{ span: 8 }}
-                            wrapperCol={{ span: 16 }}
+                            labelCol={{ span: 7, offset: 1 }}
+                            wrapperCol={{ span: 15, offset: 1 }}
                         >
                             {
                                 getFieldDecorator('fund', {
@@ -137,11 +163,11 @@ function TimingInvestmentForm(props) {
                             }
                         </FormItem>
                     </Col>
-                    <Col span={6}>
+                    <Col span={5}>
                         <FormItem
-                            label="定投时间"
-                            labelCol={{ span: 8 }}
-                            wrapperCol={{ span: 16 }}
+                            label="时间"
+                            labelCol={{ span: 7, offset: 1 }}
+                            wrapperCol={{ span: 15, offset: 1 }}
                         >
                             {
                                 getFieldDecorator('dateTime', {
@@ -162,11 +188,11 @@ function TimingInvestmentForm(props) {
                             }
                         </FormItem>
                     </Col>
-                    <Col span={6}>
+                    <Col span={5}>
                         <FormItem
-                            label="定投金额"
-                            labelCol={{ span: 8 }}
-                            wrapperCol={{ span: 16 }}
+                            label="金额"
+                            labelCol={{ span: 7, offset: 1 }}
+                            wrapperCol={{ span: 15, offset: 1 }}
                         >
                             {
                                 getFieldDecorator('amount', {
@@ -180,7 +206,7 @@ function TimingInvestmentForm(props) {
                                 })(
                                     <InputNumber 
                                         style={{ width: '100%' }}
-                                        formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                         precision={2}
                                         step={0.01}
                                         name="start-amount" 
@@ -189,11 +215,11 @@ function TimingInvestmentForm(props) {
                             }
                         </FormItem>
                     </Col>
-                    <Col span={6}>
+                    <Col span={5}>
                         <FormItem
-                            label="当前市值"
-                            labelCol={{ span: 8 }}
-                            wrapperCol={{ span: 16 }}
+                            label="市值"
+                            labelCol={{ span: 7, offset: 1 }}
+                            wrapperCol={{ span: 15, offset: 1 }}
                         >
                             {
                                 getFieldDecorator('pv', {
@@ -207,13 +233,26 @@ function TimingInvestmentForm(props) {
                                 })(
                                     <InputNumber 
                                         style={{ width: '100%' }}
-                                        formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                         precision={2}
                                         step={0.01}
                                         name="start-amount" 
                                     />
                                 )
                             }
+                        </FormItem>
+                    </Col>
+                    <Col span={4}>
+                        <FormItem
+                            wrapperCol={{ span: 10, offset: 14 }}
+                        >
+                            <Button 
+                                type="primary" 
+                                htmlType="submit"
+                                style={{ marginLeft: '8px' }}
+                            >
+                                提交
+                            </Button>
                         </FormItem>
                     </Col>
                 </Row>
