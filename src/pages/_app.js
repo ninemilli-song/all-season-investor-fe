@@ -1,5 +1,5 @@
 import React from 'react';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import Router from 'next/router';
 import { Provider } from 'mobx-react';
 import { getSnapshot } from 'mobx-state-tree';
@@ -33,7 +33,7 @@ export default class CustomApp extends App {
 
     componentDidMount() {
         const { isServer } = this.props;
-        console.log('_app said: where am i invoke?', isServer);
+        console.log('_app said: Am i Server render ?', isServer);
         let userProfile = null;
         
         if (loggedIn()) {
@@ -47,13 +47,11 @@ export default class CustomApp extends App {
         const { Component, pageProps } = this.props;
 
         return (
-            <Container>
-                <Provider store={this.appStore}>
-                    <Layout title={pageProps.title}>
-                        <Component {...pageProps} />
-                    </Layout>
-                </Provider>
-            </Container>
+            <Provider store={this.appStore}>
+                <Layout title={pageProps.title}>
+                    <Component {...pageProps} />
+                </Layout>
+            </Provider>
         );
     }
 }

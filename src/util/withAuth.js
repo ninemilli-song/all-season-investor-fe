@@ -30,10 +30,6 @@ export default function withAuth(AuthComponent) {
             this.loggedInChangeState();
         }
 
-        componentWillReceiveProps() {
-            this.loggedInChangeState();
-        }
-
         gotoLogin = () => {
             Router.push('/login');
         };

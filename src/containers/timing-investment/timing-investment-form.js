@@ -85,7 +85,7 @@ function TimingInvestmentForm(props) {
                 <Row
                     type="flex"
                     align="top"
-                    style={{ height: '40px' }}
+                    style={{ marginBottom: '40px' }}
                 >
                     <Col span={12}>
                         <span>
@@ -110,19 +110,13 @@ function TimingInvestmentForm(props) {
                                 </Button>
                             </Col>
                             <Col span={10}>
-                                <Button 
-                                    type="dashed"
-                                    size="small"
-                                    style={{ float: 'right' }}
+                                <Link 
+                                    href="/period-edit"
                                 >
-                                    <Link 
-                                        href="/period-edit"
-                                    >
-                                        <a>
-                                            查看定投期初
-                                        </a>
-                                    </Link>
-                                </Button>
+                                    <a>
+                                        查看定投期初
+                                    </a>
+                                </Link>
                             </Col>
                         </Row>
                     </Col>

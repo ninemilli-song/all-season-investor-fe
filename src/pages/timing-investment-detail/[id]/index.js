@@ -2,7 +2,7 @@
  * 定投详情列表页
  */
 import React from 'react';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { Table } from 'antd';
 import axios from '../../../util/api';
 import { formatDatetime } from '../../../util/common';
@@ -49,9 +49,18 @@ function TimingInvestmentDetail(props) {
         }
     ];
 
+    const router = useRouter();
+    const { name, id } = router.query;
+    console.log('router get name is : ', name, id);
+    console.log('router params is : ', router);
+
     return (
         <div>
+            <div>
+                { name }
+            </div>
             <Table 
+                rowKey="id"
                 dataSource={records} 
                 columns={columnsDef}
                 bordered
@@ -62,7 +71,7 @@ function TimingInvestmentDetail(props) {
 }
 
 TimingInvestmentDetail.getInitialProps = async ({ query }) => {
-    const { id } = query;
+    const { id, name } = query;
     const res = await axios.get('invest-record/', {
         params: {
             fund: id
@@ -70,7 +79,8 @@ TimingInvestmentDetail.getInitialProps = async ({ query }) => {
     });
 
     return {
-        'records': res
+        'records': res,
+        name
     };
 };
 
