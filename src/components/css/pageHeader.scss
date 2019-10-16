@@ -1,0 +1,16 @@
+@import '../../static/styles/variable.scss';
+
+.asi-page-header {
+    // min-height: #{$pageMinHeight}px;
+    &-inner {
+        width: #{$pageBodyWidth}px;
+        margin: 0 auto;
+    }
+
+    &-logo {
+        height: 50px;
+        line-height: 50px;
+        font-size: #{$font-lg}px;
+        font-weight: bold;
+    }
+}

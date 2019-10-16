@@ -155,4 +155,9 @@
       color:$color1;
     }
   }
+
+  .common-body {
+    width: #{$pageBodyWidth}px;
+    margin: 0 auto;
+  }
   

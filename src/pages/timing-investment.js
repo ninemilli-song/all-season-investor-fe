@@ -4,9 +4,14 @@
  * 2. 录入定投记录
  */
 import React from 'react';
+import {
+    Button 
+} from 'antd';
+import Link from 'next/link';
 import TimingInvestmentFormWrapped from '../containers/timing-investment/timing-investment-form';
 import TimingInvestmentList from '../containers/timing-investment/timing-investment-list';
 import useTimingInvestmentList from '../effects/timing-investment-list';
+import PageHeader from '../components/PageHeader';
 import './css/timing-investment.scss';
 
 
@@ -15,15 +20,43 @@ import './css/timing-investment.scss';
  */
 function TimingInvestment() {
     const [data, fetchData] = useTimingInvestmentList();
+    const prefixCls = 'asi-page-timing-investment';
 
     return (
-        <div>
-            <div className="timing-investment-form">
+        <div className={`${prefixCls}-wrapper`}>
+            <PageHeader
+                name="定投"
+            />
+            <div className={`${prefixCls}-content common-body`}>
+                <div
+                    type="flex"
+                    align="top"
+                    gutter={16}
+                    style={{ height: '40px' }}
+                >
+                    <div span={14}>
+                        <Button 
+                            // type="primary"
+                            icon="plus-circle"
+                            size="small"
+                            style={{ float: 'right' }}
+                        >
+                            添加定投期初
+                        </Button>
+                    </div>
+                    <div span={10}>
+                        <Link 
+                            href="/period-edit"
+                        >
+                            <a>
+                                查看定投期初
+                            </a>
+                        </Link>
+                    </div>
+                </div>
                 <TimingInvestmentFormWrapped 
                     onSubmited={fetchData}
                 />
-            </div>
-            <div className="timing-investment-list">
                 <TimingInvestmentList
                     data={data}
                 />

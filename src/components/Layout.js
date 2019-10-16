@@ -1,9 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import { inject } from 'mobx-react';
-import Header from './Header';
+import Navigator from './Navigator';
 import Footer from './Footer';
-import './layout.scss';
+import './css/layout.scss';
 
 export default inject('store')(({ 
     title, 
@@ -27,7 +27,7 @@ export default inject('store')(({
             }
         </style>
         <div className="asi-app">
-            <Header userStore={store.user} />
+            <Navigator userStore={store.user} />
             <div className="asi-body">
                 { children }
             </div>

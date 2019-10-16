@@ -17,7 +17,6 @@ import {
     Col,
     Row
 } from 'antd';
-import Link from 'next/link';
 import useReferFund from '../../effects/refer-fund';
 import axios from '../../util/api';
 
@@ -82,45 +81,6 @@ function TimingInvestmentForm(props) {
                 layout="horizontal"
                 onSubmit={onSubmitHandler}
             >
-                <Row
-                    type="flex"
-                    align="top"
-                    style={{ marginBottom: '40px' }}
-                >
-                    <Col span={12}>
-                        <span>
-                            定投数据录入
-                        </span>
-                    </Col>
-                    <Col span={6} offset={6}>
-                        <Row
-                            type="flex"
-                            align="top"
-                            gutter={16}
-                            style={{ height: '40px' }}
-                        >
-                            <Col span={14}>
-                                <Button 
-                                    // type="primary"
-                                    icon="plus-circle"
-                                    size="small"
-                                    style={{ float: 'right' }}
-                                >
-                                    添加定投期初
-                                </Button>
-                            </Col>
-                            <Col span={10}>
-                                <Link 
-                                    href="/period-edit"
-                                >
-                                    <a>
-                                        查看定投期初
-                                    </a>
-                                </Link>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
                 <Row>
                     <Col span={5}>
                         <FormItem

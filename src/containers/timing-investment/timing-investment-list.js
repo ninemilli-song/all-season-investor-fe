@@ -45,30 +45,35 @@ function TimingInvestmentList(props) {
         {
             title: '本金',
             dataIndex: 'principal',
+            align: 'right',
             // key: 'sex',
             render: value => <span>{ `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }</span>,
         },
         {
             title: '最新市值',
             dataIndex: 'pv',
+            align: 'right',
             // key: 'mobile',
             render: value => <span>{ `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }</span>,
         },
         {
             title: '收益',
             dataIndex: 'profit',
+            align: 'right',
             // key: 'email',
             render: value => <span>{ `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }</span>,
         },
         {
             title: '收益率',
             dataIndex: 'profitRate',
+            align: 'right',
             // key: 'amount',
             render: value => <span>{ `${(value * 100).toFixed(2)}%` }</span>,
         },
         {
             title: '年化收益率',
             dataIndex: 'profitRateAnnual',
+            align: 'right',
             // key: 'amount',
             render: value => <span>{ `${(value * 100).toFixed(2)}%` }</span>,
         }

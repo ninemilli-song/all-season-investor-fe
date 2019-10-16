@@ -5,18 +5,16 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { Table } from 'antd';
 import axios from '../../../util/api';
-import { formatDatetime } from '../../../util/common';
+import { formatDatetime, formatCurrency } from '../../../util/common';
+import PageHeader from '../../../components/PageHeader';
 
 function TimingInvestmentDetail(props) {
     const { records } = props;
 
+    // const prefixCls = 'timeing-investment-detail';
+
     // 表列定义
     const columnsDef = [
-        {
-            title: '基金',
-            dataIndex: 'fund.name',
-            render: value => <span>{ `${value}` }</span>,
-        },
         {
             title: '定投时间',
             dataIndex: 'date_time',
@@ -26,46 +24,50 @@ function TimingInvestmentDetail(props) {
         {
             title: '定投金额',
             dataIndex: 'amount',
+            align: 'right',
             // key: 'mobile',
-            render: value => <span>{ `${value}` }</span>,
+            render: value => <span>{ `${formatCurrency(value)}` }</span>,
         },
         {
             title: '市值',
             dataIndex: 'pv',
+            align: 'right',
             // key: 'email',
-            render: value => <span>{ `${value}` }</span>,
+            render: value => <span>{ `${formatCurrency(value)}` }</span>,
         },
         {
             title: '收益率',
             dataIndex: 'cur_profit_rate',
+            align: 'right',
             // key: 'amount',
             render: value => <span>{ `${(value * 100).toFixed(2)}%` }</span>,
         },
         {
             title: '年化收益率',
             dataIndex: 'profit_rate_annual',
+            align: 'right',
             // key: 'amount',
             render: value => <span>{ `${(value * 100).toFixed(2)}%` }</span>,
         }
     ];
 
     const router = useRouter();
-    const { name, id } = router.query;
-    console.log('router get name is : ', name, id);
-    console.log('router params is : ', router);
+    const { name } = router.query;
 
     return (
         <div>
-            <div>
-                { name }
-            </div>
-            <Table 
-                rowKey="id"
-                dataSource={records} 
-                columns={columnsDef}
-                bordered
-                size="small"
+            <PageHeader
+                name={name}
             />
+            <div className="common-body">
+                <Table 
+                    rowKey="id"
+                    dataSource={records} 
+                    columns={columnsDef}
+                    bordered
+                    size="small"
+                />
+            </div>
         </div>
     );
 }

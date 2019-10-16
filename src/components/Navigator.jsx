@@ -1,3 +1,6 @@
+/**
+ * 导航
+ */
 import React from 'react';
 import { observer } from 'mobx-react';
 import Link from 'next/link';
@@ -5,7 +8,7 @@ import { loggedIn } from '../util/AuthService';
 import './css/header.scss';
 
 @observer
-class Header extends React.Component {
+class Navigator extends React.Component {
     prefixCls = 'asi-header'
 
     static defaultProps = {
@@ -90,4 +93,4 @@ class Header extends React.Component {
     }
 }
 
-export default Header;
+export default Navigator;
