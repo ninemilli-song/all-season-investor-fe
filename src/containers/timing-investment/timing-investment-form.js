@@ -12,16 +12,13 @@ import {
     DatePicker, 
     Button, 
     message,
-    // Select,
-    // Spin,
     Col,
     Row
 } from 'antd';
-// import useReferFund from '../../effects/refer-fund';
 import axios from '../../util/api';
+import './timing-investment-form.scss';
 
 const FormItem = Form.Item;
-// const { Option } = Select;
 
 /**
  * 定投提交表单
@@ -30,7 +27,7 @@ const FormItem = Form.Item;
 function TimingInvestmentForm(props) {
     const { form, onSubmited, fundId } = props;
     const { getFieldDecorator, validateFields } = form;
-    // const [fetching, fundList, selectedFund, onFundChanged] = useReferFund();
+    const prefixCls = 'timing-investment-form';
 
     const [refresh, setRefresh] = useState(false);
 
@@ -40,7 +37,6 @@ function TimingInvestmentForm(props) {
             setRefresh(false);
 
             form.setFieldsValue({
-                // 'fund': [],
                 'dateTime': null,
                 'amount': 0,
                 'pv': 0
@@ -70,54 +66,24 @@ function TimingInvestmentForm(props) {
                 // 刷新表单为初始状态
                 setRefresh(true);
 
-                onSubmited && onSubmited();
+                if (onSubmited) {
+                    onSubmited();
+                }
             }
         });
     };
 
     return (
-        <div>
+        <div className={`${prefixCls}`}>
+            <h3 className={`${prefixCls}-title`}>
+                提交定投记录
+            </h3>
             <Form 
                 layout="horizontal"
                 onSubmit={onSubmitHandler}
             >
                 <Row>
-                    {/* <Col span={5}>
-                        <FormItem
-                            label="基金"
-                            labelCol={{ span: 7, offset: 1 }}
-                            wrapperCol={{ span: 15, offset: 1 }}
-                        >
-                            {
-                                getFieldDecorator('fund', {
-                                    initialValue: [],
-                                    rules: [
-                                        {
-                                            required: true,
-                                            message: '请选择一个基金！'
-                                        }
-                                    ]
-                                })(
-                                    <Select
-                                        showSearch
-                                        labelInValue
-                                        placeholder="请选择一个基金"
-                                        notFoundContent={fetching ? <Spin size="small" /> : null}
-                                        filterOption={false}
-                                        onChange={onFundChanged}
-                                        style={{ width: '100%' }}
-                                    >
-                                        {
-                                            fundList.map(d => (
-                                                <Option key={d.id}>{`${d.name}(${d.code})`}</Option>
-                                            ))
-                                        }
-                                    </Select>
-                                )
-                            }
-                        </FormItem>
-                    </Col> */}
-                    <Col span={5}>
+                    <Col span={8}>
                         <FormItem
                             label="时间"
                             labelCol={{ span: 7, offset: 1 }}
@@ -142,7 +108,7 @@ function TimingInvestmentForm(props) {
                             }
                         </FormItem>
                     </Col>
-                    <Col span={5}>
+                    <Col span={8}>
                         <FormItem
                             label="金额"
                             labelCol={{ span: 7, offset: 1 }}
@@ -169,7 +135,7 @@ function TimingInvestmentForm(props) {
                             }
                         </FormItem>
                     </Col>
-                    <Col span={5}>
+                    <Col span={8}>
                         <FormItem
                             label="市值"
                             labelCol={{ span: 7, offset: 1 }}
@@ -196,14 +162,16 @@ function TimingInvestmentForm(props) {
                             }
                         </FormItem>
                     </Col>
-                    <Col span={4}>
+                </Row>
+                <Row>
+                    <Col span={8}>
                         <FormItem
-                            wrapperCol={{ span: 10, offset: 14 }}
+                            wrapperCol={{ span: 15, offset: 9 }}
                         >
                             <Button 
                                 type="primary" 
                                 htmlType="submit"
-                                style={{ marginLeft: '8px' }}
+                                // style={{ marginLeft: '8px' }}
                             >
                                 提交
                             </Button>

@@ -1,0 +1,7 @@
+@import '../../static/styles/variable.scss';
+
+.timing-investment-detail-list {
+    &-title {
+        padding: #{$inner-block-padding-lg}px #{$inner-block-padding-xl}px;
+    }
+}
