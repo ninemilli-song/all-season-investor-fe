@@ -8,7 +8,6 @@ import {
     Button 
 } from 'antd';
 import Link from 'next/link';
-import TimingInvestmentFormWrapped from '../containers/timing-investment/timing-investment-form';
 import TimingInvestmentList from '../containers/timing-investment/timing-investment-list';
 import useTimingInvestmentList from '../effects/timing-investment-list';
 import PageHeader from '../components/PageHeader';
@@ -19,7 +18,7 @@ import './css/timing-investment.scss';
  * 页面主组件 
  */
 function TimingInvestment() {
-    const [data, fetchData] = useTimingInvestmentList();
+    const [data] = useTimingInvestmentList();
     const prefixCls = 'asi-page-timing-investment';
 
     return (
@@ -54,9 +53,6 @@ function TimingInvestment() {
                         </Link>
                     </div>
                 </div>
-                <TimingInvestmentFormWrapped 
-                    onSubmited={fetchData}
-                />
                 <TimingInvestmentList
                     data={data}
                 />

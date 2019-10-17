@@ -7,9 +7,11 @@ import { Table } from 'antd';
 import axios from '../../../util/api';
 import { formatDatetime, formatCurrency } from '../../../util/common';
 import PageHeader from '../../../components/PageHeader';
+import TimingInvestmentFormWrapped from '../../../containers/timing-investment/timing-investment-form';
+import useTimingInvestmentRecord from '../../../effects/timing-investment-record';
 
-function TimingInvestmentDetail(props) {
-    const { records } = props;
+function TimingInvestmentDetail() {
+    // const { records } = props;
 
     // const prefixCls = 'timeing-investment-detail';
 
@@ -52,7 +54,13 @@ function TimingInvestmentDetail(props) {
     ];
 
     const router = useRouter();
-    const { name } = router.query;
+    /**
+     * name - 基金名称
+     * id - 基金id
+     */
+    const { name, id } = router.query;
+    // 获取定投记录列表数据
+    const [records, fetchData] = useTimingInvestmentRecord(id);
 
     return (
         <div>
@@ -60,6 +68,10 @@ function TimingInvestmentDetail(props) {
                 name={name}
             />
             <div className="common-body">
+                <TimingInvestmentFormWrapped 
+                    fundId={id}
+                    onSubmited={() => fetchData(id)}
+                />
                 <Table 
                     rowKey="id"
                     dataSource={records} 
@@ -72,18 +84,18 @@ function TimingInvestmentDetail(props) {
     );
 }
 
-TimingInvestmentDetail.getInitialProps = async ({ query }) => {
-    const { id, name } = query;
-    const res = await axios.get('invest-record/', {
-        params: {
-            fund: id
-        }
-    });
+// TimingInvestmentDetail.getInitialProps = async ({ query }) => {
+//     const { id, name } = query;
+//     const res = await axios.get('invest-record/', {
+//         params: {
+//             fund: id
+//         }
+//     });
 
-    return {
-        'records': res,
-        name
-    };
-};
+//     return {
+//         'records': res,
+//         name
+//     };
+// };
 
 export default TimingInvestmentDetail;

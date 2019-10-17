@@ -37,7 +37,7 @@ function TimingInvestmentList(props) {
             dataIndex: 'assetType.name',
             // key: 'name',
             render: (text, record) => (
-                <Link href={{ pathname: '/timing-investment-detail/[id]', query: { name: record.assetType.name } }} as={`/timing-investment-detail/${record.assetType.id}`}>
+                <Link href={{ pathname: '/timing-investment-detail/[id]', query: { name: record.assetType.name } }} as={`/timing-investment-detail/${record.assetType.id}?name=${record.assetType.name}`}>
                     <a>{text}</a>
                 </Link>
             ),

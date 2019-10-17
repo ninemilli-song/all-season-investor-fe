@@ -12,25 +12,25 @@ import {
     DatePicker, 
     Button, 
     message,
-    Select,
-    Spin,
+    // Select,
+    // Spin,
     Col,
     Row
 } from 'antd';
-import useReferFund from '../../effects/refer-fund';
+// import useReferFund from '../../effects/refer-fund';
 import axios from '../../util/api';
 
 const FormItem = Form.Item;
-const { Option } = Select;
+// const { Option } = Select;
 
 /**
  * 定投提交表单
  * @param {*} props 
  */
 function TimingInvestmentForm(props) {
-    const { form, onSubmited } = props;
+    const { form, onSubmited, fundId } = props;
     const { getFieldDecorator, validateFields } = form;
-    const [fetching, fundList, selectedFund, onFundChanged] = useReferFund();
+    // const [fetching, fundList, selectedFund, onFundChanged] = useReferFund();
 
     const [refresh, setRefresh] = useState(false);
 
@@ -40,7 +40,7 @@ function TimingInvestmentForm(props) {
             setRefresh(false);
 
             form.setFieldsValue({
-                'fund': [],
+                // 'fund': [],
                 'dateTime': null,
                 'amount': 0,
                 'pv': 0
@@ -54,12 +54,12 @@ function TimingInvestmentForm(props) {
         validateFields(async (error, values) => {
             if (!error) {
                 console.log('submit value is: ', values);
-                const { dateTime, fund, ...others } = values;
+                const { dateTime, ...others } = values;
 
                 const timeStamp = dateTime.toDate().getTime();
 
                 const params = Object.assign({}, others, {
-                    'fund': Number(fund.key),
+                    'fund': fundId,
                     'date_time': timeStamp
                 });
 
@@ -82,7 +82,7 @@ function TimingInvestmentForm(props) {
                 onSubmit={onSubmitHandler}
             >
                 <Row>
-                    <Col span={5}>
+                    {/* <Col span={5}>
                         <FormItem
                             label="基金"
                             labelCol={{ span: 7, offset: 1 }}
@@ -116,7 +116,7 @@ function TimingInvestmentForm(props) {
                                 )
                             }
                         </FormItem>
-                    </Col>
+                    </Col> */}
                     <Col span={5}>
                         <FormItem
                             label="时间"
