@@ -29,6 +29,7 @@ function TimingInvestmentList(props) {
     //         profitRateAnnual: 1
     //     }
     // ];
+    const prefixCls = 'timing-investment-list';
 
     // 表列定义
     const columnsDef = [
@@ -80,7 +81,10 @@ function TimingInvestmentList(props) {
     ];
 
     return (
-        <div className="timing-investment-list">
+        <div className={`${prefixCls}`}>
+            <h3 className={`${prefixCls}-title h3-title`}>
+                我的资产
+            </h3>
             <Table 
                 rowKey={record => record.assetType.id}
                 dataSource={data} 

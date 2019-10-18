@@ -60,7 +60,7 @@ function TimingInvestmentDetailList(props) {
 
     return (
         <div className={`${prefixCls}`}>
-            <h3 className={`${prefixCls}-title`}>
+            <h3 className={`${prefixCls}-title h3-title`}>
                 定投明细
             </h3>
             <Table 
