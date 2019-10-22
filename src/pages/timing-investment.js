@@ -38,19 +38,10 @@ function TimingInvestment() {
                             // type="primary"
                             icon="plus-circle"
                             size="small"
-                            style={{ float: 'right' }}
+                            // style={{ float: 'right' }}
                         >
                             添加定投期初
                         </Button>
-                    </div>
-                    <div span={10}>
-                        <Link 
-                            href="/period-edit"
-                        >
-                            <a>
-                                查看定投期初
-                            </a>
-                        </Link>
                     </div>
                 </div>
                 <TimingInvestmentList

@@ -12,6 +12,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import Link from 'next/link';
+import { formatCurrency, formatDatetime } from '../../util/common';
 
 function TimingInvestmentList(props) {
     const { data } = props;
@@ -44,25 +45,39 @@ function TimingInvestmentList(props) {
             ),
         },
         {
+            title: '起始时间',
+            dataIndex: 'startTime',
+            // align: 'right',
+            // key: 'sex',
+            render: value => <span>{ `${formatDatetime(parseFloat(value) * 1000, 'YYYY/MM/DD')}` }</span>,
+        },
+        {
+            title: '起始金额（￥）',
+            dataIndex: 'startAmount',
+            align: 'right',
+            // key: 'sex',
+            render: value => <span>{ `${formatCurrency(value)}` }</span>,
+        },
+        {
             title: '本金（￥）',
             dataIndex: 'principal',
             align: 'right',
             // key: 'sex',
-            render: value => <span>{ `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }</span>,
+            render: value => <span>{ `${formatCurrency(value)}` }</span>,
         },
         {
             title: '最新市值（￥）',
             dataIndex: 'pv',
             align: 'right',
             // key: 'mobile',
-            render: value => <span>{ `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }</span>,
+            render: value => <span>{ `${formatCurrency(value)}` }</span>,
         },
         {
             title: '收益（￥）',
             dataIndex: 'profit',
             align: 'right',
             // key: 'email',
-            render: value => <span>{ `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') }</span>,
+            render: value => <span>{ `${formatCurrency(value)}` }</span>,
         },
         {
             title: '收益率（%）',
