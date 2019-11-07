@@ -12,12 +12,16 @@
  * 8. 备注
  */
 import React from 'react';
-import { Table } from 'antd';
+import { 
+    Table,
+    Popconfirm, 
+    Icon 
+} from 'antd';
 import { formatDatetime, formatCurrency } from '../../util/common';
 import './timing-investment-detail-list.scss';
 
 function TimingInvestmentDetailList(props) {
-    const { data } = props;
+    const { data, onDeleteRecord } = props;
     const prefixCls = 'timing-investment-detail-list';
 
     // 表列定义
@@ -55,6 +59,28 @@ function TimingInvestmentDetailList(props) {
             align: 'right',
             // key: 'amount',
             render: value => <span>{ `${(value * 100).toFixed(2)}` }</span>,
+        },
+        {
+            title: '删除',
+            dataIndex: 'id',
+            align: 'center',
+            // key: 'amount',
+            render: value => (
+                <div>
+                    <a>
+                        <Popconfirm
+                            title="确定删除此条记录么？"
+                            icon={<Icon type="question-circle-o" style={{ color: 'red' }} />}
+                            data-data={value}
+                            onConfirm={() => {
+                                onDeleteRecord(value);
+                            }}
+                        >
+                            <Icon type="delete" />
+                        </Popconfirm>
+                    </a>
+                </div>
+            ),
         }
     ];
 

@@ -17,7 +17,7 @@ function TimingInvestmentDetail() {
      */
     const { name, id } = router.query;
     // 获取定投记录列表数据
-    const [records, fetchData] = useTimingInvestmentRecord(id);
+    const [records, fetchData, deleteRecord] = useTimingInvestmentRecord(id);
 
     return (
         <div>
@@ -31,6 +31,9 @@ function TimingInvestmentDetail() {
                 />
                 <TimingInvestmentDetailList 
                     data={records}
+                    onDeleteRecord={(recordId) => {
+                        deleteRecord(recordId);
+                    }}
                 />
             </div>
         </div>
