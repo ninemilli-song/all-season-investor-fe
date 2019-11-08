@@ -38,7 +38,7 @@ class Navigator extends React.Component {
                             loggedIn() ? (
                                 <li>
                                     <Link href="/asset-detail">
-                                        <a>我的资产</a>
+                                        <a>资产汇总</a>
                                     </Link>
                                 </li>
                             ) : null
@@ -46,7 +46,7 @@ class Navigator extends React.Component {
                         {
                             loggedIn() ? (
                                 <li>
-                                    <Link href="/period-edit">
+                                    <Link href="/invest-beginning">
                                         <a>定投期初</a>
                                     </Link>
                                 </li>
@@ -56,7 +56,7 @@ class Navigator extends React.Component {
                             loggedIn() ? (
                                 <li>
                                     <Link href="/timing-investment">
-                                        <a>定投</a>
+                                        <a>定投明细</a>
                                     </Link>
                                 </li>
                             ) : null

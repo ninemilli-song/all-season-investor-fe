@@ -1,10 +1,3 @@
-/**
- * 基金定投提交表单
- * 提交内容，如下：
- * 1. 基金id
- * 2. 投入金额
- * 3. 定投时间
- */
 import React, { useState, useEffect } from 'react';
 import {
     Form, 
@@ -12,23 +5,28 @@ import {
     DatePicker, 
     Button, 
     message,
-    Col,
-    Row
+    Select,
+    Spin,
+    Row,
+    Col
 } from 'antd';
 import axios from '../../util/api';
-import './timing-investment-form.scss';
+import useReferFund from '../../effects/refer-fund';
 
 const FormItem = Form.Item;
+const { Option } = Select;
 
 /**
- * 定投提交表单
+ * 表单组件
  * @param {*} props 
  */
-function TimingInvestmentForm(props) {
-    const { form, onSubmited, fundId } = props;
+function BeginningForm(props) {
+    const prefixCls = 'beginning-form';
+    const { form, onSubmited } = props;
     const { getFieldDecorator, validateFields } = form;
-    const prefixCls = 'timing-investment-form';
+    const [fetching, fundList, onFundChanged] = useReferFund();
 
+    // Refresh
     const [refresh, setRefresh] = useState(false);
 
     // Reset form value
@@ -37,9 +35,9 @@ function TimingInvestmentForm(props) {
             setRefresh(false);
 
             form.setFieldsValue({
-                'dateTime': null,
-                'amount': 0,
-                'pv': 0
+                'fund': [],
+                'startTime': null,
+                'start_amount': 0
             });
         }
     }, [form, refresh]);
@@ -49,19 +47,18 @@ function TimingInvestmentForm(props) {
         e.preventDefault();
         validateFields(async (error, values) => {
             if (!error) {
-                console.log('submit value is: ', values);
-                const { dateTime, ...others } = values;
+                const { startTime, fund, ...others } = values;
 
-                const timeStamp = dateTime.toDate().getTime();
+                const timeStamp = startTime.toDate().getTime();
 
                 const params = Object.assign({}, others, {
-                    'fund': fundId,
-                    'date_time': timeStamp
+                    'fund': Number(fund.key),
+                    'start_time': timeStamp
                 });
 
-                await axios.post('invest-record/', params);
+                await axios.post('initial/', params);
 
-                message.success('添加成功！');
+                message.success('期初数据添加成功！');
 
                 // 刷新表单为初始状态
                 setRefresh(true);
@@ -74,7 +71,7 @@ function TimingInvestmentForm(props) {
     };
 
     return (
-        <div className={`${prefixCls} form-dash-border`}>
+        <div className="period-detail-form form-dash-border">
             <h3 className={`${prefixCls}-title`}>
                 提交定投记录
             </h3>
@@ -85,24 +82,59 @@ function TimingInvestmentForm(props) {
                 <Row>
                     <Col span={8}>
                         <FormItem
-                            label="时间"
-                            labelCol={{ span: 7, offset: 1 }}
-                            wrapperCol={{ span: 15, offset: 1 }}
+                            label="基金"
+                            labelCol={{ span: 8 }}
+                            wrapperCol={{ span: 16 }}
                         >
                             {
-                                getFieldDecorator('dateTime', {
+                                getFieldDecorator('fund', {
+                                    initialValue: [],
+                                    rules: [
+                                        {
+                                            required: true,
+                                            message: '请选择一个基金！'
+                                        }
+                                    ]
+                                })(
+                                    <Select
+                                        showSearch
+                                        labelInValue
+                                        placeholder="请选择一个基金"
+                                        notFoundContent={fetching ? <Spin size="small" /> : null}
+                                        filterOption={false}
+                                        onChange={onFundChanged}
+                                        style={{ width: '100%' }}
+                                    >
+                                        {
+                                            fundList.map(d => (
+                                                <Option key={d.id}>{`${d.name}(${d.code})`}</Option>
+                                            ))
+                                        }
+                                    </Select>
+                                )
+                            }
+                        </FormItem>
+                    </Col>
+                    <Col span={8}>
+                        <FormItem
+                            label="起始时间"
+                            labelCol={{ span: 8 }}
+                            wrapperCol={{ span: 16 }}
+                        >
+                            {
+                                getFieldDecorator('startTime', {
                                     initialValue: null,
                                     rules: [
                                         {
                                             required: true,
-                                            message: '请输入定投时间！'
+                                            message: '请输入起始时间！'
                                         }
                                     ]
                                 })(
                                     <DatePicker 
                                         style={{ width: '100%' }}
                                         name="start_time" 
-                                        placeholder="请输入定投时间"
+                                        placeholder="请输入起始时间"
                                     />
                                 )
                             }
@@ -110,12 +142,12 @@ function TimingInvestmentForm(props) {
                     </Col>
                     <Col span={8}>
                         <FormItem
-                            label="金额"
-                            labelCol={{ span: 7, offset: 1 }}
-                            wrapperCol={{ span: 15, offset: 1 }}
+                            label="起始金额"
+                            labelCol={{ span: 8 }}
+                            wrapperCol={{ span: 16 }}
                         >
                             {
-                                getFieldDecorator('amount', {
+                                getFieldDecorator('start_amount', {
                                     initialValue: 0,
                                     rules: [
                                         {
@@ -126,34 +158,7 @@ function TimingInvestmentForm(props) {
                                 })(
                                     <InputNumber 
                                         style={{ width: '100%' }}
-                                        formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                                        precision={2}
-                                        step={0.01}
-                                        name="start-amount" 
-                                    />
-                                )
-                            }
-                        </FormItem>
-                    </Col>
-                    <Col span={8}>
-                        <FormItem
-                            label="市值"
-                            labelCol={{ span: 7, offset: 1 }}
-                            wrapperCol={{ span: 15, offset: 1 }}
-                        >
-                            {
-                                getFieldDecorator('pv', {
-                                    initialValue: 0,
-                                    rules: [
-                                        {
-                                            required: true,
-                                            message: '请输入市值！'
-                                        }
-                                    ]
-                                })(
-                                    <InputNumber 
-                                        style={{ width: '100%' }}
-                                        formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                         precision={2}
                                         step={0.01}
                                         name="start-amount" 
@@ -166,13 +171,9 @@ function TimingInvestmentForm(props) {
                 <Row>
                     <Col span={8}>
                         <FormItem
-                            wrapperCol={{ span: 15, offset: 9 }}
+                            wrapperCol={{ span: 8, offset: 8 }}
                         >
-                            <Button 
-                                type="primary" 
-                                htmlType="submit"
-                                // style={{ marginLeft: '8px' }}
-                            >
+                            <Button type="primary" htmlType="submit">
                                 提交
                             </Button>
                         </FormItem>
@@ -183,11 +184,8 @@ function TimingInvestmentForm(props) {
     );
 }
 
-/**
- * 包一下哈，这样才能注入各种antd form提交的方法和属性
- */
-const TimingInvestmentFormWrapped = Form.create({
-    name: 'TimingInvestmentForm'
-})(TimingInvestmentForm);
+const BeginningFormWrapped = Form.create({
+    name: 'beginning'
+})(BeginningForm);
 
-export default TimingInvestmentFormWrapped;
+export default BeginningFormWrapped;

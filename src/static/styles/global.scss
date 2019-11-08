@@ -161,7 +161,14 @@ i.code-for-pop-over{
   margin: 0 auto;
 }
 
+// form表单的外边框样式
+.form-dash-border {
+  padding: #{$inner-block-padding-lg}px #{$inner-block-padding-xl}px 0;
+  border: 1px dashed $grayBorderColor;
+  border-radius: 4px;
+}
+
 // 3级标题样式
 .h3-title {
-  padding: #{$inner-block-padding-lg}px #{$inner-block-padding-xl}px;
+  padding: #{$inner-block-padding-lg}px 0;
 }

@@ -98,7 +98,7 @@ function TimingInvestmentList(props) {
     return (
         <div className={`${prefixCls}`}>
             <h3 className={`${prefixCls}-title h3-title`}>
-                我的资产
+                定投明细
             </h3>
             <Table 
                 rowKey={record => record.assetType.id}
