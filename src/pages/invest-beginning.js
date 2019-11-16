@@ -3,6 +3,7 @@ import useBeginningData from '../effects/beginning-edit.js';
 import PageHeader from '../components/PageHeader';
 import BeginningForm from '../containers/invest-beginning/BeginningForm';
 import BeginningList from '../containers/invest-beginning/BeginningList';
+import withAuth from '../util/withAuth';
 import './css/period-detail.scss';
 
 /**
@@ -31,4 +32,4 @@ function InvestBeginning() {
     );
 }
 
-export default InvestBeginning;
+export default withAuth(InvestBeginning);

@@ -7,6 +7,7 @@ import React from 'react';
 import TimingInvestmentList from '../containers/timing-investment/timing-investment-list';
 import useTimingInvestmentList from '../effects/timing-investment-list';
 import PageHeader from '../components/PageHeader';
+import withAuth from '../util/withAuth';
 import './css/timing-investment.scss';
 
 function TimingInvestment() {
@@ -27,4 +28,4 @@ function TimingInvestment() {
     );
 }
 
-export default TimingInvestment;
+export default withAuth(TimingInvestment);

@@ -7,6 +7,7 @@ import PageHeader from '../../../components/PageHeader';
 import TimingInvestmentFormWrapped from '../../../containers/timing-investment/timing-investment-form';
 import useTimingInvestmentRecord from '../../../effects/timing-investment-record';
 import TimingInvestmentDetailList from '../../../containers/timing-investment/timing-investment-detail-list';
+import withAuth from '../../../util/withAuth';
 
 function TimingInvestmentDetail() {
     // const prefixCls = 'timeing-investment-detail';
@@ -54,4 +55,4 @@ function TimingInvestmentDetail() {
 //     };
 // };
 
-export default TimingInvestmentDetail;
+export default withAuth(TimingInvestmentDetail);

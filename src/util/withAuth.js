@@ -4,10 +4,15 @@
  */
 import React from 'react';
 import Router from 'next/router';
+import { inject, observer } from 'mobx-react';
 import { loggedIn } from './AuthService';
 
 export default function withAuth(AuthComponent) {
-    return class Authenticated extends React.Component {
+    @inject(stores => ({
+        user: stores.store.user
+    }))
+    @observer
+    class Authenticated extends React.Component {
         static async getInitialProps(ctx) {
             let pageProps = {};
     
@@ -18,15 +23,11 @@ export default function withAuth(AuthComponent) {
             return { ...pageProps };
         }
 
-        constructor(props) {
-            super(props);
-
-            this.state = {
-                isLoading: true
-            };
+        componentDidMount() {
+            this.loggedInChangeState();
         }
 
-        componentDidMount() {
+        componentDidUpdate() {
             this.loggedInChangeState();
         }
 
@@ -41,29 +42,28 @@ export default function withAuth(AuthComponent) {
         loggedInChangeState = () => {
             if (!loggedIn()) {
                 this.gotoLogin();
-            } else {
-                this.setState({
-                    isLoading: false
-                });
             }
         };
 
         render() {
-            const { isLoading } = this.state;
+            // const { isLoading } = this.state;
+            const { user, ...other } = this.props;
 
             return (
                 <div>
                     {
-                        isLoading ? (
-                            <div>未登录......</div>
+                        user && user.id ? (
+                            <AuthComponent {...other} />
                         ) : (
-                            <AuthComponent {...this.props} />
+                            <div>未登录......</div>
                         )
                     }
                 </div>
             );
         }
-    };
+    }
+
+    return Authenticated;
 }
 
 // // example of a protected page
