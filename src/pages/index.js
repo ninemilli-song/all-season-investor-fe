@@ -1,7 +1,6 @@
 import React from 'react';
-// import Link from 'next/link';
 import pageWithIntl from '../components/PageWithIntl.js';
-import Investors from '../containers/investors';
+import PageHeader from '../components/PageHeader';
 import './index.scss';
 
 class Index extends React.Component {
@@ -13,7 +12,14 @@ class Index extends React.Component {
 
     render() {
         return (
-            <Investors />
+            <div>
+                <PageHeader
+                    name="首页"
+                />
+                <div className="common-body">
+                    Hello! You are a intelligent investor!
+                </div>
+            </div>
         );
     }
 }
