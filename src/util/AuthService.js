@@ -59,17 +59,17 @@ function getToken() {
 async function login(username, password) {
     console.log('AuthService -> login: ', axios);
     const res = await axios.post('auth/login/', {
-        username,
+        name: username,
         password
     });
 
-    const { token, user } = res;
+    const { token, data } = res;
     
     // Set token
     setToken(token);
     
     // Set profile
-    setProfile(user);
+    setProfile(data);
 
     return res;
 }

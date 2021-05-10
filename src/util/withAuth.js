@@ -15,11 +15,11 @@ export default function withAuth(AuthComponent) {
     class Authenticated extends React.Component {
         static async getInitialProps(ctx) {
             let pageProps = {};
-    
+
             if (AuthComponent.getInitialProps) {
                 pageProps = await AuthComponent.getInitialProps(ctx);
             }
-    
+
             return { ...pageProps };
         }
 
@@ -46,7 +46,6 @@ export default function withAuth(AuthComponent) {
         };
 
         render() {
-            // const { isLoading } = this.state;
             const { user, ...other } = this.props;
 
             return (
@@ -73,10 +72,10 @@ export default function withAuth(AuthComponent) {
 // class Dashboard extends Component {
 //    render() {
 //      const user = this.props.auth.getProfile()
-//      return (   
+//      return (
 //          <div>Current user: {user.email}</div>
 //      )
 //    }
 // }
 
-// export default withAuth(Dashboard) 
+// export default withAuth(Dashboard)

@@ -8,10 +8,10 @@ const UserStore = types
     .model({
         // 投资者列表
         id: types.number,
-        sex: types.string,
+        sex: types.maybeNull(types.string),
         name: types.string,
-        email: types.string,
-        mobile: types.string
+        email: types.maybeNull(types.string),
+        mobile: types.maybeNull(types.string)
     })
     .actions((self) => {
         const update = (json = {}) => {

@@ -35,7 +35,7 @@ class Login extends React.Component {
             if (!err) {
                 login(vals.username, vals.password).then((res) => {
                     console.log('🎸 Login in success ------> ', res);
-                    userStore.update(res.user);
+                    userStore.update(res.data);
                     this.goBack();
                 }).catch((error) => {
                     console.log('❗️ Login error------>', error);
