@@ -2,6 +2,7 @@
  * 初期页面hooks
  * How to fetch data with React Hooks (https://www.robinwieruch.de/react-hooks-fetch-data/)
  */
+import { func } from 'prop-types';
 import { useState, useEffect } from 'react';
 import axios from '../util/api';
 
@@ -13,12 +14,17 @@ function useBeginningData() {
 
         setBeginningData(data);
     }
+
+    async function deleteBeginingData(id) {
+        await axios.delete(`initial/${id}`);
+        await fetchData();
+    }
     
     useEffect(() => {
         fetchData();
     }, []);
 
-    return [beginningData, fetchData];
+    return [beginningData, fetchData, deleteBeginingData];
 }
 
 export default useBeginningData;

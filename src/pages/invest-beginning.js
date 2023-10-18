@@ -11,7 +11,7 @@ import './css/period-detail.scss';
  */
 function InvestBeginning() {
     // 期初数据
-    const [beginningData, fetchBeginningData] = useBeginningData();
+    const [beginningData, fetchBeginningData, deleteBeginingData] = useBeginningData();
 
     return (
         <div className="period-detail">
@@ -26,6 +26,7 @@ function InvestBeginning() {
                 />
                 <BeginningList
                     data={beginningData}
+                    onDeleteRecord={deleteBeginingData}
                 />
             </div>
         </div>
