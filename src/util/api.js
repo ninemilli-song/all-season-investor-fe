@@ -16,7 +16,7 @@ axios.defaults.withCredentials = true;
 
 /**
  * 创建 axios 实例，server render import此文件总是返回新实例
- * 避免每次import时都会向全局对象中添加重复拦截器
+ * 避免每次import时都会向全局对象中添加重复拦截器 
  * Q: 会生成内存泄漏么？
  */
 const instance = axios.create();
